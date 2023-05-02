@@ -23,6 +23,9 @@ public class Connect {
 
     public static void connectToDatabase() throws SQLException {
         // Initialize database connection
+        if(connection!=null){
+            System.out.println("Already connected to database");
+        }
         connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/roomease", "root", "");
         if(connection == null){
             System.out.println("Connection Failed");

@@ -9,8 +9,9 @@ package enums;
  * @author Predator
  */
 public enum RoomStatus {
-    Vacant, 
-    Occupied,
-    Reserved,
-    OutOfOrder;
+    vacant, 
+    ocupied,
+    reserved,
+    out_of_order;
 }
+    

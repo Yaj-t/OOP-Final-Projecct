@@ -12,9 +12,10 @@ import enums.RoomType;
  * @author Predator
  */
 public class SingleRoom extends Room {
-    
-    public SingleRoom(int roomID, RoomType roomtype, int price, int maxGuest, int currentOccupancy, RoomStatus status) {
-        super(roomID, roomtype, price, maxGuest, currentOccupancy, status);
+  
+    public SingleRoom(int roomID, String roomNumber, RoomType roomtype, float price, int maxGuest, int currentOccupancy, RoomStatus status) {
+        super(roomID, roomNumber, roomtype, price, maxGuest, currentOccupancy, status);
     }
+  
     
 }

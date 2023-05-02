@@ -12,9 +12,11 @@ import enums.RoomType;
  * @author T-jay
  */
 public class SuiteRoom extends Room {
-    
-    public SuiteRoom(int roomID, RoomType roomtype, int price, int maxGuest, int currentOccupancy, RoomStatus status) {
-        super(roomID, roomtype, price, maxGuest, currentOccupancy, status);
+  
+    public SuiteRoom(int roomID, String roomNumber, RoomType roomtype, float price, int maxGuest, int currentOccupancy, RoomStatus status) {
+        super(roomID, roomNumber, roomtype, price, maxGuest, currentOccupancy, status);
     }
+  
+  
     
 }
