@@ -217,7 +217,7 @@ public class Rooms extends javax.swing.JFrame {
     private void goBackButtomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_goBackButtomActionPerformed
         // TODO add your handling code here:
         dispose();
-        new Home().setVisible(true);
+        new AdminHome().setVisible(true);
     }//GEN-LAST:event_goBackButtomActionPerformed
 
     /**

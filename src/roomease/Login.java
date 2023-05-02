@@ -168,7 +168,7 @@ public class Login extends javax.swing.JFrame {
             User user = UserDAO.getUserByUsername(username);
             if (user != null && user.getPassword().equals(passwordField.getText())) {
 // login successful, open main application window
-                Home home = new Home();
+                AdminHome home = new AdminHome();
                 home.setVisible(true);
                 dispose(); // close the login window
             } else {
