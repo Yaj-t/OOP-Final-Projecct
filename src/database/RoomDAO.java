@@ -18,7 +18,7 @@ import java.util.logging.Logger;
 import room.Room;
 
 public class RoomDAO {
-    private static Connection connection = Connect.connection;
+    private static Connection connection;
 
     public RoomDAO() {
         if(Connect.connection == null){
@@ -28,12 +28,12 @@ public class RoomDAO {
                 Logger.getLogger(RoomDAO.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        connection = Connect.connection;
+        Connect.closeConnection();
     }
 
     public static void addRoom(Room room) throws SQLException {
         String sql = "INSERT INTO rooms (room_number, roomtype, room_price, max_guest, current_occupancy, status) VALUES (?, ?, ?, ?, ?, ?)";
-
+        connection = Connect.connectToDatabase();
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setString(1, room.getRoomNumber());
             statement.setString(2, room.getRoomtype().toString());
@@ -43,9 +43,11 @@ public class RoomDAO {
             statement.setString(6, room.getStatus().toString());
             statement.executeUpdate();
         }
+        Connect.closeConnection();
     }
 
     public static List<Room> getAllRooms() throws SQLException {
+        connection = Connect.connectToDatabase();
         String sql = "SELECT * FROM rooms";
         List<Room> rooms = new ArrayList<>();
 
@@ -65,11 +67,12 @@ public class RoomDAO {
                 rooms.add(room);
             }
         }
-
+        Connect.closeConnection();
         return rooms;
     }
 
     public static Room getRoomById(int roomID) throws SQLException {
+        connection = Connect.connectToDatabase();
         String sql = "SELECT * FROM rooms WHERE room_id = ?";
         Room room = null;
 
@@ -88,12 +91,13 @@ public class RoomDAO {
                 }
             }
         }
-
+        Connect.closeConnection();  
         return room;
     }
 
     public static void updateRoom(Room room) throws SQLException {
-        String sql = "UPDATE rooms SET roomtype = ?, room_price = ?, max_guest = ?, current_occupancy = ?, status = ? WHERE room_id = ?";
+        connection = Connect.connectToDatabase();
+        String sql = "UPDATE rooms SET roomtype = ?, room_price = ?, max_guest = ?, current_occupancy = ?, status = ?, room_number = ? WHERE room_id = ?";
 
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setString(1, room.getRoomtype().toString());
@@ -101,18 +105,22 @@ public class RoomDAO {
             statement.setInt(3, room.getMaxGuest());
             statement.setInt(4, room.getCurrentOccupancy());
             statement.setString(5, room.getStatus().toString());
-            statement.setInt(6, room.getRoomID());
+            statement.setString(6, room.getRoomNumber());
+            statement.setInt(7, room.getRoomID());
             statement.executeUpdate();
         }
+       Connect.closeConnection();
     }
 
     public static void deleteRoom(int roomID) throws SQLException {
+        connection = Connect.connectToDatabase();
         String sql = "DELETE FROM rooms WHERE room_id = ?";
 
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setInt(1, roomID);
             statement.executeUpdate();
         }
+       Connect.closeConnection();
     }
 }
 

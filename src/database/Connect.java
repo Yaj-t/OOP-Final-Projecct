@@ -21,10 +21,11 @@ public class Connect {
     }
    
 
-    public static void connectToDatabase() throws SQLException {
+    public static Connection connectToDatabase() throws SQLException {
         // Initialize database connection
         if(connection!=null){
             System.out.println("Already connected to database");
+            return connection;
         }
         connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/roomease", "root", "");
         if(connection == null){
@@ -32,6 +33,18 @@ public class Connect {
         }else{
             System.out.println("Connection Successful");
         }
+        return connection;  
     }
     
+    public static void closeConnection() {
+        if (connection != null) {
+            try {
+                connection.close();
+                System.out.println("Disconnected");
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+            connection = null;
+        }
+    }
 }

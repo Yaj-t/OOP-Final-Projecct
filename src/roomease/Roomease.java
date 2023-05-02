@@ -19,12 +19,6 @@ public class Roomease {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        try {
-            // TODO code application logic here
-            Connect.connectToDatabase();
-        } catch (SQLException ex) {
-            Logger.getLogger(Roomease.class.getName()).log(Level.SEVERE, null, ex);
-        }
         Login login = new Login();
         login.setVisible(true);
 //        new Home().setVisible(true);

@@ -168,6 +168,8 @@ public class AdminHome extends javax.swing.JFrame {
 
     private void logoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutActionPerformed
         // TODO add your handling code here:
+        dispose();
+        new Login().setVisible(true);
     }//GEN-LAST:event_logoutActionPerformed
 
     private void UsersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UsersActionPerformed
