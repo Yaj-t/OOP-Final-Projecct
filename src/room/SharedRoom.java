@@ -13,8 +13,8 @@ import enums.RoomType;
  */
 public class SharedRoom extends Room {
 
-    public SharedRoom(int roomID, String roomNumber, RoomType roomtype, float price, int maxGuest, int currentOccupancy, RoomStatus status) {
-        super(roomID, roomNumber, roomtype, price, maxGuest, currentOccupancy, status);
+    public SharedRoom(int roomID, String roomNumber, float price, int maxGuest, int currentOccupancy, RoomStatus status) {
+        super(roomID, roomNumber, price, maxGuest, currentOccupancy, status);
     }
 
 }

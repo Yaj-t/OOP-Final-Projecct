@@ -1,27 +1,17 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-package guest;
 
-import enums.Gender;
 import java.util.Date;
 
-/**
- *
- * @author Predator
- */
 public class Guest {
-    private int guestID;
+    private int guestId;
     private String firstName;
     private String lastName;
     private Date dateOfBirth;
-    private Gender gender;
+    private String gender;
     private String phoneNumber;
     private String email;
 
-    public Guest(int guestID, String firstName, String lastName, Date dateOfBirth, Gender gender, String phoneNumber, String email) {
-        this.guestID = guestID;
+    public Guest(int guestId, String firstName, String lastName, Date dateOfBirth, String gender, String phoneNumber, String email) {
+        this.guestId = guestId;
         this.firstName = firstName;
         this.lastName = lastName;
         this.dateOfBirth = dateOfBirth;
@@ -30,12 +20,12 @@ public class Guest {
         this.email = email;
     }
 
-    public int getGuestID() {
-        return guestID;
+    public int getGuestId() {
+        return guestId;
     }
 
-    public void setGuestID(int guestID) {
-        this.guestID = guestID;
+    public void setGuestId(int guestId) {
+        this.guestId = guestId;
     }
 
     public String getFirstName() {
@@ -62,11 +52,11 @@ public class Guest {
         this.dateOfBirth = dateOfBirth;
     }
 
-    public Gender getGender() {
+    public String getGender() {
         return gender;
     }
 
-    public void setGender(Gender gender) {
+    public void setGender(String gender) {
         this.gender = gender;
     }
 
@@ -86,4 +76,3 @@ public class Guest {
         this.email = email;
     }
 }
-    

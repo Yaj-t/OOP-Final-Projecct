@@ -32,7 +32,7 @@ public class Rooms extends javax.swing.JFrame {
             roomList = RoomDAO.getAllRooms();
             DefaultTableModel tableModel = (DefaultTableModel) roomsTable.getModel();
             for (Room room : roomList) {
-                Object[] rowData = {room.getRoomID(), room.getRoomNumber(), room.getPrice(),room.getStatus(), room.getRoomtype(),  room.getMaxGuest(), room.getCurrentOccupancy()};
+                Object[] rowData = {room.getRoomID(), room.getRoomNumber(), room.getPrice(),room.getStatus(),  room.getMaxGuest(), room.getCurrentOccupancy()};
                 tableModel.addRow(rowData);
             }
             roomsTable.setModel(tableModel);
@@ -70,14 +70,14 @@ public class Rooms extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID", "Room #", "Room Price", "Status", "Room Type", "Max Guest", "Current Occupancy"
+                "ID", "Room #", "Room Price", "Status", "Max Guest", "Current Occupancy"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.Integer.class, java.lang.Double.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Integer.class
+                java.lang.String.class, java.lang.Integer.class, java.lang.Double.class, java.lang.Object.class, java.lang.Object.class, java.lang.Integer.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false
+                false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {

@@ -13,33 +13,27 @@ import enums.RoomType;
 public class Room {
     private int roomID;
     private String roomNumber;
-    private RoomType roomtype;
     private float price;
     private int maxGuest;
     private int currentOccupancy;
     private RoomStatus status;
 
-    public Room(int roomID, String roomNumber, RoomType roomtype, float price, int maxGuest, int currentOccupancy, RoomStatus status) {
+    public Room(int roomID, String roomNumber, float price, int maxGuest, int currentOccupancy, RoomStatus status) {
         this.roomID = roomID;
         this.roomNumber = roomNumber;
-        this.roomtype = roomtype;
         this.price = price;
         this.maxGuest = maxGuest;
         this.currentOccupancy = currentOccupancy;
         this.status = status;
     }
-    public Room(String roomNumber, RoomType roomtype, float price, int maxGuest, RoomStatus status) {
-        
+    
+    public Room(String roomNumber, float price, int maxGuest, int currentOccupancy, RoomStatus status) {
         this.roomNumber = roomNumber;
-        this.roomtype = roomtype;
         this.price = price;
         this.maxGuest = maxGuest;
+        this.currentOccupancy = currentOccupancy;
         this.status = status;
     }
-
-    
-    
-    
     
     public int getRoomID() {
         return roomID;
@@ -56,14 +50,6 @@ public class Room {
 
     public void setRoomNumber(String roomNumber) {
         this.roomNumber = roomNumber;
-    }
-
-    public RoomType getRoomtype() {
-        return roomtype;
-    }
-
-    public void setRoomtype(RoomType roomtype) {
-        this.roomtype = roomtype;
     }
 
     public float getPrice() {
