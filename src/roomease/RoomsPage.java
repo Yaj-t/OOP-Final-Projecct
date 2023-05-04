@@ -19,13 +19,13 @@ import user.User;
  *
  * @author Predator
  */
-public class Rooms extends javax.swing.JFrame {
+public class RoomsPage extends javax.swing.JFrame {
     List <Room> roomList;
     /**
      * Creates new form Rooms
      */
     
-    public Rooms() {
+    public RoomsPage() {
         initComponents();
         try {
             
@@ -178,7 +178,7 @@ public class Rooms extends javax.swing.JFrame {
                 try {
                         RoomDAO.deleteRoom(roomID);
                         dispose();
-                        new Rooms().setVisible(true);
+                        new RoomsPage().setVisible(true);
                         JOptionPane.showMessageDialog(null, "Room deleted successfully.");
                     } catch (SQLException ex) {
                         JOptionPane.showMessageDialog(null, "Error deleting room: " + ex.getMessage());
@@ -207,7 +207,7 @@ public class Rooms extends javax.swing.JFrame {
                 new EditRoom(room).setVisible(true);
                 dispose();
             } catch (SQLException ex) {
-                Logger.getLogger(Users.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(UsersPage.class.getName()).log(Level.SEVERE, null, ex);
             }
         }else{
             JOptionPane.showMessageDialog(null, "Please select a row to delete.");
@@ -237,20 +237,21 @@ public class Rooms extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Rooms.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(RoomsPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Rooms.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(RoomsPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Rooms.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(RoomsPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Rooms.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(RoomsPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Rooms().setVisible(true);
+                new RoomsPage().setVisible(true);
             }
         });
     }

@@ -193,7 +193,7 @@ public class EditRoom extends javax.swing.JFrame {
             RoomDAO.updateRoom(room);
             JOptionPane.showMessageDialog(this, "Room updated successfully!");
             dispose();
-            new Rooms().setVisible(true);
+            new RoomsPage().setVisible(true);
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(this, "Error updating room: " + ex.getMessage());
         }
@@ -202,7 +202,7 @@ public class EditRoom extends javax.swing.JFrame {
     private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
         // TODO add your handling code here:
         dispose();
-        new Rooms().setVisible(true);
+        new RoomsPage().setVisible(true);
     }//GEN-LAST:event_backButtonActionPerformed
 
     private void roomNumberFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_roomNumberFieldActionPerformed

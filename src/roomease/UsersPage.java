@@ -18,17 +18,17 @@ import user.User;
  *
  * @author Predator
  */
-public class Users extends javax.swing.JFrame {
+public class UsersPage extends javax.swing.JFrame {
     List <User> userList;
     /**
      * Creates new form Users
      */
-    public Users() {
+    public UsersPage() {
         initComponents();
         try {
             userList = UserDAO.getAllUsers();
         } catch (SQLException ex) {
-            Logger.getLogger(Users.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(UsersPage.class.getName()).log(Level.SEVERE, null, ex);
         }
         DefaultTableModel tableModel = (DefaultTableModel)usersTable.getModel();
         for (User user : userList) {
@@ -175,7 +175,7 @@ public class Users extends javax.swing.JFrame {
                 new EditUser(user).setVisible(true);
                 dispose();
             } catch (SQLException ex) {
-                Logger.getLogger(Users.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(UsersPage.class.getName()).log(Level.SEVERE, null, ex);
             }
         }else{
             JOptionPane.showMessageDialog(null, "Please select a row to delete.");
@@ -205,13 +205,13 @@ public class Users extends javax.swing.JFrame {
                         // delete the user from the database
                         UserDAO.deleteUser(user);
                         dispose();
-                        new Users().setVisible(true);
+                        new UsersPage().setVisible(true);
                         JOptionPane.showMessageDialog(null, "User deleted successfully.");
                     } catch (SQLException ex) {
                         JOptionPane.showMessageDialog(null, "Error deleting user: " + ex.getMessage());
                     }
                 } catch (SQLException ex) {
-                    Logger.getLogger(Users.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(UsersPage.class.getName()).log(Level.SEVERE, null, ex);
                 }
 
             }
@@ -237,20 +237,21 @@ public class Users extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Users.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(UsersPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Users.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(UsersPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Users.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(UsersPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Users.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(UsersPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Users().setVisible(true);
+                new UsersPage().setVisible(true);
             }
         });
     }

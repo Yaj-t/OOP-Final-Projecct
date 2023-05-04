@@ -51,7 +51,7 @@ public class AdminHome extends javax.swing.JFrame {
         functionsPanel.setBackground(new java.awt.Color(210, 215, 223));
 
         rooms.setBackground(new java.awt.Color(79, 117, 155));
-        rooms.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
+        rooms.setFont(new java.awt.Font("Roboto", 1, 18)); // NOI18N
         rooms.setForeground(new java.awt.Color(15, 15, 15));
         rooms.setText("Rooms");
         rooms.setToolTipText("");
@@ -67,7 +67,7 @@ public class AdminHome extends javax.swing.JFrame {
         });
 
         logout.setBackground(new java.awt.Color(79, 117, 155));
-        logout.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
+        logout.setFont(new java.awt.Font("Roboto", 1, 18)); // NOI18N
         logout.setForeground(new java.awt.Color(15, 15, 15));
         logout.setText("Logout");
         logout.setToolTipText("");
@@ -83,7 +83,7 @@ public class AdminHome extends javax.swing.JFrame {
         });
 
         Users.setBackground(new java.awt.Color(79, 117, 155));
-        Users.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
+        Users.setFont(new java.awt.Font("Roboto", 1, 18)); // NOI18N
         Users.setForeground(new java.awt.Color(15, 15, 15));
         Users.setText("Users");
         Users.setToolTipText("");
@@ -126,13 +126,13 @@ public class AdminHome extends javax.swing.JFrame {
 
         SidePanel.add(functionsPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, 150, 310));
 
-        MainPanel.setBackground(new java.awt.Color(189, 187, 176));
+        MainPanel.setBackground(new java.awt.Color(255, 255, 255));
 
         javax.swing.GroupLayout MainPanelLayout = new javax.swing.GroupLayout(MainPanel);
         MainPanel.setLayout(MainPanelLayout);
         MainPanelLayout.setHorizontalGroup(
             MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 548, Short.MAX_VALUE)
+            .addGap(0, 560, Short.MAX_VALUE)
         );
         MainPanelLayout.setVerticalGroup(
             MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -146,8 +146,7 @@ public class AdminHome extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(SidePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(MainPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addComponent(MainPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -162,20 +161,20 @@ public class AdminHome extends javax.swing.JFrame {
     private void roomsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_roomsActionPerformed
         // TODO add your handling code here:
         dispose();
-        Rooms rooms = new Rooms();
+        RoomsPage rooms = new RoomsPage();
         rooms.setVisible(true);
     }//GEN-LAST:event_roomsActionPerformed
 
     private void logoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutActionPerformed
         // TODO add your handling code here:
         dispose();
-        new Login().setVisible(true);
+        new LoginPage().setVisible(true);
     }//GEN-LAST:event_logoutActionPerformed
 
     private void UsersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UsersActionPerformed
         // TODO add your handling code here:
         dispose();
-        Users users = new Users();
+        UsersPage users = new UsersPage();
         users.setVisible(true);
     }//GEN-LAST:event_UsersActionPerformed
 
