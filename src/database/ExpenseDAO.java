@@ -26,7 +26,7 @@ public class ExpenseDAO {
         Connect.closeConnection();
     }
     
-    public void updateExpense(Expense expense) throws SQLException {
+    public static void updateExpense(Expense expense) throws SQLException {
         connection = Connect.connectToDatabase();
         String sql = "UPDATE expenses SET amount = ?, expense_date = ?, description = ? WHERE expense_id = ?";
         PreparedStatement statement = connection.prepareStatement(sql);
@@ -38,7 +38,7 @@ public class ExpenseDAO {
         Connect.closeConnection();
     }
     
-    public void deleteExpense(int expenseId) throws SQLException {
+    public static void deleteExpense(int expenseId) throws SQLException {
         connection = Connect.connectToDatabase();
         String sql = "DELETE FROM expenses WHERE expense_id = ?";
         PreparedStatement statement = connection.prepareStatement(sql);
@@ -47,7 +47,7 @@ public class ExpenseDAO {
         Connect.closeConnection();
     }
     
-    public List<Expense> getAllExpenses() throws SQLException {
+    public static  List<Expense> getAllExpenses() throws SQLException {
         connection = Connect.connectToDatabase();
         String sql = "SELECT * FROM expenses";
         PreparedStatement statement = connection.prepareStatement(sql);
@@ -65,7 +65,7 @@ public class ExpenseDAO {
         return expenses;
     }
     
-    public Expense getExpenseById(int expenseId) throws SQLException {
+    public static Expense getExpenseById(int expenseId) throws SQLException {
         connection = Connect.connectToDatabase();
         String sql = "SELECT * FROM expenses WHERE expense_id = ?";
         PreparedStatement statement = connection.prepareStatement(sql);

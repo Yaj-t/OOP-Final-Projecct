@@ -12,20 +12,37 @@ import java.util.Date;
 import javax.swing.JOptionPane;
 import util.Expense;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 /**
  *
  * @author Predator
  */
-public class AddExpense extends javax.swing.JFrame {
+public class EditExpense extends javax.swing.JFrame {
+    private Expense expense;
 
+    public Expense getExpense() {
+        return expense;
+    }
+
+    public void setExpense(Expense expense) {
+        this.expense = expense;
+    }
     /**
      * Creates new form NewJFrame
      */
-    public AddExpense() {
+    public EditExpense() {
         initComponents();
     }
+
+    public EditExpense(Expense expense) {
+        this.expense = expense;
+        initComponents();
+    }
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -75,12 +92,12 @@ public class AddExpense extends javax.swing.JFrame {
 
         descriptionField.setColumns(20);
         descriptionField.setRows(5);
+        descriptionField.setText(expense.getDescription());
         jScrollPane1.setViewportView(descriptionField);
 
-        jDateChooser.setDate(new Date());
+        jDateChooser.setDate(Date.from(expense.getDate().atStartOfDay(ZoneId.systemDefault()).toInstant()));
 
         amountField.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
-        amountField.setText("0.00");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -128,27 +145,28 @@ public class AddExpense extends javax.swing.JFrame {
                 .addContainerGap(48, Short.MAX_VALUE))
         );
 
+        amountField.setValue(expense.getAmount());
+
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void submitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitActionPerformed
         // TODO add your handling code here:
-      
-        float amount = Float.parseFloat( amountField.getText());
-        String description = descriptionField.getText();
-       
+
+        expense.setAmount( Float.parseFloat( amountField.getText()));
+        expense.setDescription(descriptionField.getText());
         Date selectedDate = jDateChooser.getDate();
         Instant instant = selectedDate.toInstant();
         ZoneId zone = ZoneId.systemDefault();
         LocalDate localDate = instant.atZone(zone).toLocalDate();
-
-        Expense newExpense = new Expense(amount, localDate, description);
-        System.out.println(newExpense.getAmount()+" "+ newExpense.getDate()+" "+ newExpense.getDescription());
+        expense.setDate(localDate);
+        System.out.println(expense.getAmount()+" "+ expense.getDate()+" "+ expense.getDescription());
         try {
-            ExpenseDAO.addExpense(newExpense);
-            JOptionPane.showMessageDialog(this, "Expense added successfully!");
+            ExpenseDAO.updateExpense(expense);
+            JOptionPane.showMessageDialog(this, "Expense Updated successfully!");
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(this, "Error adding Expense: " + ex.getMessage());
+            JOptionPane.showMessageDialog(this, "Error Updating Expense: " + ex.getMessage());
         }
     }//GEN-LAST:event_submitActionPerformed
 
@@ -175,21 +193,27 @@ public class AddExpense extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(AddExpense.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EditExpense.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(AddExpense.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EditExpense.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(AddExpense.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EditExpense.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(AddExpense.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(EditExpense.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>
-
+        //</editor-fold>
+        //</editor-fold>
+        
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new AddExpense().setVisible(true);
+                try {
+                    new EditExpense(ExpenseDAO.getExpenseById(1)).setVisible(true);
+                } catch (SQLException ex) {
+                    Logger.getLogger(EditExpense.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
