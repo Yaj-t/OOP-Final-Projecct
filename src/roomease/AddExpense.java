@@ -4,9 +4,15 @@
  */
 package roomease;
 
-import enums.RoomStatus;
+import database.ExpenseDAO;
+import java.time.Instant;
 import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Date;
+import javax.swing.JOptionPane;
 import util.Expense;
+import java.sql.SQLException;
+
 
 /**
  *
@@ -37,7 +43,7 @@ public class AddExpense extends javax.swing.JFrame {
         descriptionLabel = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         descriptionField = new javax.swing.JTextArea();
-        jDateChooser1 = new com.toedter.calendar.JDateChooser();
+        jDateChooser = new com.toedter.calendar.JDateChooser();
         amountField = new javax.swing.JFormattedTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -71,7 +77,7 @@ public class AddExpense extends javax.swing.JFrame {
         descriptionField.setRows(5);
         jScrollPane1.setViewportView(descriptionField);
 
-        jDateChooser1.setDate(new Date());
+        jDateChooser.setDate(new Date());
 
         amountField.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
         amountField.setText("0.00");
@@ -95,7 +101,7 @@ public class AddExpense extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(submit)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(amountField, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(35, Short.MAX_VALUE))
         );
@@ -112,7 +118,7 @@ public class AddExpense extends javax.swing.JFrame {
                             .addComponent(amountField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addComponent(dateLabel))
-                    .addComponent(jDateChooser1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(descriptionLabel)
@@ -129,15 +135,19 @@ public class AddExpense extends javax.swing.JFrame {
         // TODO add your handling code here:
         float amount = Float.parseFloat( amountField.getText());
         String description = descriptionField.getText();
-        LocalDate date  = jDateChooser1.getDate().toInstant();
+       
+        Date selectedDate = jDateChooser.getDate();
+        Instant instant = selectedDate.toInstant();
+        ZoneId zone = ZoneId.systemDefault();
+        LocalDate localDate = instant.atZone(zone).toLocalDate();
 
-        Expense newExpense = new Expense(amount, date, description);
-        System.out.println(newRoom.getRoomNumber()+" "+ newRoom.getPrice()+" "+ newRoom.getMaxGuest()+" "+ newRoom.getStatus());
+        Expense newExpense = new Expense(amount, localDate, description);
+        System.out.println(newExpense.getAmount()+" "+ newExpense.getDate()+" "+ newExpense.getDescription());
         try {
-            RoomDAO.addRoom(newRoom);
-            JOptionPane.showMessageDialog(this, "Room added successfully!");
+            ExpenseDAO.addExpense(newExpense);
+            JOptionPane.showMessageDialog(this, "Expense added successfully!");
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(this, "Error adding Room: " + ex.getMessage());
+            JOptionPane.showMessageDialog(this, "Error adding Expense: " + ex.getMessage());
         }
     }//GEN-LAST:event_submitActionPerformed
 
@@ -190,7 +200,7 @@ public class AddExpense extends javax.swing.JFrame {
     private javax.swing.JLabel dateLabel;
     private javax.swing.JTextArea descriptionField;
     private javax.swing.JLabel descriptionLabel;
-    private com.toedter.calendar.JDateChooser jDateChooser1;
+    private com.toedter.calendar.JDateChooser jDateChooser;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton submit;
     // End of variables declaration//GEN-END:variables
