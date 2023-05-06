@@ -76,6 +76,11 @@ public class EditUser extends javax.swing.JFrame {
         });
 
         userType.setSelectedItem(user.getType());
+        userType.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                userTypeActionPerformed(evt);
+            }
+        });
 
         submit.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
         submit.setText("Submit");
@@ -216,6 +221,10 @@ public class EditUser extends javax.swing.JFrame {
     private void usernameFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usernameFieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_usernameFieldActionPerformed
+
+    private void userTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userTypeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_userTypeActionPerformed
 
     /**
      * @param args the command line arguments

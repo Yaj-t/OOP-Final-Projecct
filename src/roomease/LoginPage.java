@@ -84,7 +84,8 @@ public class LoginPage extends javax.swing.JFrame {
         Password.setLabelFor(usernameField);
         Password.setText("Password:");
 
-        passwordField.setRequestFocusEnabled(false);
+        passwordField.setRequestFocusEnabled(true
+        );
         passwordField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 passwordFieldActionPerformed(evt);
