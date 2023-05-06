@@ -173,6 +173,10 @@ public class AddUser extends javax.swing.JFrame {
         try {
             UserDAO.addUser(newUser);
             JOptionPane.showMessageDialog(this, "User added successfully!");
+            //After adding user, go back to UsersPage - Carl
+            dispose();  
+            UsersPage users = new UsersPage();
+            users.setVisible(true);
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(this, "Error adding user: " + ex.getMessage());
         }

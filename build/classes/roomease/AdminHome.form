@@ -88,12 +88,9 @@
                   <Group type="102" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="rooms" max="32767" attributes="0"/>
-                          <Group type="102" alignment="1" attributes="0">
-                              <EmptySpace min="0" pref="1" max="32767" attributes="0"/>
-                              <Component id="logout" min="-2" pref="125" max="-2" attributes="0"/>
-                          </Group>
+                          <Component id="rooms" pref="138" max="32767" attributes="0"/>
                           <Component id="Users" alignment="0" max="32767" attributes="0"/>
+                          <Component id="logout" alignment="1" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
