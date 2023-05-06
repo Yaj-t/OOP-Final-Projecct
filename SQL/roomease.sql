@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 06, 2023 at 02:39 PM
+-- Generation Time: May 06, 2023 at 03:13 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -96,27 +96,24 @@ CREATE TABLE `rooms` (
   `room_id` int(11) NOT NULL,
   `room_number` varchar(50) NOT NULL,
   `room_price` decimal(10,2) NOT NULL,
-  `status` enum('vacant','occupied','reserved','out of order') NOT NULL DEFAULT 'vacant',
-  `room_description` varchar(255) DEFAULT NULL,
-  `max_guest` int(11) NOT NULL DEFAULT 1,
-  `current_occupancy` int(11) NOT NULL DEFAULT 0
-) ;
+  `room_description` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `rooms`
 --
 
-INSERT INTO `rooms` (`room_id`, `room_number`, `room_price`, `status`, `room_description`, `max_guest`, `current_occupancy`) VALUES
-(1, '101', '100.00', 'vacant', 'single_room', 1, 0),
-(2, '102', '70.00', 'vacant', 'double_room', 2, 0),
-(3, '103', '90.00', 'vacant', 'double_room', 2, 0),
-(4, '104', '60.00', 'vacant', 'single_room', 1, 0),
-(5, '105', '120.00', 'vacant', 'suite', 5, 0),
-(6, '106', '80.00', 'vacant', 'double_room', 2, 0),
-(7, '107', '100.00', 'vacant', 'shared', 3, 0),
-(8, '108', '70.00', 'vacant', 'single_room', 1, 0),
-(9, '109', '150.00', 'vacant', 'suite', 5, 0),
-(10, '110', '110.00', 'vacant', 'shared', 3, 0);
+INSERT INTO `rooms` (`room_id`, `room_number`, `room_price`, `room_description`) VALUES
+(1, '101', '100.00', 'single_room'),
+(2, '102', '70.00', 'double_room'),
+(3, '103', '90.00', 'double_room'),
+(4, '104', '60.00', 'single_room'),
+(5, '105', '120.00', 'suite'),
+(6, '106', '80.00', 'double_room'),
+(7, '107', '100.00', 'shared'),
+(8, '108', '70.00', 'single_room'),
+(9, '109', '150.00', 'suite'),
+(10, '110', '110.00', 'shared');
 
 -- --------------------------------------------------------
 
@@ -265,7 +262,7 @@ ALTER TABLE `expenses`
 -- AUTO_INCREMENT for table `rooms`
 --
 ALTER TABLE `rooms`
-  MODIFY `room_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `room_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `room_amenities`
