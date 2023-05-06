@@ -5,15 +5,13 @@
 package roomease;
 
 import database.RoomDAO;
-import database.UserDAO;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import room.Room;
-import user.User;
+import util.Room;
 
 /**
  *
@@ -32,7 +30,7 @@ public class RoomsPage extends javax.swing.JFrame {
             roomList = RoomDAO.getAllRooms();
             DefaultTableModel tableModel = (DefaultTableModel) roomsTable.getModel();
             for (Room room : roomList) {
-                Object[] rowData = {room.getRoomID(), room.getRoomNumber(), room.getPrice(),room.getStatus(),  room.getMaxGuest(), room.getCurrentOccupancy()};
+                Object[] rowData = {room.getRoomID(), room.getRoomNumber(), room.getPrice(),room.getDescription()};
                 tableModel.addRow(rowData);
             }
             roomsTable.setModel(tableModel);
@@ -70,14 +68,14 @@ public class RoomsPage extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID", "Room #", "Room Price", "Status", "Max Guest", "Current Occupancy"
+                "ID", "Room #", "Room Price", "Description"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.Integer.class, java.lang.Double.class, java.lang.Object.class, java.lang.Object.class, java.lang.Integer.class
+                java.lang.String.class, java.lang.Integer.class, java.lang.Double.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
+                false, false, false, true
             };
 
             public Class getColumnClass(int columnIndex) {

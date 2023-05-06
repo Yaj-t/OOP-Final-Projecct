@@ -5,11 +5,8 @@
 package roomease;
 
 import database.RoomDAO;
-import enums.RoomStatus;
-import enums.RoomType;
-import java.io.ObjectInputFilter.Status;
 import javax.swing.JOptionPane;
-import room.Room;
+import util.Room;
 import java.sql.*;
 /**
  *
@@ -40,7 +37,7 @@ public class AddRoom extends javax.swing.JFrame {
         submit = new javax.swing.JButton();
         backButton = new javax.swing.JButton();
         maxGuestLable = new javax.swing.JLabel();
-        maxGuestField = new javax.swing.JTextField();
+        descriptionField = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -81,12 +78,12 @@ public class AddRoom extends javax.swing.JFrame {
         });
 
         maxGuestLable.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
-        maxGuestLable.setText("Max Guest:");
+        maxGuestLable.setText("Description:");
 
-        maxGuestField.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
-        maxGuestField.addActionListener(new java.awt.event.ActionListener() {
+        descriptionField.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
+        descriptionField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                maxGuestFieldActionPerformed(evt);
+                descriptionFieldActionPerformed(evt);
             }
         });
 
@@ -108,10 +105,10 @@ public class AddRoom extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(submit)
-                            .addComponent(maxGuestField)
+                            .addComponent(descriptionField)
                             .addComponent(priceNumberField)
                             .addComponent(roomNumberField, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(104, Short.MAX_VALUE))
+                .addContainerGap(93, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -127,12 +124,12 @@ public class AddRoom extends javax.swing.JFrame {
                     .addComponent(priceLabel)
                     .addComponent(priceNumberField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(maxGuestField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(maxGuestLable))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(maxGuestLable)
+                    .addComponent(descriptionField, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(submit)
-                .addContainerGap(108, Short.MAX_VALUE))
+                .addContainerGap(77, Short.MAX_VALUE))
         );
 
         pack();
@@ -150,10 +147,9 @@ public class AddRoom extends javax.swing.JFrame {
         // TODO add your handling code here:
         float price = Float.parseFloat( priceNumberField.getText());
         String roomNumber = roomNumberField.getText();
-        int maxGuest = Integer.parseInt(maxGuestField.getText());
+       String description = descriptionField.getText();
         
-        Room newRoom = new Room(roomNumber, price, maxGuest,0, RoomStatus.vacant);
-        System.out.println(newRoom.getRoomNumber()+" "+ newRoom.getPrice()+" "+ newRoom.getMaxGuest()+" "+ newRoom.getStatus());
+        Room newRoom = new Room(roomNumber, price,description);
         try {
             RoomDAO.addRoom(newRoom);
             JOptionPane.showMessageDialog(this, "Room added successfully!");
@@ -168,9 +164,9 @@ public class AddRoom extends javax.swing.JFrame {
         new RoomsPage().setVisible(true);
     }//GEN-LAST:event_backButtonActionPerformed
 
-    private void maxGuestFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_maxGuestFieldActionPerformed
+    private void descriptionFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_descriptionFieldActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_maxGuestFieldActionPerformed
+    }//GEN-LAST:event_descriptionFieldActionPerformed
 
     /**
      * @param args the command line arguments
@@ -209,7 +205,7 @@ public class AddRoom extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton backButton;
-    private javax.swing.JTextField maxGuestField;
+    private javax.swing.JTextField descriptionField;
     private javax.swing.JLabel maxGuestLable;
     private javax.swing.JLabel priceLabel;
     private javax.swing.JTextField priceNumberField;

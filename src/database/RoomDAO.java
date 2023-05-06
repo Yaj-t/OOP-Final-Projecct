@@ -8,14 +8,13 @@ package database;
  *
  * @author Predator
  */
-import enums.RoomStatus;
-import enums.RoomType;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import room.Room;
+import util.Room;
 
 public class RoomDAO {
     private static Connection connection;
@@ -32,14 +31,12 @@ public class RoomDAO {
     }
 
     public static void addRoom(Room room) throws SQLException {
-        String sql = "INSERT INTO rooms (room_number, room_price, max_guest, current_occupancy, status) VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO rooms (room_number, room_price, description) VALUES (?, ?, ?)";
         connection = Connect.connectToDatabase();
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setString(1, room.getRoomNumber());
-            statement.setFloat(2, room.getPrice());
-            statement.setInt(3, room.getMaxGuest());
-            statement.setInt(4, room.getCurrentOccupancy());
-            statement.setString(5, room.getStatus().toString());
+            statement.setDouble(2, room.getPrice());
+            statement.setString(3, room.getDescription());
             statement.executeUpdate();
         }
         Connect.closeConnection();
@@ -56,11 +53,9 @@ public class RoomDAO {
             while (resultSet.next()) {
                 int roomID = resultSet.getInt("room_id");
                 String roomNumber = resultSet.getString("room_number");
-                float price = resultSet.getFloat("room_price");
-                int maxGuest = resultSet.getInt("max_guest");
-                int currentOccupancy = resultSet.getInt("current_occupancy");
-                RoomStatus status = RoomStatus.valueOf(resultSet.getString("status"));
-                Room room = new Room(roomID, roomNumber, price, maxGuest, currentOccupancy, status);
+                double price = resultSet.getFloat("room_price");
+                String description = resultSet.getString("description");
+                Room room = new Room(roomID, roomNumber, price, description);
                 rooms.add(room);
             }
         }
@@ -79,11 +74,9 @@ public class RoomDAO {
                 if (resultSet.next()) {
                     String roomNumber =resultSet.getString("room_number");
                     int price = resultSet.getInt("room_price");
-                    int maxGuest = resultSet.getInt("max_guest");
-                    int currentOccupancy = resultSet.getInt("current_occupancy");
-                    RoomStatus status = RoomStatus.valueOf(resultSet.getString("status"));
+                    String description = resultSet.getString("description");
 
-                    room = new Room(roomID, roomNumber, price, maxGuest, currentOccupancy, status);
+                    room = new Room(roomID, roomNumber, price, description);
                 }
             }
         }
@@ -93,15 +86,13 @@ public class RoomDAO {
 
     public static void updateRoom(Room room) throws SQLException {
         connection = Connect.connectToDatabase();
-        String sql = "UPDATE rooms SET room_price = ?, max_guest = ?, current_occupancy = ?, status = ?, room_number = ? WHERE room_id = ?";
+        String sql = "UPDATE rooms SET room_price = ?, room_number = ?, description = ? WHERE room_id = ?";
 
         try (PreparedStatement statement = connection.prepareStatement(sql)) { 
-            statement.setFloat(1, room.getPrice());
-            statement.setInt(2, room.getMaxGuest());
-            statement.setInt(3, room.getCurrentOccupancy());
-            statement.setString(4, room.getStatus().toString());
-            statement.setString(5, room.getRoomNumber());
-            statement.setInt(6, room.getRoomID());
+            statement.setDouble(1, room.getPrice());
+            statement.setString(2, room.getRoomNumber());
+            statement.setString(3, room.getDescription());
+            statement.setInt(4, room.getRoomID());
             statement.executeUpdate();
         }
        Connect.closeConnection();

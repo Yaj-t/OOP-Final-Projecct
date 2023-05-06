@@ -39,13 +39,13 @@
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
                           <Component id="submit" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="maxGuestField" alignment="0" max="32767" attributes="0"/>
+                          <Component id="descriptionField" alignment="0" max="32767" attributes="0"/>
                           <Component id="priceNumberField" alignment="0" max="32767" attributes="0"/>
                           <Component id="roomNumberField" alignment="0" min="-2" pref="148" max="-2" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
-              <EmptySpace pref="104" max="32767" attributes="0"/>
+              <EmptySpace pref="93" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -65,13 +65,13 @@
                   <Component id="priceNumberField" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="maxGuestField" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="maxGuestLable" alignment="3" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="maxGuestLable" min="-2" max="-2" attributes="0"/>
+                  <Component id="descriptionField" min="-2" pref="58" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="submit" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="108" max="32767" attributes="0"/>
+              <EmptySpace pref="77" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -140,17 +140,17 @@
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="SansSerif" size="18" style="1"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Max Guest:"/>
+        <Property name="text" type="java.lang.String" value="Description:"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="maxGuestField">
+    <Component class="javax.swing.JTextField" name="descriptionField">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="SansSerif" size="16" style="0"/>
         </Property>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="maxGuestFieldActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="descriptionFieldActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>

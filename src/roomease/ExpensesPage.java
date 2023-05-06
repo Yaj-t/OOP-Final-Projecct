@@ -5,16 +5,12 @@
 package roomease;
 
 import database.ExpenseDAO;
-import database.RoomDAO;
-import database.UserDAO;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import room.Room;
-import user.User;
 import util.Expense;
 
 /**

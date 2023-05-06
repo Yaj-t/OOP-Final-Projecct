@@ -6,10 +6,11 @@ package roomease;
 
 import database.RoomDAO;
 import enums.RoomStatus;
-import enums.RoomType;
 import javax.swing.JOptionPane;
-import room.Room;
+import util.Room;
 import java.sql.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -47,16 +48,27 @@ public class EditRoom extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new javax.swing.JPanel();
         submit = new javax.swing.JButton();
         backButton = new javax.swing.JButton();
         roomNumberLable = new javax.swing.JLabel();
         priceLabel = new javax.swing.JLabel();
         roomNumberField = new javax.swing.JTextField();
         priceField = new javax.swing.JTextField();
-        statusLabel = new javax.swing.JLabel();
-        statusComboBox = new javax.swing.JComboBox<>(RoomStatus.values());
-        maxGuestLable = new javax.swing.JLabel();
-        maxGuestField = new javax.swing.JTextField();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        descriptionField = new javax.swing.JTextArea();
+        descriptionLabel = new javax.swing.JLabel();
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -91,33 +103,20 @@ public class EditRoom extends javax.swing.JFrame {
         });
 
         priceField.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
-        priceField.setText(Float.toString(room.getPrice()));
+        priceField.setText(Double.toString(room.getPrice()));
         priceField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 priceFieldActionPerformed(evt);
             }
         });
 
-        statusLabel.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
-        statusLabel.setText("Status:");
+        descriptionField.setColumns(20);
+        descriptionField.setRows(5);
+        descriptionField.setText(room.getDescription());
+        jScrollPane1.setViewportView(descriptionField);
 
-        statusComboBox.setSelectedItem(room.getStatus());
-        statusComboBox.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                statusComboBoxActionPerformed(evt);
-            }
-        });
-
-        maxGuestLable.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
-        maxGuestLable.setText("Max Guest:");
-
-        maxGuestField.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
-        maxGuestField.setText(Integer.toString(room.getMaxGuest()));
-        maxGuestField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                maxGuestFieldActionPerformed(evt);
-            }
-        });
+        descriptionLabel.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
+        descriptionLabel.setText("Description:");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -129,28 +128,22 @@ public class EditRoom extends javax.swing.JFrame {
                         .addContainerGap()
                         .addComponent(backButton))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(43, 43, 43)
+                        .addGap(70, 70, 70)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(priceLabel)
+                            .addComponent(roomNumberLable))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(27, 27, 27)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(priceLabel)
-                                    .addComponent(roomNumberLable))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(submit)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(priceField, javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addComponent(roomNumberField, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(statusLabel)
-                                    .addComponent(maxGuestLable))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(maxGuestField)
-                                    .addComponent(statusComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE))))))
-                .addContainerGap(98, Short.MAX_VALUE))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(priceField, javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(roomNumberField, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(submit)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(33, 33, 33)
+                        .addComponent(descriptionLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(219, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -165,19 +158,13 @@ public class EditRoom extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(priceLabel)
                     .addComponent(priceField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(statusLabel)
-                            .addComponent(statusComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(31, 31, 31))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(maxGuestField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(maxGuestLable)))
-                .addGap(26, 26, 26)
+                .addGap(14, 14, 14)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(descriptionLabel)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addComponent(submit)
-                .addGap(55, 55, 55))
+                .addGap(27, 27, 27))
         );
 
         pack();
@@ -187,7 +174,7 @@ public class EditRoom extends javax.swing.JFrame {
         // TODO add your handling code here:
         room.setRoomNumber(roomNumberField.getText());
         room.setPrice(Float.parseFloat(priceField.getText()));
-        room.setStatus((RoomStatus)statusComboBox.getSelectedItem());
+        room.setDescription(descriptionField.getText());
         
         try {
             RoomDAO.updateRoom(room);
@@ -212,14 +199,6 @@ public class EditRoom extends javax.swing.JFrame {
     private void priceFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_priceFieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_priceFieldActionPerformed
-
-    private void statusComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_statusComboBoxActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_statusComboBoxActionPerformed
-
-    private void maxGuestFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_maxGuestFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_maxGuestFieldActionPerformed
 
     /**
      * @param args the command line arguments
@@ -251,28 +230,32 @@ public class EditRoom extends javax.swing.JFrame {
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                EditRoom dialog = new EditRoom();
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    @Override
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
+                try {
+                    EditRoom dialog = new EditRoom(RoomDAO.getRoomById(1));
+                    dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+                        @Override
+                        public void windowClosing(java.awt.event.WindowEvent e) {
+                            System.exit(0);
+                        }
+                    });
+                    dialog.setVisible(true);
+                } catch (SQLException ex) {
+                    Logger.getLogger(EditRoom.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton backButton;
-    private javax.swing.JTextField maxGuestField;
-    private javax.swing.JLabel maxGuestLable;
+    private javax.swing.JTextArea descriptionField;
+    private javax.swing.JLabel descriptionLabel;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField priceField;
     private javax.swing.JLabel priceLabel;
     private javax.swing.JTextField roomNumberField;
     private javax.swing.JLabel roomNumberLable;
-    private javax.swing.JComboBox<RoomStatus> statusComboBox;
-    private javax.swing.JLabel statusLabel;
     private javax.swing.JButton submit;
     // End of variables declaration//GEN-END:variables
 }
