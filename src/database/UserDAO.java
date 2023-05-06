@@ -13,15 +13,10 @@ import enums.UserType;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import room.Room;
 import user.User;
 
 public class UserDAO {
     private static Connection connection;
-
-    public static Room getRoomById(int userID) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
 
     public UserDAO() throws SQLException {
         // Initialize database connection

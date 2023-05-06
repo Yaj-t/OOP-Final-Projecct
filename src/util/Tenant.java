@@ -1,33 +1,26 @@
 package util;
 
-
-import java.util.Date;
-
-public class Guest {
-    private int guestId;
+public class Tenant {
+    private int id;
     private String firstName;
     private String lastName;
-    private Date dateOfBirth;
-    private String gender;
     private String phoneNumber;
     private String email;
 
-    public Guest(int guestId, String firstName, String lastName, Date dateOfBirth, String gender, String phoneNumber, String email) {
-        this.guestId = guestId;
+    public Tenant(int id, String firstName, String lastName, String phoneNumber, String email) {
+        this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.dateOfBirth = dateOfBirth;
-        this.gender = gender;
         this.phoneNumber = phoneNumber;
         this.email = email;
     }
 
-    public int getGuestId() {
-        return guestId;
+    public int getId() {
+        return id;
     }
 
-    public void setGuestId(int guestId) {
-        this.guestId = guestId;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getFirstName() {
@@ -44,22 +37,6 @@ public class Guest {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
-    }
-
-    public Date getDateOfBirth() {
-        return dateOfBirth;
-    }
-
-    public void setDateOfBirth(Date dateOfBirth) {
-        this.dateOfBirth = dateOfBirth;
-    }
-
-    public String getGender() {
-        return gender;
-    }
-
-    public void setGender(String gender) {
-        this.gender = gender;
     }
 
     public String getPhoneNumber() {
