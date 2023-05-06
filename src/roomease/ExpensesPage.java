@@ -4,6 +4,7 @@
  */
 package roomease;
 
+import database.ExpenseDAO;
 import database.RoomDAO;
 import database.UserDAO;
 import java.sql.SQLException;
@@ -14,30 +15,31 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import room.Room;
 import user.User;
+import util.Expense;
 
 /**
  *
  * @author Predator
  */
-public class RoomsPage extends javax.swing.JFrame {
-    List <Room> roomList;
+public class ExpensesPage extends javax.swing.JFrame {
+    List <Expense>  expenseList;
     /**
      * Creates new form Rooms
      */
     
-    public RoomsPage() {
+    public ExpensesPage() {
         initComponents();
         try {
             
-            roomList = RoomDAO.getAllRooms();
-            DefaultTableModel tableModel = (DefaultTableModel) roomsTable.getModel();
-            for (Room room : roomList) {
-                Object[] rowData = {room.getRoomID(), room.getRoomNumber(), room.getPrice(),room.getStatus(),  room.getMaxGuest(), room.getCurrentOccupancy()};
+            expenseList = ExpenseDAO.getAllExpenses();
+            DefaultTableModel tableModel = (DefaultTableModel) expensesTable.getModel();
+            for (Expense expense : expenseList) {
+                Object[] rowData = {expense.getId(), expense.getAmount(), expense.getDate().toString(), expense.getDescription()};
                 tableModel.addRow(rowData);
             }
-            roomsTable.setModel(tableModel);
+            expensesTable.setModel(tableModel);
         } catch (SQLException ex) {
-            Logger.getLogger(Room.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Expense.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         
@@ -57,7 +59,7 @@ public class RoomsPage extends javax.swing.JFrame {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         jScrollPane2 = new javax.swing.JScrollPane();
-        roomsTable = new javax.swing.JTable();
+        expensesTable = new javax.swing.JTable();
         delete = new javax.swing.JButton();
         add = new javax.swing.JButton();
         edit = new javax.swing.JButton();
@@ -65,19 +67,19 @@ public class RoomsPage extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        roomsTable.setModel(new javax.swing.table.DefaultTableModel(
+        expensesTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "ID", "Room #", "Room Price", "Status", "Max Guest", "Current Occupancy"
+                "ID", "Amount", "Date", "Description"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.Integer.class, java.lang.Double.class, java.lang.Object.class, java.lang.Object.class, java.lang.Integer.class
+                java.lang.String.class, java.lang.Double.class, java.lang.Object.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
+                false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -88,10 +90,10 @@ public class RoomsPage extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        roomsTable.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        roomsTable.setShowGrid(true);
-        roomsTable.getTableHeader().setReorderingAllowed(false);
-        jScrollPane2.setViewportView(roomsTable);
+        expensesTable.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        expensesTable.setShowGrid(true);
+        expensesTable.getTableHeader().setReorderingAllowed(false);
+        jScrollPane2.setViewportView(expensesTable);
 
         delete.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
         delete.setText("DELETE");
@@ -168,20 +170,20 @@ public class RoomsPage extends javax.swing.JFrame {
 
     private void deleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteActionPerformed
         // TODO add your handling code here:
-        int row = roomsTable.getSelectedRow(); // get the selected row
+        int row = expensesTable.getSelectedRow(); // get the selected row
         if (row != -1) { // check if a row is selected
-            int option = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete this room?",
+            int option = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete this Expense?",
                 "Confirm Deletion", JOptionPane.YES_NO_OPTION); // confirm deletion with user
 
             if (option == JOptionPane.YES_OPTION) { // user confirms deletion
-                int roomID =(int) roomsTable.getValueAt(row, 0); // get the username from the table
+                int expenseID =(int) expensesTable.getValueAt(row, 0); // get the username from the table
                 try {
-                        RoomDAO.deleteRoom(roomID);
+                        ExpenseDAO.deleteExpense(expenseID);
                         dispose();
-                        new RoomsPage().setVisible(true);
-                        JOptionPane.showMessageDialog(null, "Room deleted successfully.");
+                        new ExpensesPage().setVisible(true);
+                        JOptionPane.showMessageDialog(null, "Expense deleted successfully.");
                     } catch (SQLException ex) {
-                        JOptionPane.showMessageDialog(null, "Error deleting room: " + ex.getMessage());
+                        JOptionPane.showMessageDialog(null, "Error deleting expense: " + ex.getMessage());
                     }
             }
         } else {
@@ -192,32 +194,31 @@ public class RoomsPage extends javax.swing.JFrame {
     private void addActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addActionPerformed
         //TODO add your handling code here:
         dispose();
-        AddRoom addRoom = new AddRoom();
-        addRoom.setVisible(true);
+        new AddExpense().setVisible(true);
     }//GEN-LAST:event_addActionPerformed
 
     private void editActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editActionPerformed
-        int selectedRow = roomsTable.getSelectedRow();
+        int selectedRow = expensesTable.getSelectedRow();
         if(selectedRow !=-1){
             try {
                 // TODO add your handling code here:
 
-                int roomID = (int) roomsTable.getValueAt(selectedRow, 0);
-                Room room = RoomDAO.getRoomById(roomID);
-                new EditRoom(room).setVisible(true);
+                int roomID = (int) expensesTable.getValueAt(selectedRow, 0);
+                Expense expense = ExpenseDAO.getExpenseById(roomID);
+                new EditExpense(expense).setVisible(true);
                 dispose();
             } catch (SQLException ex) {
-                Logger.getLogger(UsersPage.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(ExpensesPage.class.getName()).log(Level.SEVERE, null, ex);
             }
         }else{
-            JOptionPane.showMessageDialog(null, "Please select a row to edit.");
+            JOptionPane.showMessageDialog(null, "Please select a row to be edited.");
         }
     }//GEN-LAST:event_editActionPerformed
 
     private void goBackButtomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_goBackButtomActionPerformed
         // TODO add your handling code here:
         dispose();
-        new AdminHome().setVisible(true);
+       //new EmployeeHome().setVisible(true);
     }//GEN-LAST:event_goBackButtomActionPerformed
 
     /**
@@ -237,21 +238,23 @@ public class RoomsPage extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(RoomsPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ExpensesPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(RoomsPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ExpensesPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(RoomsPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ExpensesPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(RoomsPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ExpensesPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new RoomsPage().setVisible(true);
+                new ExpensesPage().setVisible(true);
             }
         });
     }
@@ -262,9 +265,9 @@ public class RoomsPage extends javax.swing.JFrame {
     private javax.swing.JButton add;
     private javax.swing.JButton delete;
     private javax.swing.JButton edit;
+    private javax.swing.JTable expensesTable;
     private javax.swing.JButton goBackButtom;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable roomsTable;
     // End of variables declaration//GEN-END:variables
 }
