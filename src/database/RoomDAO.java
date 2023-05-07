@@ -52,11 +52,10 @@ public class RoomDAO {
              ResultSet resultSet = statement.executeQuery(sql)) {
 
             while (resultSet.next()) {
-                int roomID = resultSet.getInt("room_id");
                 String roomNumber = resultSet.getString("room_number");
                 double price = resultSet.getFloat("room_price");
                 String description = resultSet.getString("description");
-                Room room = new Room(roomID, roomNumber, price, description);
+                Room room = new Room(roomNumber, price, description);
                 rooms.add(room);
             }
         }
@@ -69,7 +68,7 @@ public class RoomDAO {
         connection = null;
         try {
             connection = Connect.connectToDatabase();
-            String sql = "SELECT * FROM rooms WHERE id NOT IN (SELECT room_id FROM bookings WHERE (booking_start <= ? AND booking_end >= ?) OR (booking_start <= ? AND booking_end >= ?) OR (booking_start >= ? AND booking_end <= ?))";
+            String sql = "SELECT * FROM rooms WHERE room_number NOT IN (SELECT room_number FROM bookings WHERE (booking_start <= ? AND booking_end >= ?) OR (booking_start <= ? AND booking_end >= ?) OR (booking_start >= ? AND booking_end <= ?))";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setDate(1, java.sql.Date.valueOf(endDate));
             statement.setDate(2, java.sql.Date.valueOf(startDate));
@@ -80,10 +79,9 @@ public class RoomDAO {
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
                 Room room = new Room();
-                room.setRoomID(resultSet.getInt("room_id"));
                 room.setRoomNumber(resultSet.getString("room_number"));
                 room.setDescription(resultSet.getString("description"));
-                room.setPrice(resultSet.getDouble("price"));
+                room.setPrice(resultSet.getDouble("room_price"));
                 availableRooms.add(room);
             }
         } finally {
@@ -92,20 +90,20 @@ public class RoomDAO {
         return availableRooms;
     }
 
-    public static Room getRoomById(int roomID) throws SQLException {
+    public static Room getRoomByNumber(String roomNumber) throws SQLException {
         connection = Connect.connectToDatabase();
-        String sql = "SELECT * FROM rooms WHERE room_id = ?";
+        String sql = "SELECT * FROM rooms WHERE room_number = ?";
         Room room = null;
 
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
-            statement.setInt(1, roomID);
+            statement.setString(1, roomNumber);
             try (ResultSet resultSet = statement.executeQuery()) {
                 if (resultSet.next()) {
-                    String roomNumber =resultSet.getString("room_number");
+                    roomNumber =resultSet.getString("room_number");
                     int price = resultSet.getInt("room_price");
                     String description = resultSet.getString("description");
 
-                    room = new Room(roomID, roomNumber, price, description);
+                    room = new Room( roomNumber, price, description);
                 }
             }
         }
@@ -115,24 +113,24 @@ public class RoomDAO {
 
     public static void updateRoom(Room room) throws SQLException {
         connection = Connect.connectToDatabase();
-        String sql = "UPDATE rooms SET room_price = ?, room_number = ?, description = ? WHERE room_id = ?";
+        String sql = "UPDATE rooms SET room_price = ?, description = ? WHERE room_number = ?";
 
         try (PreparedStatement statement = connection.prepareStatement(sql)) { 
             statement.setDouble(1, room.getPrice());
-            statement.setString(2, room.getRoomNumber());
-            statement.setString(3, room.getDescription());
-            statement.setInt(4, room.getRoomID());
+            statement.setString(2, room.getDescription());            
+            statement.setString(3, room.getRoomNumber());
+
             statement.executeUpdate();
         }
        Connect.closeConnection();
     }
 
-    public static void deleteRoom(int roomID) throws SQLException {
+    public static void deleteRoom(String roomNumber) throws SQLException {
         connection = Connect.connectToDatabase();
-        String sql = "DELETE FROM rooms WHERE room_id = ?";
+        String sql = "DELETE FROM rooms WHERE room_number = ?";
 
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
-            statement.setInt(1, roomID);
+            statement.setString(1, roomNumber);
             statement.executeUpdate();
         }
        Connect.closeConnection();

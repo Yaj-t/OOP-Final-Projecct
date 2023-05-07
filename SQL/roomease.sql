@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 07, 2023 at 02:39 PM
+-- Generation Time: May 07, 2023 at 04:12 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -93,27 +93,27 @@ CREATE TABLE `payments` (
 --
 
 CREATE TABLE `rooms` (
-  `room_id` int(11) NOT NULL,
-  `room_number` varchar(50) NOT NULL,
+  `room_number` int(11) NOT NULL,
   `room_price` decimal(10,2) NOT NULL,
-  `description` varchar(255) DEFAULT NULL
+  `description` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `rooms`
 --
 
-INSERT INTO `rooms` (`room_id`, `room_number`, `room_price`, `description`) VALUES
-(1, '101', '100.00', 'single_room'),
-(2, '102', '70.00', 'double_room'),
-(3, '103', '90.00', 'double_room'),
-(4, '104', '60.00', 'single_room'),
-(5, '105', '120.00', 'suite'),
-(6, '106', '80.00', 'double_room'),
-(7, '107', '100.00', 'shared'),
-(8, '108', '70.00', 'single_room'),
-(9, '109', '150.00', 'suite'),
-(10, '115', '120.00', 'shared room');
+INSERT INTO `rooms` (`room_number`, `room_price`, `description`) VALUES
+(1, '100.00', 'single_room'),
+(2, '70.00', 'double_room'),
+(3, '90.00', 'double_room'),
+(4, '60.00', 'single_room'),
+(5, '120.00', 'suite'),
+(6, '80.00', 'double_room'),
+(7, '100.00', 'shared'),
+(8, '70.00', 'single_room'),
+(9, '150.00', 'suite'),
+(10, '120.00', 'shared room'),
+(11, '300.00', 'testing edit');
 
 -- --------------------------------------------------------
 
@@ -220,8 +220,7 @@ ALTER TABLE `payments`
 -- Indexes for table `rooms`
 --
 ALTER TABLE `rooms`
-  ADD PRIMARY KEY (`room_id`),
-  ADD UNIQUE KEY `unique_room_number` (`room_number`);
+  ADD PRIMARY KEY (`room_number`);
 
 --
 -- Indexes for table `room_amenities`
@@ -259,12 +258,6 @@ ALTER TABLE `expenses`
   MODIFY `expense_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT for table `rooms`
---
-ALTER TABLE `rooms`
-  MODIFY `room_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
-
---
 -- AUTO_INCREMENT for table `room_amenities`
 --
 ALTER TABLE `room_amenities`
@@ -290,7 +283,7 @@ ALTER TABLE `users`
 -- Constraints for table `bookings`
 --
 ALTER TABLE `bookings`
-  ADD CONSTRAINT `fk_room_id` FOREIGN KEY (`room_id`) REFERENCES `rooms` (`room_id`),
+  ADD CONSTRAINT `fk_room_id` FOREIGN KEY (`room_id`) REFERENCES `rooms` (`room_number`),
   ADD CONSTRAINT `fk_tenant_id` FOREIGN KEY (`tenant_id`) REFERENCES `tenants` (`tenant_id`);
 
 --

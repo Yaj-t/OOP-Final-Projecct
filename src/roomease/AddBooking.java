@@ -30,7 +30,7 @@ public class AddBooking extends javax.swing.JFrame {
             roomList = RoomDAO.getAllRooms();
             DefaultTableModel tableModel = (DefaultTableModel) roomsTable.getModel();
             for (Room room : roomList) {
-                Object[] rowData = {room.getRoomID(), room.getRoomNumber(), room.getPrice(),room.getDescription()};
+                Object[] rowData = { room.getRoomNumber(), room.getPrice(),room.getDescription()};
                 tableModel.addRow(rowData);
             }
             roomsTable.setModel(tableModel);
@@ -79,14 +79,14 @@ public class AddBooking extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID", "Room #", "Room Price", "Description"
+                "Room #", "Room Price", "Description"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.Integer.class, java.lang.Double.class, java.lang.String.class
+                java.lang.Integer.class, java.lang.Double.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, true
+                false, false, true
             };
 
             public Class getColumnClass(int columnIndex) {

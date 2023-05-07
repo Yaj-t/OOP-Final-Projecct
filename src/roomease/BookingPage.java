@@ -75,11 +75,11 @@ public class BookingPage extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID", "Tenant ID", "Room ID", "Check In", "Check Out", "Fee"
+                "ID", "Tenant ID", "Room #", "Check In", "Check Out", "Fee"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.Integer.class, java.lang.Double.class, java.lang.Object.class, java.lang.Object.class, java.lang.Double.class
+                java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class, java.lang.Double.class
             };
             boolean[] canEdit = new boolean [] {
                 false, false, false, false, false, false
@@ -202,18 +202,18 @@ public class BookingPage extends javax.swing.JFrame {
         // TODO add your handling code here:
         int row = BookingsTable.getSelectedRow(); // get the selected row
         if (row != -1) { // check if a row is selected
-            int option = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete this room?",
+            int option = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete this booking?",
                 "Confirm Deletion", JOptionPane.YES_NO_OPTION); // confirm deletion with user
 
             if (option == JOptionPane.YES_OPTION) { // user confirms deletion
-                int roomID =(int) BookingsTable.getValueAt(row, 0); // get the username from the table
+                int bookingId =(int) BookingsTable.getValueAt(row, 0); // get the username from the table
                 try {
-                        RoomDAO.deleteRoom(roomID);
+                        BookingDAO.deleteBooking(bookingId);
                         dispose();
                         new BookingPage().setVisible(true);
-                        JOptionPane.showMessageDialog(null, "Room deleted successfully.");
+                        JOptionPane.showMessageDialog(null, "Booking deleted successfully.");
                     } catch (SQLException ex) {
-                        JOptionPane.showMessageDialog(null, "Error deleting room: " + ex.getMessage());
+                        JOptionPane.showMessageDialog(null, "Error deleting booking: " + ex.getMessage());
                     }
             }
         } else {
@@ -227,9 +227,9 @@ public class BookingPage extends javax.swing.JFrame {
             try {
                 // TODO add your handling code here:
 
-                int roomID = (int) BookingsTable.getValueAt(selectedRow, 0);
-                Room room = RoomDAO.getRoomById(roomID);
-                new EditRoom(room).setVisible(true);
+                int bookingId = (int) BookingsTable.getValueAt(selectedRow, 0);
+                Booking booking = BookingDAO.getBookingById(bookingId);
+                new EditBooking(booking).setVisible(true);
                 dispose();
             } catch (SQLException ex) {
                 Logger.getLogger(UsersPage.class.getName()).log(Level.SEVERE, null, ex);

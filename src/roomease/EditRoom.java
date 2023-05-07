@@ -51,9 +51,7 @@ public class EditRoom extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         submit = new javax.swing.JButton();
         backButton = new javax.swing.JButton();
-        roomNumberLable = new javax.swing.JLabel();
         priceLabel = new javax.swing.JLabel();
-        roomNumberField = new javax.swing.JTextField();
         priceField = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         descriptionField = new javax.swing.JTextArea();
@@ -88,19 +86,8 @@ public class EditRoom extends javax.swing.JFrame {
             }
         });
 
-        roomNumberLable.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
-        roomNumberLable.setText("Room #:");
-
         priceLabel.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
         priceLabel.setText("Price:");
-
-        roomNumberField.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
-        roomNumberField.setText(room.getRoomNumber());
-        roomNumberField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                roomNumberFieldActionPerformed(evt);
-            }
-        });
 
         priceField.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
         priceField.setText(Double.toString(room.getPrice()));
@@ -128,33 +115,25 @@ public class EditRoom extends javax.swing.JFrame {
                         .addContainerGap()
                         .addComponent(backButton))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(70, 70, 70)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(priceLabel)
-                            .addComponent(roomNumberLable))
+                        .addGap(91, 91, 91)
+                        .addComponent(priceLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(priceField, javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(roomNumberField, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(priceField, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(submit)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(33, 33, 33)
                         .addComponent(descriptionLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(219, Short.MAX_VALUE))
+                .addContainerGap(33, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(15, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(backButton)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(roomNumberLable)
-                    .addComponent(roomNumberField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(priceLabel)
                     .addComponent(priceField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -168,11 +147,11 @@ public class EditRoom extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void submitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitActionPerformed
         // TODO add your handling code here:
-        room.setRoomNumber(roomNumberField.getText());
         room.setPrice(Float.parseFloat(priceField.getText()));
         room.setDescription(descriptionField.getText());
         
@@ -191,10 +170,6 @@ public class EditRoom extends javax.swing.JFrame {
         dispose();
         new RoomsPage().setVisible(true);
     }//GEN-LAST:event_backButtonActionPerformed
-
-    private void roomNumberFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_roomNumberFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_roomNumberFieldActionPerformed
 
     private void priceFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_priceFieldActionPerformed
         // TODO add your handling code here:
@@ -231,7 +206,7 @@ public class EditRoom extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 try {
-                    EditRoom dialog = new EditRoom(RoomDAO.getRoomById(1));
+                    EditRoom dialog = new EditRoom(RoomDAO.getRoomByNumber("1"));
                     dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                         @Override
                         public void windowClosing(java.awt.event.WindowEvent e) {
@@ -254,8 +229,6 @@ public class EditRoom extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField priceField;
     private javax.swing.JLabel priceLabel;
-    private javax.swing.JTextField roomNumberField;
-    private javax.swing.JLabel roomNumberLable;
     private javax.swing.JButton submit;
     // End of variables declaration//GEN-END:variables
 }

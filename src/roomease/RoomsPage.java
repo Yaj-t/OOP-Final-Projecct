@@ -30,7 +30,7 @@ public class RoomsPage extends javax.swing.JFrame {
             roomList = RoomDAO.getAllRooms();
             DefaultTableModel tableModel = (DefaultTableModel) roomsTable.getModel();
             for (Room room : roomList) {
-                Object[] rowData = {room.getRoomID(), room.getRoomNumber(), room.getPrice(),room.getDescription()};
+                Object[] rowData = {room.getRoomNumber(), room.getPrice(),room.getDescription()};
                 tableModel.addRow(rowData);
             }
             roomsTable.setModel(tableModel);
@@ -68,14 +68,14 @@ public class RoomsPage extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID", "Room #", "Room Price", "Description"
+                "Room #", "Room Price", "Description"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.Integer.class, java.lang.Double.class, java.lang.String.class
+                java.lang.Integer.class, java.lang.Double.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, true
+                false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -172,9 +172,9 @@ public class RoomsPage extends javax.swing.JFrame {
                 "Confirm Deletion", JOptionPane.YES_NO_OPTION); // confirm deletion with user
 
             if (option == JOptionPane.YES_OPTION) { // user confirms deletion
-                int roomID =(int) roomsTable.getValueAt(row, 0); // get the username from the table
+                String roomNumber = (String) roomsTable.getValueAt(row, 0); // get the username from the table
                 try {
-                        RoomDAO.deleteRoom(roomID);
+                        RoomDAO.deleteRoom(roomNumber);
                         dispose();
                         new RoomsPage().setVisible(true);
                         JOptionPane.showMessageDialog(null, "Room deleted successfully.");
@@ -200,8 +200,8 @@ public class RoomsPage extends javax.swing.JFrame {
             try {
                 // TODO add your handling code here:
 
-                int roomID = (int) roomsTable.getValueAt(selectedRow, 0);
-                Room room = RoomDAO.getRoomById(roomID);
+                String roomNumber = (String) roomsTable.getValueAt(selectedRow, 0);
+                Room room = RoomDAO.getRoomByNumber(roomNumber);
                 new EditRoom(room).setVisible(true);
                 dispose();
             } catch (SQLException ex) {
