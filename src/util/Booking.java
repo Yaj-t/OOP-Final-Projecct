@@ -14,6 +14,7 @@ import java.time.LocalDate;
 public class Booking {
     private int id;
     private int tenantId;
+    private int roomId;
     private LocalDate checkInDate;
     private LocalDate checkOutDate;
     private double totalAmount;
@@ -21,8 +22,18 @@ public class Booking {
     public Booking() {
     }
 
-    public Booking(int tenantId, LocalDate checkInDate, LocalDate checkOutDate, double totalAmount) {
+    public Booking(int id, int tenantId, int roomId, LocalDate checkInDate, LocalDate checkOutDate, double totalAmount) {
+        this.id = id;
         this.tenantId = tenantId;
+        this.roomId = roomId;
+        this.checkInDate = checkInDate;
+        this.checkOutDate = checkOutDate;
+        this.totalAmount = totalAmount;
+    }
+
+    public Booking(int tenantId, int roomId, LocalDate checkInDate, LocalDate checkOutDate, double totalAmount) {
+        this.tenantId = tenantId;
+        this.roomId = roomId;
         this.checkInDate = checkInDate;
         this.checkOutDate = checkOutDate;
         this.totalAmount = totalAmount;
@@ -30,13 +41,6 @@ public class Booking {
     
     
 
-    public Booking(int id, int tenantId, LocalDate checkInDate, LocalDate checkOutDate, double totalAmount) {
-        this.id = id;
-        this.tenantId = tenantId;
-        this.checkInDate = checkInDate;
-        this.checkOutDate = checkOutDate;
-        this.totalAmount = totalAmount;
-    }
 
     public int getId() {
         return id;
@@ -52,6 +56,14 @@ public class Booking {
 
     public void setTenantId(int tenantId) {
         this.tenantId = tenantId;
+    }
+
+    public int getRoomId() {
+        return roomId;
+    }
+
+    public void setRoomId(int roomId) {
+        this.roomId = roomId;
     }
 
     public LocalDate getCheckInDate() {

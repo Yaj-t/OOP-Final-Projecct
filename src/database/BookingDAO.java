@@ -1,6 +1,7 @@
 package database;
 
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import util.Booking;
@@ -16,7 +17,7 @@ public class BookingDAO {
    
         try {
             // Prepare the SQL statement with placeholders for values
-            String sql = "INSERT INTO bookings (tenant_id, check_in_date, check_out_date, total_amount) VALUES (?, ?, ?, ?)";
+            String sql = "INSERT INTO bookings (tenant_id, check_in_date, check_out_date, total_amount, room_id) VALUES (?, ?, ?, ?, ?)";
             PreparedStatement statement = connection.prepareStatement(sql);
             
             // Set the values for the placeholders in the SQL statement
@@ -24,6 +25,7 @@ public class BookingDAO {
             statement.setDate(2, Date.valueOf(booking.getCheckInDate()));
             statement.setDate(3, Date.valueOf(booking.getCheckOutDate()));
             statement.setDouble(4, booking.getTotalAmount());
+            statement.setInt(5, booking.getRoomId());
             
             // Execute the SQL statement and check the number of rows affected
             int rowsAffected = statement.executeUpdate();
@@ -109,8 +111,9 @@ public class BookingDAO {
             // If there is a result, create a new Booking object and return it
             if (result.next()){
                 Booking booking = new Booking();
-                booking.setId(result.getInt("id"));
+                booking.setId(result.getInt("booking_id"));
                 booking.setTenantId(result.getInt("tenant_id"));
+                booking.setRoomId(result.getInt("room_id"));
                 booking.setCheckInDate(result.getDate("check_in_date").toLocalDate());
                 booking.setCheckOutDate(result.getDate("check_out_date").toLocalDate());
                 booking.setTotalAmount(result.getDouble("total_amount"));
@@ -139,8 +142,9 @@ public class BookingDAO {
             // Create a new Booking object for each result and add it to the list
             while (result.next()) {
                 Booking booking = new Booking();
-                booking.setId(result.getInt("id"));
+                booking.setId(result.getInt("booking_id"));
                 booking.setTenantId(result.getInt("tenant_id"));
+                booking.setRoomId(result.getInt("room_id"));
                 booking.setCheckInDate(result.getDate("check_in_date").toLocalDate());
                 booking.setCheckOutDate(result.getDate("check_out_date").toLocalDate());
                 booking.setTotalAmount(result.getDouble("total_amount"));
@@ -153,6 +157,30 @@ public class BookingDAO {
         }
         return bookings;
     }
+    
+    public static List<Booking> getBookingsByCheckInDate(LocalDate checkInDate) throws SQLException {
+    connection = null;
+    List<Booking> bookings = new ArrayList<>();
+    try {
+      connection = Connect.connectToDatabase();
+      String sql = "SELECT * FROM bookings WHERE check_in_date >= ?";
+      PreparedStatement statement = connection.prepareStatement(sql);
+      statement.setDate(1, java.sql.Date.valueOf(checkInDate));
+      ResultSet resultSet = statement.executeQuery();
+      while (resultSet.next()) {
+        Booking booking = new Booking();
+        booking.setId(resultSet.getInt("booking_id"));
+        booking.setTenantId(resultSet.getInt("tenant_id"));
+        booking.setRoomId(resultSet.getInt("room_id"));
+        booking.setCheckInDate(resultSet.getDate("check_in_date").toLocalDate());
+        booking.setCheckOutDate(resultSet.getDate("check_out_date").toLocalDate());
+        bookings.add(booking);
+      }
+    } finally {
+      Connect.closeConnection();
+    }
+    return bookings;
+  }
 
 // Static function to retrieve all bookings for a specific tenant from the database
     public static List<Booking> getBookingsByTenantId(int tenantId) throws SQLException {
@@ -172,8 +200,9 @@ public class BookingDAO {
             // Create a new Booking object for each result and add it to the list
             while (result.next()) {
                 Booking booking = new Booking();
-                booking.setId(result.getInt("id"));
+                booking.setId(result.getInt("booking_id"));
                 booking.setTenantId(result.getInt("tenant_id"));
+                booking.setRoomId(result.getInt("room_id"));
                 booking.setCheckInDate(result.getDate("check_in_date").toLocalDate());
                 booking.setCheckOutDate(result.getDate("check_out_date").toLocalDate());
                 booking.setTotalAmount(result.getDouble("total_amount"));
