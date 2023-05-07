@@ -10,6 +10,7 @@ package database;
  */
 
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -61,6 +62,34 @@ public class RoomDAO {
         }
         Connect.closeConnection();
         return rooms;
+    }
+    
+    public static List<Room> getAvailableRooms(LocalDate startDate, LocalDate endDate) throws SQLException {
+        List<Room> availableRooms = new ArrayList<>();
+        connection = null;
+        try {
+            connection = Connect.connectToDatabase();
+            String sql = "SELECT * FROM rooms WHERE id NOT IN (SELECT room_id FROM bookings WHERE (booking_start <= ? AND booking_end >= ?) OR (booking_start <= ? AND booking_end >= ?) OR (booking_start >= ? AND booking_end <= ?))";
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setDate(1, java.sql.Date.valueOf(endDate));
+            statement.setDate(2, java.sql.Date.valueOf(startDate));
+            statement.setDate(3, java.sql.Date.valueOf(startDate));
+            statement.setDate(4, java.sql.Date.valueOf(endDate));
+            statement.setDate(5, java.sql.Date.valueOf(startDate));
+            statement.setDate(6, java.sql.Date.valueOf(endDate));
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                Room room = new Room();
+                room.setRoomID(resultSet.getInt("room_id"));
+                room.setRoomNumber(resultSet.getString("room_number"));
+                room.setDescription(resultSet.getString("description"));
+                room.setPrice(resultSet.getDouble("price"));
+                availableRooms.add(room);
+            }
+        } finally {
+            Connect.closeConnection();
+        }
+        return availableRooms;
     }
 
     public static Room getRoomById(int roomID) throws SQLException {

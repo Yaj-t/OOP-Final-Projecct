@@ -14,6 +14,9 @@ public class Room {
     private double price;
     private String description;
 
+    public Room(){
+        
+    }
     public Room(int roomID, String roomNumber, double price, String description) {
         this.roomID = roomID;
         this.roomNumber = roomNumber;
