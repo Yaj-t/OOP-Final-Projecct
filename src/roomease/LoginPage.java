@@ -64,7 +64,7 @@ public class LoginPage extends javax.swing.JFrame {
 
         usernameField.setFont(new java.awt.Font("Roboto", 0, 16)); // NOI18N
         usernameField.setName("usernameField"); // NOI18N
-        usernameField.setRequestFocusEnabled(false);
+        //usernameField.setRequestFocusEnabled(false);
         usernameField.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 usernameFieldFocusGained(evt);
@@ -86,7 +86,7 @@ public class LoginPage extends javax.swing.JFrame {
         Password.setLabelFor(usernameField);
         Password.setText("Password:");
 
-        passwordField.setRequestFocusEnabled(false);
+        //passwordField.setRequestFocusEnabled(false);
         passwordField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 passwordFieldActionPerformed(evt);
