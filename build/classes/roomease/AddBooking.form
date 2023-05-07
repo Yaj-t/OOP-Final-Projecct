@@ -55,7 +55,7 @@
                                       <Component id="jFormattedTextField2" alignment="0" max="32767" attributes="0"/>
                                       <Component id="jFormattedTextField1" alignment="0" max="32767" attributes="0"/>
                                       <Component id="jLabel4" alignment="0" max="32767" attributes="0"/>
-                                      <Component id="jTextField2" alignment="0" pref="125" max="32767" attributes="0"/>
+                                      <Component id="jTextField2" alignment="0" max="32767" attributes="0"/>
                                       <Component id="jLabel5" alignment="0" max="32767" attributes="0"/>
                                   </Group>
                               </Group>

@@ -6,6 +6,8 @@ package roomease;
 
 import database.RoomDAO;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -142,7 +144,7 @@ public class AddBooking extends javax.swing.JFrame {
         jButton1.setText("Submit");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                submitInputButton(evt);
             }
         });
 
@@ -173,7 +175,7 @@ public class AddBooking extends javax.swing.JFrame {
                                         .addComponent(jFormattedTextField2, javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(jFormattedTextField1, javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(jTextField2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 125, Short.MAX_VALUE)
+                                        .addComponent(jTextField2, javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
@@ -242,16 +244,28 @@ public class AddBooking extends javax.swing.JFrame {
         dispose();
         AddRoom addRoom = new AddRoom();
         addRoom.setVisible(true);
+        System.out.println("Going to add room");
     }//GEN-LAST:event_addActionPerformed
 
     private void goBackButtomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_goBackButtomActionPerformed
         // TODO add your handling code here:
         dispose();
-        new AdminHome().setVisible(true);
+        new EmployeeHome().setVisible(true);
+        System.out.println("Going back to employee home");
     }//GEN-LAST:event_goBackButtomActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void submitInputButton(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+        System.out.println("Submit button pressed");
+        Date date1 = jDateChooser1.getDate();
+        Date date2 = jDateChooser2.getDate();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        String dateInString1 = sdf.format(date1);
+        String dateInString2 = sdf.format(date2);
+        System.out.println(dateInString1);
+        System.out.println(dateInString2);
+
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
