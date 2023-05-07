@@ -4,6 +4,7 @@
  */
 package roomease;
 
+import database.BookingDAO;
 import database.RoomDAO;
 import java.sql.SQLException;
 import java.util.List;
@@ -11,6 +12,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import util.Booking;
 import util.Room;
 
 /**
@@ -18,7 +20,7 @@ import util.Room;
  * @author Predator
  */
 public class BookingPage extends javax.swing.JFrame {
-    List <Room> roomList;
+    List <Booking> bookingList;
     /**
      * Creates new form Rooms
      */
@@ -27,15 +29,15 @@ public class BookingPage extends javax.swing.JFrame {
         initComponents();
         try {
             
-            roomList = RoomDAO.getAllRooms();
-            DefaultTableModel tableModel = (DefaultTableModel) roomsTable.getModel();
-            for (Room room : roomList) {
-                Object[] rowData = {room.getRoomID(), room.getRoomNumber(), room.getPrice(),room.getDescription()};
+            bookingList = BookingDAO.getAllBookings();
+            DefaultTableModel tableModel = (DefaultTableModel) BookingsTable.getModel();
+            for (Booking booking : bookingList) {
+                Object[] rowData = {booking.getId(), booking.getTenantId(), booking.getRoomId(),booking.getCheckInDate(), booking.getCheckOutDate(), booking.getTotalAmount()};
                 tableModel.addRow(rowData);
             }
-            roomsTable.setModel(tableModel);
+            BookingsTable.setModel(tableModel);
         } catch (SQLException ex) {
-            Logger.getLogger(Room.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Booking.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         
@@ -55,27 +57,32 @@ public class BookingPage extends javax.swing.JFrame {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         jScrollPane2 = new javax.swing.JScrollPane();
-        roomsTable = new javax.swing.JTable();
+        BookingsTable = new javax.swing.JTable();
         delete = new javax.swing.JButton();
         add = new javax.swing.JButton();
         edit = new javax.swing.JButton();
         goBackButtom = new javax.swing.JButton();
+        fromDate = new com.toedter.calendar.JDateChooser();
+        jLabel1 = new javax.swing.JLabel();
+        toDate = new com.toedter.calendar.JDateChooser();
+        jLabel2 = new javax.swing.JLabel();
+        Submit = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        roomsTable.setModel(new javax.swing.table.DefaultTableModel(
+        BookingsTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "ID", "Room #", "Room Price", "Description"
+                "ID", "Tenant ID", "Room ID", "Check In", "Check Out", "Fee"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.Integer.class, java.lang.Double.class, java.lang.String.class
+                java.lang.String.class, java.lang.Integer.class, java.lang.Double.class, java.lang.Object.class, java.lang.Object.class, java.lang.Double.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, true
+                false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -86,10 +93,10 @@ public class BookingPage extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        roomsTable.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        roomsTable.setShowGrid(true);
-        roomsTable.getTableHeader().setReorderingAllowed(false);
-        jScrollPane2.setViewportView(roomsTable);
+        BookingsTable.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        BookingsTable.setShowGrid(true);
+        BookingsTable.getTableHeader().setReorderingAllowed(false);
+        jScrollPane2.setViewportView(BookingsTable);
 
         delete.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
         delete.setText("DELETE");
@@ -123,41 +130,68 @@ public class BookingPage extends javax.swing.JFrame {
             }
         });
 
+        jLabel1.setText("From:");
+
+        jLabel2.setText("To:");
+
+        Submit.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        Submit.setText("Submit");
+        Submit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SubmitActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(12, 12, 12)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(goBackButtom, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(goBackButtom, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(50, 50, 50)
+                        .addComponent(jLabel1)
+                        .addGap(12, 12, 12)
+                        .addComponent(fromDate, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(12, 12, 12)
+                        .addComponent(jLabel2)
+                        .addGap(12, 12, 12)
+                        .addComponent(toDate, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(12, 12, 12)
+                        .addComponent(Submit))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 546, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(add, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(edit, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(delete, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(22, Short.MAX_VALUE))
+                            .addComponent(delete, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(10, 10, 10)
-                .addComponent(goBackButtom)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(goBackButtom)
+                    .addComponent(Submit)
                     .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(4, 4, 4)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addComponent(fromDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2)
+                            .addComponent(toDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(7, 7, 7)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
                         .addComponent(add)
                         .addGap(17, 17, 17)
                         .addComponent(edit)
                         .addGap(17, 17, 17)
-                        .addComponent(delete)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())))
+                        .addComponent(delete))))
         );
 
         pack();
@@ -166,13 +200,13 @@ public class BookingPage extends javax.swing.JFrame {
 
     private void deleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteActionPerformed
         // TODO add your handling code here:
-        int row = roomsTable.getSelectedRow(); // get the selected row
+        int row = BookingsTable.getSelectedRow(); // get the selected row
         if (row != -1) { // check if a row is selected
             int option = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete this room?",
                 "Confirm Deletion", JOptionPane.YES_NO_OPTION); // confirm deletion with user
 
             if (option == JOptionPane.YES_OPTION) { // user confirms deletion
-                int roomID =(int) roomsTable.getValueAt(row, 0); // get the username from the table
+                int roomID =(int) BookingsTable.getValueAt(row, 0); // get the username from the table
                 try {
                         RoomDAO.deleteRoom(roomID);
                         dispose();
@@ -187,20 +221,13 @@ public class BookingPage extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_deleteActionPerformed
 
-    private void addActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addActionPerformed
-        //TODO add your handling code here:
-        dispose();
-        AddRoom addRoom = new AddRoom();
-        addRoom.setVisible(true);
-    }//GEN-LAST:event_addActionPerformed
-
     private void editActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editActionPerformed
-        int selectedRow = roomsTable.getSelectedRow();
+        int selectedRow = BookingsTable.getSelectedRow();
         if(selectedRow !=-1){
             try {
                 // TODO add your handling code here:
 
-                int roomID = (int) roomsTable.getValueAt(selectedRow, 0);
+                int roomID = (int) BookingsTable.getValueAt(selectedRow, 0);
                 Room room = RoomDAO.getRoomById(roomID);
                 new EditRoom(room).setVisible(true);
                 dispose();
@@ -217,6 +244,18 @@ public class BookingPage extends javax.swing.JFrame {
         dispose();
         new AdminHome().setVisible(true);
     }//GEN-LAST:event_goBackButtomActionPerformed
+
+    private void SubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SubmitActionPerformed
+        // TODO add your handling code here:
+                  
+    }//GEN-LAST:event_SubmitActionPerformed
+
+    private void addActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addActionPerformed
+        //TODO add your handling code here:
+        dispose();
+        AddRoom addRoom = new AddRoom();
+        addRoom.setVisible(true);
+    }//GEN-LAST:event_addActionPerformed
 
     /**
      * @param args the command line arguments
@@ -259,12 +298,17 @@ public class BookingPage extends javax.swing.JFrame {
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTable BookingsTable;
+    private javax.swing.JButton Submit;
     private javax.swing.JButton add;
     private javax.swing.JButton delete;
     private javax.swing.JButton edit;
+    private com.toedter.calendar.JDateChooser fromDate;
     private javax.swing.JButton goBackButtom;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable roomsTable;
+    private com.toedter.calendar.JDateChooser toDate;
     // End of variables declaration//GEN-END:variables
 }
