@@ -175,9 +175,20 @@ public class LoginPage extends javax.swing.JFrame {
             User user = UserDAO.getUserByUsername(username);
             if (user != null && user.getPassword().equals(passwordField.getText())) {
 // login successful, open main application window
-                AdminHome home = new AdminHome();
-                home.setVisible(true);
-                dispose(); // close the login window
+
+                //If the user is a admin, open the admin home page
+                if (user.getType().equals(1)) {
+                    System.out.println("Admin");
+                    AdminHome home = new AdminHome();
+                    home.setVisible(true);
+                    dispose(); // close the login window
+                } else {
+                    //If the user is a employee, open the employee home page
+                    System.out.println("Employee");
+                    EmployeeHome home = new EmployeeHome();
+                    home.setVisible(true);
+                    dispose(); // close the login window
+                }
             } else {
 // invalid username or password
                 JOptionPane.showMessageDialog(this, "Invalid username or password", "Login Error", JOptionPane.ERROR_MESSAGE);
