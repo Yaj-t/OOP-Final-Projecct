@@ -1,9 +1,9 @@
-x`-- phpMyAdmin SQL Dump
+-- phpMyAdmin SQL Dump
 -- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 06, 2023 at 03:13 PM
+-- Generation Time: May 07, 2023 at 02:39 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -42,10 +42,10 @@ CREATE TABLE `amenities` (
 CREATE TABLE `bookings` (
   `booking_id` int(11) NOT NULL,
   `tenant_id` int(11) NOT NULL,
+  `room_id` int(11) DEFAULT NULL,
   `check_in_date` date NOT NULL,
-  `checkout_date` date NOT NULL,
-  `total_amount` decimal(10,2) NOT NULL,
-  `room_id` int(11) DEFAULT NULL
+  `check_out_date` date NOT NULL,
+  `total_amount` decimal(10,2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -96,14 +96,14 @@ CREATE TABLE `rooms` (
   `room_id` int(11) NOT NULL,
   `room_number` varchar(50) NOT NULL,
   `room_price` decimal(10,2) NOT NULL,
-  `room_description` varchar(255) DEFAULT NULL
+  `description` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `rooms`
 --
 
-INSERT INTO `rooms` (`room_id`, `room_number`, `room_price`, `room_description`) VALUES
+INSERT INTO `rooms` (`room_id`, `room_number`, `room_price`, `description`) VALUES
 (1, '101', '100.00', 'single_room'),
 (2, '102', '70.00', 'double_room'),
 (3, '103', '90.00', 'double_room'),
@@ -113,7 +113,7 @@ INSERT INTO `rooms` (`room_id`, `room_number`, `room_price`, `room_description`)
 (7, '107', '100.00', 'shared'),
 (8, '108', '70.00', 'single_room'),
 (9, '109', '150.00', 'suite'),
-(10, '110', '110.00', 'shared');
+(10, '115', '120.00', 'shared room');
 
 -- --------------------------------------------------------
 
@@ -262,7 +262,7 @@ ALTER TABLE `expenses`
 -- AUTO_INCREMENT for table `rooms`
 --
 ALTER TABLE `rooms`
-  MODIFY `room_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `room_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `room_amenities`
