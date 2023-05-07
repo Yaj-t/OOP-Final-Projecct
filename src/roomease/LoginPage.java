@@ -5,6 +5,8 @@
 package roomease;
 import user.User;
 import database.UserDAO;
+import enums.UserType;
+
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -174,10 +176,9 @@ public class LoginPage extends javax.swing.JFrame {
         try {
             User user = UserDAO.getUserByUsername(username);
             if (user != null && user.getPassword().equals(passwordField.getText())) {
-// login successful, open main application window
-
+            // login successful, open main application window
                 //If the user is a admin, open the admin home page
-                if (user.getType().equals(1)) {
+                if (user.getType() == UserType.ADMIN) {
                     System.out.println("Admin");
                     AdminHome home = new AdminHome();
                     home.setVisible(true);
