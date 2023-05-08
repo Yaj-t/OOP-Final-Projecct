@@ -341,7 +341,7 @@ public class RoomCheck extends javax.swing.JFrame {
         if (dialogResult == JOptionPane.YES_OPTION) {
             // Saving code here
             System.out.println("Yes option selected");
-            new AddTenant(room.getId(), checkInDate, checkOutDate).setVisible(true);
+            new AddTenant(room, checkInDate, checkOutDate).setVisible(true);
             this.dispose();
             
         } else {

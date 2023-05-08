@@ -4,6 +4,7 @@
  */
 package roomease;
 
+import database.RentalDAO;
 import database.TenantDAO;
 import database.UserDAO;
 import enums.UserType;
@@ -11,9 +12,11 @@ import javax.swing.JOptionPane;
 import user.User;
 import java.sql.*;
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import util.Rental;
+import util.Room;
 import util.Tenant;
 
 /**
@@ -29,13 +32,13 @@ public class AddTenant extends javax.swing.JFrame {
         initComponents();
     }
 
-    int RoomId;
+    Room room;
     LocalDate startDate;
     LocalDate endDate;
 
-    public AddTenant(int RoomId, LocalDate startDate, LocalDate endDate) {
+    public AddTenant(Room Room, LocalDate startDate, LocalDate endDate) {
         initComponents();
-        this.RoomId = RoomId;
+        this.room = Room;
         this.startDate = startDate;
         this.endDate = endDate;
     }
@@ -177,9 +180,10 @@ public class AddTenant extends javax.swing.JFrame {
         } else {
             //Create a new tenant object
             Tenant tenant = new Tenant(0,firstName, lastName, email, phoneNumber);
+            int tenantID = 0;
             try {
                 //Add the tenant to the database
-                int tenantID = TenantDAO.addTenant(tenant);
+                 tenantID = TenantDAO.addTenant(tenant);
             } catch (SQLException ex) {
                 Logger.getLogger(AddTenant.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -187,11 +191,27 @@ public class AddTenant extends javax.swing.JFrame {
             int dialogButton = JOptionPane.YES_NO_OPTION;
             int dialogResult = JOptionPane.showConfirmDialog(null, "Confirm to add Rental?", "Warning", dialogButton);
             if (dialogResult == JOptionPane.YES_OPTION) {
-                JOptionPane.showMessageDialog(null, "Rental added successfully");
-                //Create a new rental object
                 
-                Rental rental = new Rental(0, tenantID, roomId, startDate, endDate, 0);
+                
 
+                try {
+                    //calculate the days of the rental
+                    long days = ChronoUnit.DAYS.between(startDate, endDate);
+                    int daysInt = Math.toIntExact(days);
+
+                    System.out.println("Number of days: " + daysInt);
+                    
+                    //calculate the total price of the rental
+                    double totalPrice = days * room.getPrice();
+                    
+                    //Create a new rental object
+                    Rental rental = new Rental(0, tenantID, room.getId(), startDate, endDate, totalPrice);
+                    
+                    RentalDAO.addRental(rental);
+                    JOptionPane.showMessageDialog(null, "Rental added successfully");
+                } catch (SQLException ex) {
+                    Logger.getLogger(AddTenant.class.getName()).log(Level.SEVERE, null, ex);
+                }
 
             } else {
                 JOptionPane.showMessageDialog(null, "Rental not added");

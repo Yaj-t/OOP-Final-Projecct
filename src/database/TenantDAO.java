@@ -16,7 +16,7 @@ public class TenantDAO {
     // Add a new tenant to the database
     public static int addTenant(Tenant tenant) throws SQLException {
         conn = Connect.connectToDatabase();
-        PreparedStatement stmt = conn.prepareStatement("INSERT INTO tenants (first_name, last_name, phone_number, email) VALUES (?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
+        PreparedStatement stmt = conn.prepareStatement("INSERT INTO tenant (first_name, last_name, phone_number, email) VALUES (?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
         stmt.setString(1, tenant.getFirstName());
         stmt.setString(2, tenant.getLastName());
         stmt.setString(3, tenant.getPhoneNumber());
@@ -37,7 +37,7 @@ public class TenantDAO {
     // Retrieve a tenant from the database by ID
     public static Tenant getTenantById(int id) throws SQLException {
         conn = Connect.connectToDatabase();
-        PreparedStatement stmt = conn.prepareStatement("SELECT * FROM tenants WHERE tenant_id = ?");
+        PreparedStatement stmt = conn.prepareStatement("SELECT * FROM tenant WHERE tenant_id = ?");
         stmt.setInt(1, id);
         ResultSet rs = stmt.executeQuery();
         if (rs.next()) {
@@ -48,24 +48,24 @@ public class TenantDAO {
         return null;
     }
 
-    // Retrieve all tenants from the database
-    public static List<Tenant> getAllTenants() throws SQLException {
+    // Retrieve all tenant from the database
+    public static List<Tenant> getAlltenant() throws SQLException {
         conn = Connect.connectToDatabase();
-        List<Tenant> tenants = new ArrayList<>();
-        PreparedStatement stmt = conn.prepareStatement("SELECT * FROM tenants");
+        List<Tenant> tenant = new ArrayList<>();
+        PreparedStatement stmt = conn.prepareStatement("SELECT * FROM tenant");
         ResultSet rs = stmt.executeQuery();
         while (rs.next()) {
-            tenants.add(new Tenant(rs.getInt("tenant_id"), rs.getString("first_name"), rs.getString("last_name"), rs.getString("phone_number"), rs.getString("email")));
+            tenant.add(new Tenant(rs.getInt("tenant_id"), rs.getString("first_name"), rs.getString("last_name"), rs.getString("phone_number"), rs.getString("email")));
         }
         Connect.closeConnection();
-        return tenants;
+        return tenant;
         
     }
 
     // Update a tenant in the database
     public static void updateTenant(Tenant tenant) throws SQLException {
         conn = Connect.connectToDatabase();
-        PreparedStatement stmt = conn.prepareStatement("UPDATE tenants SET first_name = ?, last_name = ?, phone_number = ?, email = ? WHERE tenant_id = ?");
+        PreparedStatement stmt = conn.prepareStatement("UPDATE tenant SET first_name = ?, last_name = ?, phone_number = ?, email = ? WHERE tenant_id = ?");
         stmt.setString(1, tenant.getFirstName());
         stmt.setString(2, tenant.getLastName());
         stmt.setString(3, tenant.getPhoneNumber());
@@ -78,7 +78,7 @@ public class TenantDAO {
     // Delete a tenant from the database by ID
     public static void deleteTenantById(int id) throws SQLException {
         conn = Connect.connectToDatabase();
-        PreparedStatement stmt = conn.prepareStatement("DELETE FROM tenants WHERE tenant_id = ?");
+        PreparedStatement stmt = conn.prepareStatement("DELETE FROM tenant WHERE tenant_id = ?");
         stmt.setInt(1, id);
         stmt.executeUpdate();
         Connect.closeConnection();
