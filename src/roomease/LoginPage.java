@@ -3,11 +3,19 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package roomease;
+import user.Session;
 import user.User;
+import util.AdminLoginLogs;
+import database.AdminLogs;
 import database.UserDAO;
+import enums.LogType;
 import enums.UserType;
-
+import util.*;
+import java.time.LocalDate;
+import database.*;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -182,12 +190,25 @@ public class LoginPage extends javax.swing.JFrame {
                     System.out.println("Admin");
                     AdminHome home = new AdminHome();
                     home.setVisible(true);
+                    // // Create a login session
+                    Session session = new Session(user);
+                    
+                    // Create a login log to the sql database
+                    AdminLoginLogs log = new AdminLoginLogs(0, user.getUserID(), LogType.Login, LocalDateTime.now());
+                    AdminLogs.createAdminLoginLog(log);
                     dispose(); // close the login window
                 } else {
                     //If the user is a employee, open the employee home page
                     System.out.println("Employee");
                     EmployeeHome home = new EmployeeHome();
                     home.setVisible(true);
+
+                    // Create a login session
+                    Session session = new Session(user);
+
+                    // Create a login log to the sql database
+                    EmployeeLoginLogs log = new EmployeeLoginLogs(0, user.getUserID(), LogType.Login, LocalDateTime.now());
+                    EmployeeLogs.createEmployeeLoginLog(log);
                     dispose(); // close the login window
                 }
             } else {
