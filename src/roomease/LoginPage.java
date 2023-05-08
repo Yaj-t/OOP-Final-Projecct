@@ -5,6 +5,7 @@
 package roomease;
 import user.User;
 import database.UserDAO;
+import enums.UserType;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -158,23 +159,30 @@ public class LoginPage extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginButtonActionPerformed
-        // TODO add your handling code here:
         String username = usernameField.getText();
-        try {
-            User user = UserDAO.getUserByUsername(username);
-            if (user != null && user.getPassword().equals(passwordField.getText())) {
-// login successful, open main application window
+    try {
+        User user = UserDAO.getUserByUsername(username);
+        if (user != null && user.getPassword().equals(passwordField.getText())) {
+            if (user.getType() == UserType.ADMIN) {
+                // login successful, open main application window for admin
                 AdminHome home = new AdminHome();
                 home.setVisible(true);
-                dispose(); // close the login window
-            } else {
-// invalid username or password
-                JOptionPane.showMessageDialog(this, "Invalid username or password", "Login Error", JOptionPane.ERROR_MESSAGE);
+                dispose();
+            } else if (user.getType() == UserType.Employee) {
+                // login successful, open main application window for employee
+                dispose();
+                EmployeeHome home = new EmployeeHome();
+                home.setVisible(true);
             }
-        } catch (SQLException ex) {
-            Logger.getLogger(LoginPage.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(this, "An error occurred while trying to log in", "Login Error", JOptionPane.ERROR_MESSAGE);
+             // close the login window
+        } else {
+            // invalid username or password
+            JOptionPane.showMessageDialog(this, "Invalid username or password", "Login Error", JOptionPane.ERROR_MESSAGE);
         }
+    } catch (SQLException ex) {
+        Logger.getLogger(LoginPage.class.getName()).log(Level.SEVERE, null, ex);
+        JOptionPane.showMessageDialog(this, "An error occurred while trying to log in", "Login Error", JOptionPane.ERROR_MESSAGE);
+    }
     }//GEN-LAST:event_loginButtonActionPerformed
 
     /**
