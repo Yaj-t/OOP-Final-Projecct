@@ -1,3 +1,1 @@
-*.class
 build/
-src/database/Connect.java
