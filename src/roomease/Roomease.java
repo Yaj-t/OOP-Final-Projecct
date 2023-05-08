@@ -2,7 +2,8 @@ package roomease;
 public class Roomease {
     
     public static void main(String[] args) {
-        LoginPage login = new LoginPage();
+        LoginPage login;
+        login = new LoginPage();
         login.setVisible(true);
     }
 }
