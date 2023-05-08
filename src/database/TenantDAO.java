@@ -36,16 +36,17 @@ public class TenantDAO {
 
     // Retrieve a tenant from the database by ID
     public static Tenant getTenantById(int id) throws SQLException {
+        
         conn = Connect.connectToDatabase();
+        Tenant tenant = null;
         PreparedStatement stmt = conn.prepareStatement("SELECT * FROM tenant WHERE tenant_id = ?");
         stmt.setInt(1, id);
         ResultSet rs = stmt.executeQuery();
         if (rs.next()) {
-            Connect.closeConnection();
-            return new Tenant(rs.getInt("tenant_id"), rs.getString("first_name"), rs.getString("last_name"), rs.getString("phone_number"), rs.getString("email"));
+             tenant = new Tenant(rs.getInt("tenant_id"), rs.getString("first_name"), rs.getString("last_name"), rs.getString("phone_number"), rs.getString("email"));
         }
         Connect.closeConnection();
-        return null;
+        return tenant;
     }
 
     // Retrieve all tenant from the database

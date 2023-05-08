@@ -8,24 +8,48 @@ import enums.LogType;
 import java.time.LocalDateTime;
 
 import database.EmployeeLogs;
+import database.RentalDAO;
+import database.RoomDAO;
+import database.TenantDAO;
+import database.UserDAO;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.table.DefaultTableModel;
 import user.Employee;
 import user.Session;
 import util.EmployeeLoginLogs;
+import util.Rental;
+import util.Room;
 
 /**
  *
  * @author Predator
  */
 public class EmployeeHome extends javax.swing.JFrame {
-
+    List <Rental> rentalsList;
     /**
      * Creates new form EmployeeHome
      */
     public EmployeeHome() {
         initComponents();
+        try {
+            
+            rentalsList = RentalDAO.getActiveRentals();
+            System.out.println("here");
+            DefaultTableModel tableModel = (DefaultTableModel) rentalsTable.getModel();
+            
+            for (Rental rental : rentalsList) {
+                Object[] rowData = {TenantDAO.getTenantById(rental.getTenant_id()).getFirstName(), RoomDAO.getRoomByID(rental.getRoom_id()).getRoomNumber(), rental.getCheck_in_date(), rental.getCheck_out_date(), rental.getTotal_amount()};
+                tableModel.addRow(rowData);
+            }
+//            rentalsTable.setModel(tableModel);
+            rentalsTable.setModel(tableModel);
+        } catch (SQLException ex) {
+            Logger.getLogger(Rental.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -43,6 +67,8 @@ public class EmployeeHome extends javax.swing.JFrame {
         jButton3 = new javax.swing.JButton();
         expensesButton1 = new javax.swing.JButton();
         expensesButton2 = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        rentalsTable = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -93,74 +119,111 @@ public class EmployeeHome extends javax.swing.JFrame {
         sidePanelLayout.setHorizontalGroup(
             sidePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(sidePanelLayout.createSequentialGroup()
-                .addGap(147, 147, 147)
-                .addComponent(expensesButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(sidePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(expensesButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(expensesButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap()
+                .addGroup(sidePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(expensesButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(expensesButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(expensesButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(bookingsButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(sidePanelLayout.createSequentialGroup()
-                .addGap(353, 353, 353)
-                .addGroup(sidePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(bookingsButton)
-                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(568, Short.MAX_VALUE))
         );
         sidePanelLayout.setVerticalGroup(
             sidePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(sidePanelLayout.createSequentialGroup()
-                .addGap(104, 104, 104)
+                .addContainerGap()
                 .addComponent(bookingsButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 97, Short.MAX_VALUE)
-                .addGroup(sidePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, sidePanelLayout.createSequentialGroup()
-                        .addComponent(expensesButton1)
-                        .addGap(18, 18, 18))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, sidePanelLayout.createSequentialGroup()
-                        .addComponent(expensesButton)
-                        .addGap(4, 4, 4)))
-                .addComponent(expensesButton2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(expensesButton)
+                .addGap(18, 18, 18)
+                .addComponent(expensesButton1)
+                .addGap(18, 18, 18)
+                .addComponent(expensesButton2)
+                .addGap(85, 85, 85)
                 .addComponent(jButton3)
-                .addGap(46, 46, 46))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        rentalsTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Tenant", "Room", "Check in", "Check out", "Amount"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class, java.lang.Double.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(rentalsTable);
+        if (rentalsTable.getColumnModel().getColumnCount() > 0) {
+            rentalsTable.getColumnModel().getColumn(2).setPreferredWidth(100);
+            rentalsTable.getColumnModel().getColumn(3).setPreferredWidth(100);
+        }
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(sidePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(sidePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 308, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(357, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(sidePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(38, 38, 38)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(58, Short.MAX_VALUE))
         );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void expensesButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_expensesButtonActionPerformed
-        dispose();
-        new ExpensesPage().setVisible(true);
-    }//GEN-LAST:event_expensesButtonActionPerformed
+    private void expensesButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_expensesButton2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_expensesButton2ActionPerformed
+
+    private void expensesButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_expensesButton1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_expensesButton1ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        
+
         try {
             //create a new employee login log
             EmployeeLoginLogs log = new EmployeeLoginLogs(0, Session.getCurrentUser().getUserID(), LogType.Logout, LocalDateTime.now());
             //add the log to the database
             EmployeeLogs.createEmployeeLoginLog(log);
             Session.logout();
-            
+
             dispose();
             new LoginPage().setVisible(true);
         } catch (SQLException ex) {
             Logger.getLogger(EmployeeHome.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void expensesButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_expensesButtonActionPerformed
+        dispose();
+        new ExpensesPage().setVisible(true);
+    }//GEN-LAST:event_expensesButtonActionPerformed
 
     private void bookingsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bookingsButtonActionPerformed
         try {
@@ -171,14 +234,6 @@ public class EmployeeHome extends javax.swing.JFrame {
             Logger.getLogger(EmployeeHome.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_bookingsButtonActionPerformed
-
-    private void expensesButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_expensesButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_expensesButton1ActionPerformed
-
-    private void expensesButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_expensesButton2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_expensesButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -221,6 +276,8 @@ public class EmployeeHome extends javax.swing.JFrame {
     private javax.swing.JButton expensesButton1;
     private javax.swing.JButton expensesButton2;
     private javax.swing.JButton jButton3;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable rentalsTable;
     private javax.swing.JPanel sidePanel;
     // End of variables declaration//GEN-END:variables
 }
