@@ -1,6 +1,7 @@
 package enums;
 
-public class LogType {
-    String LOGIN = "LOGIN";
-    String LOGOUT = "LOGOUT";
+
+public enum LogType {
+        Login,
+        Logout;
 }
