@@ -1,1 +1,3 @@
 build/
+*.class
+build/classes/roomease/EmployeeHome.class
