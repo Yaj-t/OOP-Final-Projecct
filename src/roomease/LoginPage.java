@@ -177,7 +177,7 @@ static Session session = null;
 
             if (user != null && user.getPassword().equals(password)) {
                 UserType userType = user.getType();
-                
+                User.currentUser = user;
                 if (userType == UserType.ADMIN) {
                     // Open main application window for admin
                     AdminHome home = new AdminHome();

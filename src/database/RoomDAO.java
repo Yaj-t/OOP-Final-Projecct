@@ -65,9 +65,8 @@ public class RoomDAO {
     
     public static List<Room> getAvailableRooms(LocalDate startDate, LocalDate endDate) throws SQLException {
         List<Room> availableRooms = new ArrayList<>();
-    
-        try (Connection connection = Connect.connectToDatabase();
-             PreparedStatement statement = connection.prepareStatement(
+        connection = Connect.connectToDatabase();
+        try (PreparedStatement statement = connection.prepareStatement(
                      "SELECT room_id, room_number, description, room_price FROM rooms " +
                      "WHERE room_id NOT IN (" +
                          "SELECT room_id FROM rentals " +

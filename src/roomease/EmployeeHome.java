@@ -50,6 +50,7 @@ public class EmployeeHome extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(Rental.class.getName()).log(Level.SEVERE, null, ex);
         }
+   
     }
 
     /**
@@ -237,7 +238,7 @@ public class EmployeeHome extends javax.swing.JFrame {
     private void bookingsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bookingsButtonActionPerformed
         try {
             dispose();
-            new RoomCheck().setVisible(rootPaneCheckingEnabled);
+            new RoomCheck().setVisible(true);
             //new BookingPage().setVisible(true);
         } catch (SQLException ex) {
             Logger.getLogger(EmployeeHome.class.getName()).log(Level.SEVERE, null, ex);

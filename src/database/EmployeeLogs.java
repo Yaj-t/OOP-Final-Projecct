@@ -25,7 +25,7 @@ public class EmployeeLogs {
             statement.setTimestamp(3, Timestamp.valueOf(employeeActionLog.getActionTime()));
             statement.executeUpdate();
         }
-        connection.close();
+        Connect.closeConnection();
     }
 
     // Create Employee Login Log
@@ -38,7 +38,7 @@ public class EmployeeLogs {
             statement.setTimestamp(3, Timestamp.valueOf(employeeLoginLogs.getLogTime()));
             statement.executeUpdate();
         }
-        connection.close();
+        Connect.closeConnection();
     }
 
     // Get All Employee Action Logs
@@ -58,7 +58,7 @@ public class EmployeeLogs {
                 employeeActionLogs.add(employeeActionLog);
             }
         } finally {
-            connection.close();
+            Connect.closeConnection();
         }
         return employeeActionLogs;
     }
@@ -80,7 +80,7 @@ public class EmployeeLogs {
                 employeeLoginLogs.add(employeeLoginLog);
             }
         } finally {
-            connection.close();
+            Connect.closeConnection();
         }
         return employeeLoginLogs;
     }

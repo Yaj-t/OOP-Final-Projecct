@@ -5,6 +5,7 @@
 package roomease;
 
 import database.ExpenseDAO;
+import database.UserDAO;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.logging.Level;
@@ -30,7 +31,7 @@ public class ExpensesPage extends javax.swing.JFrame {
             expenseList = ExpenseDAO.getAllExpenses();
             DefaultTableModel tableModel = (DefaultTableModel) expensesTable.getModel();
             for (Expense expense : expenseList) {
-                Object[] rowData = {expense.getId(), expense.getAmount(), expense.getDate().toString(), expense.getDescription()};
+                Object[] rowData = {expense.getId(), expense.getAmount(), expense.getDate().toString(), expense.getDescription(), UserDAO.getUserByID(expense.getUser_id()).getName()};
                 tableModel.addRow(rowData);
             }
             expensesTable.setModel(tableModel);
@@ -68,14 +69,14 @@ public class ExpensesPage extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID", "Amount", "Date", "Description"
+                "ID", "Amount", "Date", "Description", "User"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.Double.class, java.lang.Object.class, java.lang.String.class
+                java.lang.String.class, java.lang.Double.class, java.lang.Object.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -214,7 +215,7 @@ public class ExpensesPage extends javax.swing.JFrame {
     private void goBackButtomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_goBackButtomActionPerformed
         // TODO add your handling code here:
         dispose();
-       //new EmployeeHome().setVisible(true);
+       new EmployeeHome().setVisible(true);
     }//GEN-LAST:event_goBackButtomActionPerformed
 
     /**
