@@ -54,7 +54,7 @@ public class EmployeeLogs {
                 employeeActionLogs.add(employeeActionLog);
             }
         }
-        Connect.closeConnection();
+        //Connect.closeConnection();
         return employeeActionLogs;
     }
 

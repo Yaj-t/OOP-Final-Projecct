@@ -3,30 +3,22 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package roomease;
+
+import user.Session;
 import user.User;
+import util.AdminLoginLogs;
+import util.EmployeeLoginLogs;
+import database.AdminLogs;
+import database.EmployeeLogs;
 import database.UserDAO;
-<<<<<<< HEAD
-<<<<<<< HEAD
-import enums.UserType;
-import java.sql.SQLException;
-=======
-=======
->>>>>>> 63b24cf046bab440fa5a12e3efa21da384ce249f
 import enums.LogType;
 import enums.UserType;
-import util.*;
-import database.*;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
-<<<<<<< HEAD
->>>>>>> 63b24cf046bab440fa5a12e3efa21da384ce249f
-=======
->>>>>>> 63b24cf046bab440fa5a12e3efa21da384ce249f
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import roomease.AdminHome;
-import roomease.EmployeeHome;
+
 /**
  *
  * @author Predator
@@ -61,7 +53,6 @@ public class LoginPage extends javax.swing.JFrame {
         loginButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         background.setBackground(new java.awt.Color(244, 233, 205));
 
@@ -79,24 +70,6 @@ public class LoginPage extends javax.swing.JFrame {
         jLabel1.setText("LOGIN");
 
         usernameField.setFont(new java.awt.Font("Roboto", 0, 16)); // NOI18N
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-=======
->>>>>>> 63b24cf046bab440fa5a12e3efa21da384ce249f
-        usernameField.setName("usernameField"); // NOI18N
-        //usernameField.setRequestFocusEnabled(false);
-        usernameField.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                usernameFieldFocusGained(evt);
-            }
-        });
-        usernameField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                usernameFieldActionPerformed(evt);
-            }
-        });
->>>>>>> 63b24cf046bab440fa5a12e3efa21da384ce249f
 
         jLabel2.setFont(new java.awt.Font("Roboto", 1, 18)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -108,22 +81,6 @@ public class LoginPage extends javax.swing.JFrame {
         Password.setLabelFor(usernameField);
         Password.setText("Password:");
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-=======
->>>>>>> 63b24cf046bab440fa5a12e3efa21da384ce249f
-        //passwordField.setRequestFocusEnabled(false);
-        passwordField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                passwordFieldActionPerformed(evt);
-            }
-        });
-
-<<<<<<< HEAD
->>>>>>> 63b24cf046bab440fa5a12e3efa21da384ce249f
-=======
->>>>>>> 63b24cf046bab440fa5a12e3efa21da384ce249f
         loginButton.setLabel("Login");
         loginButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -195,53 +152,61 @@ public class LoginPage extends javax.swing.JFrame {
                 .addGap(71, 71, 71))
         );
 
-        getContentPane().add(background, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(background, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(background, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginButtonActionPerformed
-        // TODO add your handling code here:
+
+        private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginButtonActionPerformed
         String username = usernameField.getText();
+        String password = passwordField.getText();
+
         try {
             User user = UserDAO.getUserByUsername(username);
-            if (user != null && user.getPassword().equals(passwordField.getText())) {
-                if (user.getType() == UserType.ADMIN) {
-                    // login successful, open main application window for admin
+
+            if (user != null && user.getPassword().equals(password)) {
+                UserType userType = user.getType();
+                Session session;
+                if (userType == UserType.ADMIN) {
+                    // Open main application window for admin
                     AdminHome home = new AdminHome();
+                    AdminLoginLogs loginLogs = new AdminLoginLogs(0, user.getUserID(), LogType.Login, LocalDateTime.now());
+                    AdminLogs.createAdminLoginLog(loginLogs);
                     home.setVisible(true);
-                } else if (user.getType() == UserType.EMPLOYEE) {
-                    // login successful, open main application window for employee
+                } else if (userType == UserType.EMPLOYEE) {
+                    // Open main application window for employee
                     EmployeeHome home = new EmployeeHome();
+                    EmployeeLoginLogs loginLogs = new EmployeeLoginLogs(0, user.getUserID(), LogType.Login, LocalDateTime.now());
+                    EmployeeLogs.createEmployeeLoginLog(loginLogs);
                     home.setVisible(true);
+                } else {
+                    throw new IllegalArgumentException("Invalid user type: " + userType);
                 }
-                dispose(); // close the login window
+
+                // Create a login session
+                session = new Session(user);                
+                dispose();
             } else {
-                // invalid username or password
+                // Invalid username or password
                 JOptionPane.showMessageDialog(this, "Invalid username or password", "Login Error", JOptionPane.ERROR_MESSAGE);
             }
         } catch (SQLException ex) {
             Logger.getLogger(LoginPage.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(this, "An error occurred while trying to log in", "Login Error", JOptionPane.ERROR_MESSAGE);
         }
-    }//GEN-LAST:event_loginButtonActionPerformed
-
-    private void usernameFieldFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_usernameFieldFocusGained
-        // TODO add your handling code here:
-        if(usernameField.getText().equals("username")){
-            usernameField.setText("");
-        }
-    }//GEN-LAST:event_usernameFieldFocusGained
-
-    private void passwordFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passwordFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_passwordFieldActionPerformed
-
-    private void usernameFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usernameFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_usernameFieldActionPerformed
-
+    }
+//GEN-LAST:event_loginButtonActionPerformed
     /**
      * @param args the command line arguments
      */
@@ -267,6 +232,8 @@ public class LoginPage extends javax.swing.JFrame {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(LoginPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
