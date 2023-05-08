@@ -179,6 +179,7 @@ public class LoginPage extends javax.swing.JFrame {
                     // Create a login log to the sql database
                     AdminLoginLogs log = new AdminLoginLogs(0, user.getUserID(), LogType.Login, LocalDateTime.now());
                     AdminLogs.createAdminLoginLog(log);
+                    dispose(); // close the login window
                 } else if (user.getType() == UserType.EMPLOYEE) {
                     // login successful, open main application window for employee
                     EmployeeHome home = new EmployeeHome();
@@ -187,8 +188,8 @@ public class LoginPage extends javax.swing.JFrame {
                     EmployeeLoginLogs log = new EmployeeLoginLogs(0, user.getUserID(), LogType.Login, LocalDateTime.now());
                     EmployeeLogs.createEmployeeLoginLog(log);
                     home.setVisible(true);
+                    dispose(); // close the login window
                 }
-                dispose(); // close the login window
             } else {
                 // invalid username or password
                 JOptionPane.showMessageDialog(this, "Invalid username or password", "Login Error", JOptionPane.ERROR_MESSAGE);

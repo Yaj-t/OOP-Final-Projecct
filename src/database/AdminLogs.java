@@ -1,4 +1,5 @@
 package database;
+
 import enums.LogType;
 import java.sql.*;
 import java.util.ArrayList;
@@ -7,11 +8,11 @@ import util.AdminActionLog;
 import util.AdminLoginLogs;
 
 public class AdminLogs {
-    
+
     // Connection
     private static Connection connection;
 
-    public AdminLogs(){  
+    public AdminLogs() {
     }
 
     // Create Admin Action Log
@@ -24,6 +25,7 @@ public class AdminLogs {
             statement.setTimestamp(3, java.sql.Timestamp.valueOf(adminActionLog.getActionTime()));
             statement.executeUpdate();
         }
+        Connect.closeConnection();
     }
 
     // Create Admin Login Log
@@ -36,6 +38,7 @@ public class AdminLogs {
             statement.setTimestamp(3, java.sql.Timestamp.valueOf(adminLoginLogs.getLogTime()));
             statement.executeUpdate();
         }
+        Connect.closeConnection();
     }
 
     // Get All Admin Action Logs
@@ -54,6 +57,7 @@ public class AdminLogs {
                 adminActionLogs.add(adminActionLog);
             }
         }
+        Connect.closeConnection();
         return adminActionLogs;
     }
 
@@ -73,9 +77,10 @@ public class AdminLogs {
                 adminLoginLogs.add(adminLoginLog);
             }
         }
+        Connect.closeConnection();
         return adminLoginLogs;
     }
-    
+
     // Helper method to get the connection object
     private static Connection getConnection() throws SQLException {
         if (connection == null) {

@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package roomease;
+
 import user.Session;
 import user.User;
 import util.AdminLoginLogs;
@@ -20,7 +21,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import user.Admin;
-
 
 /**
  *
@@ -208,17 +208,20 @@ public class AdminHome extends javax.swing.JFrame {
     }//GEN-LAST:event_roomsActionPerformed
 
     private void logoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutActionPerformed
+      
         try {
             // TODO add your handling code here:
-            dispose();
             System.out.println("Logged out");
             
             //Create new logout log entry
             AdminLoginLogs log = new AdminLoginLogs(0, Session.getCurrentUser().getUserID(), LogType.Logout, LocalDateTime.now());
             AdminLogs.createAdminLoginLog(log);
-            Session.logout();
+            
             
             new LoginPage().setVisible(true);
+            dispose();
+            
+            Session.logout();
         } catch (SQLException ex) {
             Logger.getLogger(AdminHome.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -236,7 +239,6 @@ public class AdminHome extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_Users4ActionPerformed
 
-    
     /**
      * @param args the command line arguments
      */
