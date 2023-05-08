@@ -6,15 +6,21 @@ package roomease;
 import user.User;
 import database.UserDAO;
 <<<<<<< HEAD
+<<<<<<< HEAD
 import enums.UserType;
 import java.sql.SQLException;
 =======
+=======
+>>>>>>> 63b24cf046bab440fa5a12e3efa21da384ce249f
 import enums.LogType;
 import enums.UserType;
 import util.*;
 import database.*;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
+<<<<<<< HEAD
+>>>>>>> 63b24cf046bab440fa5a12e3efa21da384ce249f
+=======
 >>>>>>> 63b24cf046bab440fa5a12e3efa21da384ce249f
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -74,7 +80,10 @@ public class LoginPage extends javax.swing.JFrame {
 
         usernameField.setFont(new java.awt.Font("Roboto", 0, 16)); // NOI18N
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> 63b24cf046bab440fa5a12e3efa21da384ce249f
         usernameField.setName("usernameField"); // NOI18N
         //usernameField.setRequestFocusEnabled(false);
         usernameField.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -100,7 +109,10 @@ public class LoginPage extends javax.swing.JFrame {
         Password.setText("Password:");
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> 63b24cf046bab440fa5a12e3efa21da384ce249f
         //passwordField.setRequestFocusEnabled(false);
         passwordField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -108,6 +120,9 @@ public class LoginPage extends javax.swing.JFrame {
             }
         });
 
+<<<<<<< HEAD
+>>>>>>> 63b24cf046bab440fa5a12e3efa21da384ce249f
+=======
 >>>>>>> 63b24cf046bab440fa5a12e3efa21da384ce249f
         loginButton.setLabel("Login");
         loginButton.addActionListener(new java.awt.event.ActionListener() {
