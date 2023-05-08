@@ -9,6 +9,7 @@ package util;
  * @author Predator
  */
 public class Room {
+    private int id;
     private String roomNumber;
     private double price;
     private String description;
@@ -21,6 +22,22 @@ public class Room {
         this.roomNumber = roomNumber;
         this.price = price;
         this.description = description;
+    }
+
+    public Room(int id, String roomNumber, double price, String description) {
+        this.id = id;
+        this.roomNumber = roomNumber;
+        this.price = price;
+        this.description = description;
+    }
+
+    //Getter and setter
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getRoomNumber() {

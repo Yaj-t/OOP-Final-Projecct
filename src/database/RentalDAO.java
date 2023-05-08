@@ -302,4 +302,6 @@ public class RentalDAO {
         }
         return rentals;
     }
+
+    
 }

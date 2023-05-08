@@ -65,30 +65,47 @@ public class RoomDAO {
     
     public static List<Room> getAvailableRooms(LocalDate startDate, LocalDate endDate) throws SQLException {
         List<Room> availableRooms = new ArrayList<>();
-        connection = null;
-        try {
-            connection = Connect.connectToDatabase();
-            String sql = "SELECT * FROM rooms WHERE room_number NOT IN (SELECT room_number FROM bookings WHERE (booking_start <= ? AND booking_end >= ?) OR (booking_start <= ? AND booking_end >= ?) OR (booking_start >= ? AND booking_end <= ?))";
-            PreparedStatement statement = connection.prepareStatement(sql);
-            statement.setDate(1, java.sql.Date.valueOf(endDate));
+    
+        try (Connection connection = Connect.connectToDatabase();
+             PreparedStatement statement = connection.prepareStatement(
+                     "SELECT room_id, room_number, description, room_price FROM rooms " +
+                     "WHERE room_id NOT IN (" +
+                         "SELECT room_id FROM rentals " +
+                         "WHERE (check_in_date <= ? AND check_out_date >= ?) " +
+                         "   OR (check_in_date <= ? AND check_out_date >= ?) " +
+                         "   OR (check_in_date >= ? AND check_out_date <= ?)" +
+                     ")"
+             )) {
+            statement.setDate(1, java.sql.Date.valueOf(startDate));
             statement.setDate(2, java.sql.Date.valueOf(startDate));
-            statement.setDate(3, java.sql.Date.valueOf(startDate));
+            statement.setDate(3, java.sql.Date.valueOf(endDate));
             statement.setDate(4, java.sql.Date.valueOf(endDate));
             statement.setDate(5, java.sql.Date.valueOf(startDate));
             statement.setDate(6, java.sql.Date.valueOf(endDate));
-            ResultSet resultSet = statement.executeQuery();
-            while (resultSet.next()) {
-                Room room = new Room();
-                room.setRoomNumber(resultSet.getString("room_number"));
-                room.setDescription(resultSet.getString("description"));
-                room.setPrice(resultSet.getDouble("room_price"));
-                availableRooms.add(room);
+    
+            boolean check = false;
+            try (ResultSet resultSet = statement.executeQuery()) {
+                while (resultSet.next()) {
+                    Room room = new Room();
+                    room.setId(resultSet.getInt("room_id"));
+                    room.setRoomNumber(resultSet.getString("room_number"));
+                    room.setDescription(resultSet.getString("description"));
+                    room.setPrice(resultSet.getDouble("room_price"));
+                    availableRooms.add(room);
+                    check = true;
+                }
             }
-        } finally {
-            Connect.closeConnection();
+    
+            if (!check) {
+                System.out.println("No rooms available for the selected dates.");
+            }
         }
+        Connect.closeConnection();
         return availableRooms;
     }
+    
+    
+    
 
     public static Room getRoomByNumber(String roomNumber) throws SQLException {
         connection = Connect.connectToDatabase();
@@ -135,5 +152,6 @@ public class RoomDAO {
         }
        Connect.closeConnection();
     }
+
 }
 
