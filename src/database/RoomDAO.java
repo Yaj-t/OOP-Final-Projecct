@@ -103,9 +103,33 @@ public class RoomDAO {
         Connect.closeConnection();
         return availableRooms;
     }
-    
-    
-    
+
+
+    public static Room getRoomByID(int id) throws SQLException {
+        connection = Connect.connectToDatabase();
+        String sql = "SELECT * FROM rooms WHERE room_id = ?";
+        Room room = null;
+
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setInt(1, id);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    int roomID = id;
+                    System.out.println(roomID);
+                    String roomNumber = resultSet.getString("room_number");
+                    System.out.println(roomNumber);
+                    Double price = resultSet.getDouble("room_price");
+                    System.out.println(price);
+                    String description = resultSet.getString("description");
+                    System.out.println(description);
+
+                    room = new Room( roomID ,roomNumber, price, description);
+                }
+            }
+        }
+        Connect.closeConnection();  
+        return room;
+    }
 
     public static Room getRoomByNumber(String roomNumber) throws SQLException {
         connection = Connect.connectToDatabase();

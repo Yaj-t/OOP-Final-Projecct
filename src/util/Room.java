@@ -33,7 +33,7 @@ public class Room {
 
     //Getter and setter
     public int getId() {
-        return id;
+        return this.id;
     }
 
     public void setId(int id) {

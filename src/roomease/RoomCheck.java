@@ -28,11 +28,16 @@ public class RoomCheck extends javax.swing.JFrame {
      * Creates new form NewJFrame
      * @throws java.sql.SQLException
      */
+
+     LocalDate checkinCurrent = null;
+    LocalDate checkoutCurrent = null;
     public RoomCheck() throws SQLException {
         
         initComponents();
      
             LocalDate today = LocalDate.now();
+             checkinCurrent = today;
+             checkoutCurrent = today;
             roomList = RoomDAO.getAvailableRooms(today, today);
             DefaultTableModel tableModel = (DefaultTableModel) roomsTable.getModel();
             for (Room room : roomList) {
@@ -201,42 +206,44 @@ public class RoomCheck extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void FindButton(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FindButton
-        //TODO add your handling code here:
-        System.out.println("Add expense button pressed");
-       
+    
 
-       
 
+
+    public Boolean FF(){
         LocalDate checkInDate = null;
         LocalDate checkOutDate = null;
-
+        Boolean check = false;
         try {
             checkInDate = LocalDate.parse(((JTextField) CheckInDate.getDateEditor().getUiComponent()).getText());
             checkOutDate = LocalDate.parse(((JTextField) CheckOutDate.getDateEditor().getUiComponent()).getText());
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Please enter a valid date");
-            return;
+            return false;
         }
 
-        //Make a try catch if the check in date is after the check out date, check in date is before today, check out date is before today and check in date is after check out date 
+        //Make a try catch if the check in date is after the check out date, check in date is before today, check out date is before today and check in date is after check out date
         if (checkInDate.isAfter(checkOutDate)) {
             JOptionPane.showMessageDialog(null, "Check in date cannot be after check out date");
-            return;
-        }else if(checkInDate.isBefore(LocalDate.now())){
+            return false;
+        } else if (checkInDate.isBefore(LocalDate.now())) {
             JOptionPane.showMessageDialog(null, "Check in date cannot be before today");
-            return;
-        }else if(checkOutDate.isBefore(LocalDate.now())){
+            return false;
+        } else if (checkOutDate.isBefore(LocalDate.now())) {
             JOptionPane.showMessageDialog(null, "Check out date cannot be before today");
-            return;
-        }else if(checkInDate.isAfter(checkOutDate)){
+            return false;
+        } else if (checkInDate.isAfter(checkOutDate)) {
             JOptionPane.showMessageDialog(null, "Check in date cannot be after check out date");
-            return;
-        } 
+            return false;
+        }
 
-        System.out.println("Check out date: " + checkOutDate);
         System.out.println("Check in date: " + checkInDate);
+        System.out.println("Check out date: " + checkOutDate);
 
+        checkinCurrent = checkInDate;
+        checkoutCurrent = checkOutDate;
+
+        Boolean check1 = false;
         try {
             List<Room> availableRooms = RoomDAO.getAvailableRooms(checkInDate, checkOutDate);
             DefaultTableModel tableModel = (DefaultTableModel) roomsTable.getModel();
@@ -245,16 +252,28 @@ public class RoomCheck extends javax.swing.JFrame {
             for (Room room : availableRooms) {
                 Object[] rowData = { room.getRoomNumber(), room.getPrice(),room.getDescription()};
                 tableModel.addRow(rowData);
+                check1 = true;
             }
             roomsTable.setModel(tableModel);
         } catch (SQLException ex) {
             java.util.logging.Logger.getLogger(RoomCheck.class.getName()).log(Level.SEVERE, null, ex);
         }
+
+        if (check1 == false) {
+            JOptionPane.showMessageDialog(null, "No rooms available for the selected dates");
+            return false;
+        }
+
+        check = true;
+        return check;
+    }
+
+    private void FindButton(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FindButton
+        //TODO add your handling code here:
+        System.out.println("Add expense button pressed");
+        FF();
         
-
-
-
-
+        
     }//GEN-LAST:event_FindButton
 
     private void GoBack(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GoBack
@@ -270,6 +289,67 @@ public class RoomCheck extends javax.swing.JFrame {
         // TODO add your handling code here:
         System.out.println("Add button pressed");
 
+       
+        LocalDate checkInDate = null;
+        LocalDate checkOutDate = null;
+
+        try {
+            checkInDate = LocalDate.parse(((JTextField) CheckInDate.getDateEditor().getUiComponent()).getText());
+            checkOutDate = LocalDate.parse(((JTextField) CheckOutDate.getDateEditor().getUiComponent()).getText());
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Please enter a valid date");
+            return;
+        }
+
+        if(checkinCurrent.equals(checkInDate) && checkoutCurrent.equals(checkOutDate)){
+            if(checkinCurrent == null || checkoutCurrent == null){
+                JOptionPane.showMessageDialog(null, "Please enter a valid date");
+                return;
+            }
+        }else{
+            if(FF() == false){
+                return;
+            }
+        }
+
+        int row = roomsTable.getSelectedRow();
+        if (row == -1) {
+            JOptionPane.showMessageDialog(null, "Please select a room");
+            return;
+        }
+
+        String roomString = roomsTable.getModel().getValueAt(row, 0).toString();
+
+        Room room = null;
+        try {
+            room = RoomDAO.getRoomByNumber(roomString);
+        } catch (SQLException ex) {
+            java.util.logging.Logger.getLogger(RoomCheck.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        System.out.println("Room ID: " + room.getId());
+        System.out.println("Room Number: " + room.getRoomNumber());
+        System.out.println("Room price: " + room.getPrice());
+        System.out.println("Room description: " + room.getDescription());
+        
+        JOptionPane.showMessageDialog(null, "Room Avalable");
+        //Pop up window to confirm the room is available and ask if they want to book it
+        //If yes, then add the booking to the database
+        //If no, then do nothing
+
+        int dialogButton = JOptionPane.YES_NO_OPTION;
+        int dialogResult = JOptionPane.showConfirmDialog(null, "Would you like to book this room?", "Warning", dialogButton);
+        if (dialogResult == JOptionPane.YES_OPTION) {
+            // Saving code here
+            System.out.println("Yes option selected");
+            try {
+                BookingDAO.addBooking(room.getId(), checkInDate, checkOutDate);
+                JOptionPane.showMessageDialog(null, "Booking added successfully");
+            } catch (SQLException ex) {
+                java.util.logging.Logger.getLogger(RoomCheck.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else {
+            System.out.println("No option selected");
+        }
 
     }//GEN-LAST:event_AddButton
 
