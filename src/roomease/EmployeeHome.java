@@ -4,6 +4,17 @@
  */
 package roomease;
 
+import enums.LogType;
+import java.time.LocalDateTime;
+
+import database.EmployeeLogs;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import user.Employee;
+import user.Session;
+import util.EmployeeLoginLogs;
+
 /**
  *
  * @author Predator
@@ -181,8 +192,19 @@ public class EmployeeHome extends javax.swing.JFrame {
     }//GEN-LAST:event_expensesButtonActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        dispose();
-        new LoginPage().setVisible(true);
+        
+        try {
+            //create a new employee login log
+            EmployeeLoginLogs log = new EmployeeLoginLogs(0, Session.getCurrentUser().getUserID(), LogType.Logout, LocalDateTime.now());
+            //add the log to the database
+            EmployeeLogs.createEmployeeLoginLog(log);
+            Session.logout();
+            
+            dispose();
+            new LoginPage().setVisible(true);
+        } catch (SQLException ex) {
+            Logger.getLogger(EmployeeHome.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void bookingsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bookingsButtonActionPerformed
