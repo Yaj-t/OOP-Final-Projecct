@@ -14,34 +14,35 @@ public class RentalDAO {
     private static Connection connection;
 
     // Static function to add a new rental to the database
-    public static boolean addRental(Rental rental) throws SQLException {
-        connection = Connect.connectToDatabase();
+public static boolean addRental(Rental rental) throws SQLException {
+    Connection connection = Connect.connectToDatabase();
 
-        try { 
-            // Prepare the SQL statement with placeholders for the values
-            String sql = "INSERT INTO rental (tenant_id, room_id, check_in_date, check_out_date, total_amount) VALUES (?, ?, ?, ?, ?)";
-            PreparedStatement statement = connection.prepareStatement(sql);
+    try {
+        // Prepare the SQL statement with placeholders for the values
+        String sql = "INSERT INTO rentals (tenant_id, room_id, check_in_date, check_out_date, total_amount) VALUES (?, ?, ?, ?, ?)";
+        PreparedStatement statement = connection.prepareStatement(sql);
 
-            // Set the values of the placeholders
-            statement.setInt(1, rental.getTenant_id());
-            statement.setInt(2, rental.getRoom_id());
-            statement.setDate(3, Date.valueOf(rental.getCheck_in_date()));
-            statement.setDate(4, Date.valueOf(rental.getCheck_out_date()));
-            statement.setDouble(5, rental.getTotal_amount());
+        // Set the values of the placeholders
+        statement.setInt(1, rental.getTenant_id());
+        statement.setInt(2, rental.getRoom_id());
+        statement.setDate(3, java.sql.Date.valueOf(rental.getCheck_in_date()));
+        statement.setDate(4, java.sql.Date.valueOf(rental.getCheck_out_date()));
+        statement.setDouble(5, rental.getTotal_amount());
 
-            // Execute the SQL statement
-            int rowsInserted = statement.executeUpdate();
-            if (rowsInserted > 0) {
-                System.out.println("A new rental was inserted successfully!");
-                return true;
-            }
-        }catch (SQLException e) {
-            e.printStackTrace();
-        }finally {
-            connection.close();
+        // Execute the SQL statement
+        int rowsInserted = statement.executeUpdate();
+        if (rowsInserted > 0) {
+            System.out.println("A new rental was inserted successfully!");
+            return true;
         }
-        return false;
+    } catch (SQLException e) {
+        e.printStackTrace();
+    } finally {
+        connection.close();
     }
+    return false;
+}
+
 
     // Static function to update a rental in the database
     public static boolean updateRental(Rental rental) throws SQLException {

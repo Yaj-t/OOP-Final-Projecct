@@ -32,7 +32,7 @@ public class RoomCheck extends javax.swing.JFrame {
      * @throws java.sql.SQLException
      */
 
-     LocalDate checkinCurrent = null;
+    LocalDate checkinCurrent = null;
     LocalDate checkoutCurrent = null;
     public RoomCheck() throws SQLException {
         
@@ -344,6 +344,7 @@ public class RoomCheck extends javax.swing.JFrame {
         if (dialogResult == JOptionPane.YES_OPTION) {
             // Saving code here
             System.out.println("Yes option selected");
+<<<<<<< HEAD
             try {
                 double totalAmount = room.getPrice() *  ChronoUnit.DAYS.between(checkInDate, checkOutDate);
                 BookingDAO.addBooking(new Booking(room.getId(), checkInDate, checkOutDate, totalAmount));
@@ -351,6 +352,11 @@ public class RoomCheck extends javax.swing.JFrame {
             } catch (SQLException ex) {
                 java.util.logging.Logger.getLogger(RoomCheck.class.getName()).log(Level.SEVERE, null, ex);
             }
+=======
+            new AddTenant(room, checkInDate, checkOutDate).setVisible(true);
+            this.dispose();
+            
+>>>>>>> c88a413fa3369a00bd4827842fb5096923e45cb9
         } else {
             System.out.println("No option selected");
         }

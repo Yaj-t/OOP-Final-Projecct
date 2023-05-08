@@ -140,11 +140,12 @@ public class RoomDAO {
             statement.setString(1, roomNumber);
             try (ResultSet resultSet = statement.executeQuery()) {
                 if (resultSet.next()) {
+                    int roomID = resultSet.getInt("room_id");
                     roomNumber =resultSet.getString("room_number");
                     int price = resultSet.getInt("room_price");
                     String description = resultSet.getString("description");
 
-                    room = new Room( roomNumber, price, description);
+                    room = new Room( roomID,roomNumber, price, description);
                 }
             }
         }
