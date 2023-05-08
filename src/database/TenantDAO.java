@@ -14,16 +14,25 @@ public class TenantDAO {
     }
 
     // Add a new tenant to the database
-    public static void addTenant(Tenant tenant) throws SQLException {
+    public static int addTenant(Tenant tenant) throws SQLException {
         conn = Connect.connectToDatabase();
-        PreparedStatement stmt = conn.prepareStatement("INSERT INTO tenants (first_name, last_name, phone_number, email) VALUES (?, ?, ?, ?)");
+        PreparedStatement stmt = conn.prepareStatement("INSERT INTO tenants (first_name, last_name, phone_number, email) VALUES (?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
         stmt.setString(1, tenant.getFirstName());
         stmt.setString(2, tenant.getLastName());
         stmt.setString(3, tenant.getPhoneNumber());
         stmt.setString(4, tenant.getEmail());
         stmt.executeUpdate();
+    
+        int tenantID = 0;
+        ResultSet generatedKeys = stmt.getGeneratedKeys();
+        if (generatedKeys.next()) {
+            tenantID = generatedKeys.getInt(1);
+        }
+    
         Connect.closeConnection();
+        return tenantID;
     }
+    
 
     // Retrieve a tenant from the database by ID
     public static Tenant getTenantById(int id) throws SQLException {
