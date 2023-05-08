@@ -218,6 +218,7 @@ public class AddTenant extends javax.swing.JFrame {
             }
 
             dispose();
+            new EmployeeHome().setVisible(true);
         }
         
     }//GEN-LAST:event_Submit
