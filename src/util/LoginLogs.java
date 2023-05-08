@@ -6,7 +6,7 @@ import enums.LogType;
 public class LoginLogs {
     //Attributes
     private int logId;
-    private int employeeId;
+    private int user_id;
     private LogType type;
     private LocalDateTime logTime;
 
@@ -14,9 +14,9 @@ public class LoginLogs {
     public LoginLogs() {
     }
 
-    public LoginLogs(int logId, int employeeId, LogType type, LocalDateTime logTime) {
+    public LoginLogs(int logId, int user_id, LogType type, LocalDateTime logTime) {
         this.logId = logId;
-        this.employeeId = employeeId;
+        this.user_id = user_id;
         this.type = type;
         this.logTime = logTime;
     }
@@ -31,12 +31,12 @@ public class LoginLogs {
         this.logId = logId;
     }
 
-    public int getEmployeeId() {
-        return this.employeeId;
+    public int getuser_id() {
+        return this.user_id;
     }
 
-    public void setEmployeeId(int employeeId) {
-        this.employeeId = employeeId;
+    public void setuser_id(int user_id) {
+        this.user_id = user_id;
     }
 
     public LogType getType() {

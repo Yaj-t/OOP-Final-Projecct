@@ -6,7 +6,7 @@ public class ActionLog {
 
     // Attributes
     private int logId;
-    private int employeeId;
+    private int user_id;
     private String actionDescription;
     private LocalDateTime actionTime;
 
@@ -14,9 +14,9 @@ public class ActionLog {
     public ActionLog() {
     }
 
-    public ActionLog(int logId, int employeeId, String actionDescription, LocalDateTime actionTime) {
+    public ActionLog(int logId, int user_id, String actionDescription, LocalDateTime actionTime) {
         this.logId = logId;
-        this.employeeId = employeeId;
+        this.user_id = user_id;
         this.actionDescription = actionDescription;
         this.actionTime = actionTime;
     }
@@ -31,12 +31,12 @@ public class ActionLog {
         this.logId = logId;
     }
 
-    public int getEmployeeId() {
-        return this.employeeId;
+    public int getuser_id() {
+        return this.user_id;
     }
 
-    public void setEmployeeId(int employeeId) {
-        this.employeeId = employeeId;
+    public void setuser_id(int user_id) {
+        this.user_id = user_id;
     }
 
     public String getActionDescription() {
