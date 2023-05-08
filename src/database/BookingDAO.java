@@ -215,4 +215,73 @@ public class BookingDAO {
         }
         return bookings;
     }
+
+// Static function to retrieve all bookings for a specific room from the database
+    public static List<Booking> getBookingsByRoomId(int roomId) throws SQLException {
+        connection = Connect.connectToDatabase();
+        List<Booking> bookings = new ArrayList<>();
+        try {
+            // Prepare the SQL statement with placeholders for values
+            String sql = "SELECT * FROM bookings WHERE room_id = ?";
+            PreparedStatement statement = connection.prepareStatement(sql);
+
+            // Set the values for the placeholders in the SQL statement
+            statement.setInt(1, roomId);
+
+            // Execute the SQL statement and retrieve the results
+            ResultSet result = statement.executeQuery();
+
+            // Create a new Booking object for each result and add it to the list
+            while (result.next()) {
+                Booking booking = new Booking();
+                booking.setId(result.getInt("booking_id"));
+                booking.setTenantId(result.getInt("tenant_id"));
+                booking.setRoomId(result.getInt("room_id"));
+                booking.setCheckInDate(result.getDate("check_in_date").toLocalDate());
+                booking.setCheckOutDate(result.getDate("check_out_date").toLocalDate());
+                booking.setTotalAmount(result.getDouble("total_amount"));
+                bookings.add(booking);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally{
+            Connect.closeConnection();
+        }
+        return bookings;
+    }
+// Static function to retrieve all bookings for a specific room and specific check_in_date & check_out_date from the database
+    public static List<Booking> getBookingsByRoomIdAndCheckInDateAndCheckOutDate(int roomId, LocalDate checkInDate, LocalDate checkOutDate) throws SQLException {
+        connection = Connect.connectToDatabase();
+        List<Booking> bookings = new ArrayList<>();
+        try {
+            // Prepare the SQL statement with placeholders for values
+            String sql = "SELECT * FROM bookings WHERE room_id = ? AND check_in_date = ? AND check_out_date = ?";
+            PreparedStatement statement = connection.prepareStatement(sql);
+
+            // Set the values for the placeholders in the SQL statement
+            statement.setInt(1, roomId);
+            statement.setDate(2, java.sql.Date.valueOf(checkInDate));
+            statement.setDate(3, java.sql.Date.valueOf(checkOutDate));
+
+            // Execute the SQL statement and retrieve the results
+            ResultSet result = statement.executeQuery();
+
+            // Create a new Booking object for each result and add it to the list
+            while (result.next()) {
+                Booking booking = new Booking();
+                booking.setId(result.getInt("booking_id"));
+                booking.setTenantId(result.getInt("tenant_id"));
+                booking.setRoomId(result.getInt("room_id"));
+                booking.setCheckInDate(result.getDate("check_in_date").toLocalDate());
+                booking.setCheckOutDate(result.getDate("check_out_date").toLocalDate());
+                booking.setTotalAmount(result.getDouble("total_amount"));
+                bookings.add(booking);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally{
+            Connect.closeConnection();
+        }
+        return bookings;
+    }
 }

@@ -3,6 +3,24 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package roomease;
+import user.Session;
+import user.User;
+import util.AdminLoginLogs;
+import database.AdminLogs;
+import database.UserDAO;
+import enums.LogType;
+import enums.UserType;
+import util.*;
+import java.time.LocalDate;
+import database.*;
+import java.sql.SQLException;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import user.Admin;
+
 
 /**
  *
@@ -166,9 +184,20 @@ public class AdminHome extends javax.swing.JFrame {
     }//GEN-LAST:event_roomsActionPerformed
 
     private void logoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutActionPerformed
-        // TODO add your handling code here:
-        dispose();
-        new LoginPage().setVisible(true);
+        try {
+            // TODO add your handling code here:
+            dispose();
+            System.out.println("Logged out");
+            
+            //Create new logout log entry
+            AdminLoginLogs log = new AdminLoginLogs(0, Session.getCurrentUser().getUserID(), LogType.Logout, LocalDateTime.now());
+            AdminLogs.createAdminLoginLog(log);
+            Session.logout();
+            
+            new LoginPage().setVisible(true);
+        } catch (SQLException ex) {
+            Logger.getLogger(AdminHome.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_logoutActionPerformed
 
     private void UsersActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UsersActionPerformed
