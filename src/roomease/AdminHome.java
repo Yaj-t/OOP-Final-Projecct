@@ -192,6 +192,11 @@ public class AdminHome extends javax.swing.JFrame {
 
     private void UsersButton(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UsersButton
         // TODO add your handling code here:
+
+        dispose();
+        UsersPage users = new UsersPage();
+        users.setVisible(true);
+        
     }//GEN-LAST:event_UsersButton
 
     /**
