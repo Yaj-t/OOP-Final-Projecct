@@ -27,7 +27,7 @@ public class Connect {
             System.out.println("Already connected to database");
             return connection;
         }
-        connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/roomease", "root", "");
+        connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/roomeasev2", "root", "");
         if(connection == null){
             System.out.println("Connection Failed");
         }else{

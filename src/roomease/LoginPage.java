@@ -3,23 +3,15 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package roomease;
-import user.Session;
 import user.User;
-import util.AdminLoginLogs;
-import database.AdminLogs;
 import database.UserDAO;
 import enums.UserType;
-import enums.LogType;
-import enums.UserType;
-import util.*;
-import java.time.LocalDate;
-import database.*;
 import java.sql.SQLException;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import roomease.AdminHome;
+import roomease.EmployeeHome;
 /**
  *
  * @author Predator
@@ -72,19 +64,6 @@ public class LoginPage extends javax.swing.JFrame {
 
         usernameField.setFont(new java.awt.Font("Roboto", 0, 16)); // NOI18N
 
-        usernameField.setName("usernameField"); // NOI18N
-        //usernameField.setRequestFocusEnabled(false);
-        usernameField.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                usernameFieldFocusGained(evt);
-            }
-        });
-        usernameField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                usernameFieldActionPerformed(evt);
-            }
-        });
-
         jLabel2.setFont(new java.awt.Font("Roboto", 1, 18)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         jLabel2.setLabelFor(usernameField);
@@ -94,15 +73,6 @@ public class LoginPage extends javax.swing.JFrame {
         Password.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         Password.setLabelFor(usernameField);
         Password.setText("Password:");
-
-
-        //passwordField.setRequestFocusEnabled(false);
-        passwordField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                passwordFieldActionPerformed(evt);
-            }
-        });
-
 
         loginButton.setLabel("Login");
         loginButton.addActionListener(new java.awt.event.ActionListener() {
@@ -192,51 +162,27 @@ public class LoginPage extends javax.swing.JFrame {
 
     private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginButtonActionPerformed
         String username = usernameField.getText();
-
         try {
             User user = UserDAO.getUserByUsername(username);
             if (user != null && user.getPassword().equals(passwordField.getText())) {
-            // login successful, open main application window
-                //If the user is a admin, open the admin home page
                 if (user.getType() == UserType.ADMIN) {
-                    System.out.println("Admin");
+                    // login successful, open main application window for admin
                     AdminHome home = new AdminHome();
                     home.setVisible(true);
-                    // // Create a login session
-                    Session session = new Session(user);
-                    
-                    // Create a login log to the sql database
-                    AdminLoginLogs log = new AdminLoginLogs(0, user.getUserID(), LogType.Login, LocalDateTime.now());
-                    AdminLogs.createAdminLoginLog(log);
-                    dispose(); // close the login window
-                } else {
-                    //If the user is a employee, open the employee home page
-                    System.out.println("Employee");
+                } else if (user.getType() == UserType.EMPLOYEE) {
+                    // login successful, open main application window for employee
                     EmployeeHome home = new EmployeeHome();
                     home.setVisible(true);
-
-                    // Create a login session
-                    Session session = new Session(user);
-
-                    // Create a login log to the sql database
-                    EmployeeLoginLogs log = new EmployeeLoginLogs(0, user.getUserID(), LogType.Login, LocalDateTime.now());
-                    EmployeeLogs.createEmployeeLoginLog(log);
-                    dispose(); // close the login window
                 }
+                dispose(); // close the login window
             } else {
-// invalid username or password
+                // invalid username or password
                 JOptionPane.showMessageDialog(this, "Invalid username or password", "Login Error", JOptionPane.ERROR_MESSAGE);
-
             }
-             // close the login window
-        } else {
-            // invalid username or password
-            JOptionPane.showMessageDialog(this, "Invalid username or password", "Login Error", JOptionPane.ERROR_MESSAGE);
+        } catch (SQLException ex) {
+            Logger.getLogger(LoginPage.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(this, "An error occurred while trying to log in", "Login Error", JOptionPane.ERROR_MESSAGE);
         }
-    } catch (SQLException ex) {
-        Logger.getLogger(LoginPage.class.getName()).log(Level.SEVERE, null, ex);
-        JOptionPane.showMessageDialog(this, "An error occurred while trying to log in", "Login Error", JOptionPane.ERROR_MESSAGE);
-    }
     }//GEN-LAST:event_loginButtonActionPerformed
 
     /**
