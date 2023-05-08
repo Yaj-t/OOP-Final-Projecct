@@ -10,12 +10,15 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 import database.RoomDAO;
+import database.BookingDAO;
 import java.lang.System.Logger;
 import java.sql.SQLException;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import javax.swing.table.DefaultTableModel;
+import util.Booking;
 import util.Room;
 
 /**
@@ -342,7 +345,8 @@ public class RoomCheck extends javax.swing.JFrame {
             // Saving code here
             System.out.println("Yes option selected");
             try {
-                BookingDAO.addBooking(room.getId(), checkInDate, checkOutDate);
+                double totalAmount = room.getPrice() *  ChronoUnit.DAYS.between(checkInDate, checkOutDate);
+                BookingDAO.addBooking(new Booking(room.getId(), checkInDate, checkOutDate, totalAmount));
                 JOptionPane.showMessageDialog(null, "Booking added successfully");
             } catch (SQLException ex) {
                 java.util.logging.Logger.getLogger(RoomCheck.class.getName()).log(Level.SEVERE, null, ex);
