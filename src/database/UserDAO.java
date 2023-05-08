@@ -43,7 +43,7 @@ public class UserDAO {
                 users.add(user);
             }
         }
-        Connect.closeConnection();
+        //Connect.closeConnection();
         return users;
     }
 
@@ -67,7 +67,7 @@ public class UserDAO {
                 );
             }
         }
-        Connect.closeConnection();
+        //Connect.closeConnection();
         return user;
     }
     
@@ -91,7 +91,7 @@ public class UserDAO {
                 );
             }
         }
-        Connect.closeConnection();
+        //Connect.closeConnection();
         return user;
     }
 

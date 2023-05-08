@@ -8,24 +8,21 @@ import util.AdminActionLog;
 import util.AdminLoginLogs;
 
 public class AdminLogs {
-
-    // Connection
     private static Connection connection;
 
-    public AdminLogs() {
-    }
 
     // Create Admin Action Log
     public static void createAdminActionLog(AdminActionLog adminActionLog) throws SQLException {
         String sql = "INSERT INTO admin_action_log (admin_id, action, action_time) VALUES (?, ?, ?)";
 
-        try (PreparedStatement statement = getConnection().prepareStatement(sql)) {
+        try (Connection connection = Connect.connectToDatabase();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setInt(1, adminActionLog.getuser_id());
             statement.setString(2, adminActionLog.getActionDescription());
             statement.setTimestamp(3, java.sql.Timestamp.valueOf(adminActionLog.getActionTime()));
             statement.executeUpdate();
         }
-        Connect.closeConnection();
+        // Connection will be automatically closed here
     }
 
     // Create Admin Login Log
@@ -38,14 +35,15 @@ public class AdminLogs {
             statement.setTimestamp(3, java.sql.Timestamp.valueOf(adminLoginLogs.getLogTime()));
             statement.executeUpdate();
         }
-        Connect.closeConnection();
+        // Connection will be automatically closed here
     }
 
     // Get All Admin Action Logs
     public static List<AdminActionLog> getAllAdminActionLogs() throws SQLException {
         List<AdminActionLog> adminActionLogs = new ArrayList<>();
-        try (Statement statement = getConnection().createStatement()) {
-            ResultSet resultSet = statement.executeQuery("SELECT * FROM admin_action_log");
+        try (Connection connection = Connect.connectToDatabase();
+             Statement statement = connection.createStatement();
+             ResultSet resultSet = statement.executeQuery("SELECT * FROM admin_action_log")) {
 
             while (resultSet.next()) {
                 AdminActionLog adminActionLog = new AdminActionLog(
@@ -57,15 +55,16 @@ public class AdminLogs {
                 adminActionLogs.add(adminActionLog);
             }
         }
-        Connect.closeConnection();
+        // Connection will be automatically closed here
         return adminActionLogs;
     }
 
     // Get All Admin Login Logs
     public static List<AdminLoginLogs> getAllAdminLoginLogs() throws SQLException {
         List<AdminLoginLogs> adminLoginLogs = new ArrayList<>();
-        try (Statement statement = getConnection().createStatement()) {
-            ResultSet resultSet = statement.executeQuery("SELECT * FROM admin_login_log");
+        try (Connection connection = Connect.connectToDatabase();
+             Statement statement = connection.createStatement();
+             ResultSet resultSet = statement.executeQuery("SELECT * FROM admin_login_log")) {
 
             while (resultSet.next()) {
                 AdminLoginLogs adminLoginLog = new AdminLoginLogs(
@@ -77,7 +76,7 @@ public class AdminLogs {
                 adminLoginLogs.add(adminLoginLog);
             }
         }
-        Connect.closeConnection();
+        // Connection will be automatically closed here
         return adminLoginLogs;
     }
 

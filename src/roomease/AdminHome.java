@@ -47,13 +47,11 @@ public class AdminHome extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         SidePanel = new javax.swing.JPanel();
-        ROOMEASE = new javax.swing.JLabel();
-        rooms = new javax.swing.JButton();
-        logout = new javax.swing.JButton();
-        Users1 = new javax.swing.JButton();
-        Users3 = new javax.swing.JButton();
-        Users4 = new javax.swing.JButton();
         MainPanel = new javax.swing.JPanel();
+        Users1 = new javax.swing.JButton();
+        logout = new javax.swing.JButton();
+        rooms = new javax.swing.JButton();
+        ROOMEASE = new javax.swing.JLabel();
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -68,50 +66,13 @@ public class AdminHome extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(204, 204, 255));
+        getContentPane().setLayout(new javax.swing.BoxLayout(getContentPane(), javax.swing.BoxLayout.LINE_AXIS));
 
         SidePanel.setBackground(new java.awt.Color(255, 255, 255));
         SidePanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        getContentPane().add(SidePanel);
 
-        ROOMEASE.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
-        ROOMEASE.setForeground(new java.awt.Color(0, 0, 255));
-        ROOMEASE.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        ROOMEASE.setText("ROOMEASE");
-        ROOMEASE.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        SidePanel.add(ROOMEASE, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 80, 143, 25));
-
-        rooms.setBackground(new java.awt.Color(79, 117, 155));
-        rooms.setFont(new java.awt.Font("Roboto", 1, 18)); // NOI18N
-        rooms.setForeground(new java.awt.Color(15, 15, 15));
-        rooms.setText("Rooms");
-        rooms.setToolTipText("");
-        rooms.setBorderPainted(false);
-        rooms.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        rooms.setFocusable(false);
-        rooms.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        rooms.setPreferredSize(new java.awt.Dimension(50, 30));
-        rooms.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                roomsActionPerformed(evt);
-            }
-        });
-        SidePanel.add(rooms, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 150, 232, 26));
-
-        logout.setBackground(new java.awt.Color(79, 117, 155));
-        logout.setFont(new java.awt.Font("Roboto", 1, 18)); // NOI18N
-        logout.setForeground(new java.awt.Color(15, 15, 15));
-        logout.setText("Logout");
-        logout.setToolTipText("");
-        logout.setBorderPainted(false);
-        logout.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        logout.setFocusable(false);
-        logout.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        logout.setPreferredSize(new java.awt.Dimension(50, 30));
-        logout.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                logoutActionPerformed(evt);
-            }
-        });
-        SidePanel.add(logout, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 280, 232, 26));
+        MainPanel.setBackground(new java.awt.Color(255, 255, 255));
 
         Users1.setBackground(new java.awt.Color(79, 117, 155));
         Users1.setFont(new java.awt.Font("Roboto", 1, 18)); // NOI18N
@@ -125,119 +86,113 @@ public class AdminHome extends javax.swing.JFrame {
         Users1.setPreferredSize(new java.awt.Dimension(50, 30));
         Users1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Users1ActionPerformed(evt);
+                UsersButton(evt);
             }
         });
-        SidePanel.add(Users1, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 150, 232, -1));
 
-        Users3.setBackground(new java.awt.Color(79, 117, 155));
-        Users3.setFont(new java.awt.Font("Roboto", 1, 18)); // NOI18N
-        Users3.setForeground(new java.awt.Color(15, 15, 15));
-        Users3.setText("ADMIN LOGS");
-        Users3.setToolTipText("");
-        Users3.setBorderPainted(false);
-        Users3.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        Users3.setFocusable(false);
-        Users3.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        Users3.setPreferredSize(new java.awt.Dimension(50, 30));
-        Users3.addActionListener(new java.awt.event.ActionListener() {
+        logout.setBackground(new java.awt.Color(79, 117, 155));
+        logout.setFont(new java.awt.Font("Roboto", 1, 18)); // NOI18N
+        logout.setForeground(new java.awt.Color(15, 15, 15));
+        logout.setText("Logout");
+        logout.setToolTipText("");
+        logout.setBorderPainted(false);
+        logout.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        logout.setFocusable(false);
+        logout.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        logout.setPreferredSize(new java.awt.Dimension(50, 30));
+        logout.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Users3ActionPerformed(evt);
+                LogOutButton(evt);
             }
         });
-        SidePanel.add(Users3, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 220, 232, -1));
 
-        Users4.setBackground(new java.awt.Color(79, 117, 155));
-        Users4.setFont(new java.awt.Font("Roboto", 1, 18)); // NOI18N
-        Users4.setForeground(new java.awt.Color(15, 15, 15));
-        Users4.setText("EMPLOYEE LOGS");
-        Users4.setToolTipText("");
-        Users4.setBorderPainted(false);
-        Users4.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        Users4.setFocusable(false);
-        Users4.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        Users4.setPreferredSize(new java.awt.Dimension(50, 30));
-        Users4.addActionListener(new java.awt.event.ActionListener() {
+        rooms.setBackground(new java.awt.Color(79, 117, 155));
+        rooms.setFont(new java.awt.Font("Roboto", 1, 18)); // NOI18N
+        rooms.setForeground(new java.awt.Color(15, 15, 15));
+        rooms.setText("Rooms");
+        rooms.setToolTipText("");
+        rooms.setBorderPainted(false);
+        rooms.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        rooms.setFocusable(false);
+        rooms.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        rooms.setPreferredSize(new java.awt.Dimension(50, 30));
+        rooms.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Users4ActionPerformed(evt);
+                RoomsButton(evt);
             }
         });
-        SidePanel.add(Users4, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 220, 232, -1));
 
-        MainPanel.setBackground(new java.awt.Color(255, 255, 255));
+        ROOMEASE.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
+        ROOMEASE.setForeground(new java.awt.Color(0, 0, 255));
+        ROOMEASE.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        ROOMEASE.setText("ROOMEASE");
+        ROOMEASE.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
         javax.swing.GroupLayout MainPanelLayout = new javax.swing.GroupLayout(MainPanel);
         MainPanel.setLayout(MainPanelLayout);
         MainPanelLayout.setHorizontalGroup(
             MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 533, Short.MAX_VALUE)
+            .addGroup(MainPanelLayout.createSequentialGroup()
+                .addGroup(MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(MainPanelLayout.createSequentialGroup()
+                        .addGap(64, 64, 64)
+                        .addComponent(ROOMEASE, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(MainPanelLayout.createSequentialGroup()
+                        .addGap(23, 23, 23)
+                        .addGroup(MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(rooms, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(Users1, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(logout, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(37, Short.MAX_VALUE))
         );
         MainPanelLayout.setVerticalGroup(
             MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(MainPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(ROOMEASE)
+                .addGap(29, 29, 29)
+                .addComponent(Users1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(rooms, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(30, 30, 30)
+                .addComponent(logout, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(17, Short.MAX_VALUE))
         );
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(SidePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(MainPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(15, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(SidePanel, javax.swing.GroupLayout.DEFAULT_SIZE, 375, Short.MAX_VALUE)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(15, 15, 15)
-                .addComponent(MainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-        );
+        getContentPane().add(MainPanel);
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void roomsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_roomsActionPerformed
+    private void RoomsButton(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RoomsButton
         // TODO add your handling code here:
         dispose();
         RoomsPage rooms = new RoomsPage();
         rooms.setVisible(true);
-    }//GEN-LAST:event_roomsActionPerformed
+    }//GEN-LAST:event_RoomsButton
 
-    private void logoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutActionPerformed
-      
+    private void LogOutButton(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LogOutButton
+
         try {
             // TODO add your handling code here:
             System.out.println("Logged out");
-            
+
             //Create new logout log entry
             AdminLoginLogs log = new AdminLoginLogs(0, Session.getCurrentUser().getUserID(), LogType.Logout, LocalDateTime.now());
-            AdminLogs.createAdminLoginLog(log);
-            
-            
+             dispose();
             new LoginPage().setVisible(true);
-            dispose();
+            AdminLogs.createAdminLoginLog(log);
+           
             
-            Session.logout();
         } catch (SQLException ex) {
             Logger.getLogger(AdminHome.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }//GEN-LAST:event_logoutActionPerformed
+    }//GEN-LAST:event_LogOutButton
 
-    private void Users1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Users1ActionPerformed
+    private void UsersButton(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UsersButton
         // TODO add your handling code here:
-    }//GEN-LAST:event_Users1ActionPerformed
-
-    private void Users3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Users3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_Users3ActionPerformed
-
-    private void Users4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Users4ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_Users4ActionPerformed
+    }//GEN-LAST:event_UsersButton
 
     /**
      * @param args the command line arguments
@@ -280,8 +235,6 @@ public class AdminHome extends javax.swing.JFrame {
     private javax.swing.JLabel ROOMEASE;
     private javax.swing.JPanel SidePanel;
     private javax.swing.JButton Users1;
-    private javax.swing.JButton Users3;
-    private javax.swing.JButton Users4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JButton logout;
     private javax.swing.JButton rooms;

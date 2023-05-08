@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package roomease;
+
 import user.Session;
 import user.User;
 import util.AdminLoginLogs;
@@ -17,6 +18,7 @@ import java.time.LocalDateTime;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+
 /**
  *
  * @author Predator
@@ -165,41 +167,46 @@ public class LoginPage extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginButtonActionPerformed
+
+        private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginButtonActionPerformed
         String username = usernameField.getText();
+        String password = passwordField.getText();
+
         try {
             User user = UserDAO.getUserByUsername(username);
-            if (user != null && user.getPassword().equals(passwordField.getText())) {
-                if (user.getType() == UserType.ADMIN) {
-                    // login successful, open main application window for admin
+
+            if (user != null && user.getPassword().equals(password)) {
+                UserType userType = user.getType();
+                Session session;
+                if (userType == UserType.ADMIN) {
+                    // Open main application window for admin
                     AdminHome home = new AdminHome();
+                    AdminLoginLogs loginLogs = new AdminLoginLogs(0, user.getUserID(), LogType.Login, LocalDateTime.now());
+                    AdminLogs.createAdminLoginLog(loginLogs);
                     home.setVisible(true);
-                    // Create a login session
-                    Session session = new Session(user);
-                    // Create a login log to the sql database
-                    AdminLoginLogs log = new AdminLoginLogs(0, user.getUserID(), LogType.Login, LocalDateTime.now());
-                    AdminLogs.createAdminLoginLog(log);
-                    dispose(); // close the login window
-                } else if (user.getType() == UserType.EMPLOYEE) {
-                    // login successful, open main application window for employee
+                } else if (userType == UserType.EMPLOYEE) {
+                    // Open main application window for employee
                     EmployeeHome home = new EmployeeHome();
-                    Session session = new Session(user);
-                    // Create a login log to the sql database
-                    EmployeeLoginLogs log = new EmployeeLoginLogs(0, user.getUserID(), LogType.Login, LocalDateTime.now());
-                    EmployeeLogs.createEmployeeLoginLog(log);
+                    EmployeeLoginLogs loginLogs = new EmployeeLoginLogs(0, user.getUserID(), LogType.Login, LocalDateTime.now());
+                    EmployeeLogs.createEmployeeLoginLog(loginLogs);
                     home.setVisible(true);
-                    dispose(); // close the login window
+                } else {
+                    throw new IllegalArgumentException("Invalid user type: " + userType);
                 }
+
+                // Create a login session
+                session = new Session(user);                
+                dispose();
             } else {
-                // invalid username or password
+                // Invalid username or password
                 JOptionPane.showMessageDialog(this, "Invalid username or password", "Login Error", JOptionPane.ERROR_MESSAGE);
             }
         } catch (SQLException ex) {
             Logger.getLogger(LoginPage.class.getName()).log(Level.SEVERE, null, ex);
             JOptionPane.showMessageDialog(this, "An error occurred while trying to log in", "Login Error", JOptionPane.ERROR_MESSAGE);
         }
-    }//GEN-LAST:event_loginButtonActionPerformed
-
+    }
+//GEN-LAST:event_loginButtonActionPerformed
     /**
      * @param args the command line arguments
      */
