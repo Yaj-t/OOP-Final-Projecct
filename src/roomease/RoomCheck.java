@@ -260,6 +260,8 @@ public class RoomCheck extends javax.swing.JFrame {
     private void GoBack(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GoBack
         // TODO add your handling code here:
         System.out.println("Go back button pressed");
+        this.dispose();
+        new EmployeeHome().setVisible(true);
 
 
     }//GEN-LAST:event_GoBack

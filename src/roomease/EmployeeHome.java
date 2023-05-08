@@ -163,8 +163,13 @@ public class EmployeeHome extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void bookingsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bookingsButtonActionPerformed
-           dispose();
-           new BookingPage().setVisible(true);
+        try {
+            dispose();
+            new RoomCheck().setVisible(rootPaneCheckingEnabled);
+            //new BookingPage().setVisible(true);
+        } catch (SQLException ex) {
+            Logger.getLogger(EmployeeHome.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_bookingsButtonActionPerformed
 
     private void expensesButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_expensesButton1ActionPerformed
