@@ -42,6 +42,7 @@ public class EmployeeHome extends javax.swing.JFrame {
         expensesButton = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         expensesButton1 = new javax.swing.JButton();
+        expensesButton2 = new javax.swing.JButton();
         mainPanel = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
         bookingsTable = new javax.swing.JTable();
@@ -55,7 +56,7 @@ public class EmployeeHome extends javax.swing.JFrame {
         sidePanel.setBackground(new java.awt.Color(142, 74, 73));
 
         bookingsButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        bookingsButton.setText("Bookings");
+        bookingsButton.setText("Renting");
         bookingsButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bookingsButtonActionPerformed(evt);
@@ -86,6 +87,14 @@ public class EmployeeHome extends javax.swing.JFrame {
             }
         });
 
+        expensesButton2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        expensesButton2.setText("Active Rentals");
+        expensesButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                expensesButton2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout sidePanelLayout = new javax.swing.GroupLayout(sidePanel);
         sidePanel.setLayout(sidePanelLayout);
         sidePanelLayout.setHorizontalGroup(
@@ -96,9 +105,14 @@ public class EmployeeHome extends javax.swing.JFrame {
                     .addComponent(bookingsButton)
                     .addGroup(sidePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addComponent(jButton3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(expensesButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(expensesButton1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(expensesButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap(56, Short.MAX_VALUE))
+            .addGroup(sidePanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(sidePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(expensesButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(expensesButton2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         sidePanelLayout.setVerticalGroup(
             sidePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -109,7 +123,9 @@ public class EmployeeHome extends javax.swing.JFrame {
                 .addComponent(expensesButton)
                 .addGap(18, 18, 18)
                 .addComponent(expensesButton1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(36, 36, 36)
+                .addComponent(expensesButton2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 73, Short.MAX_VALUE)
                 .addComponent(jButton3)
                 .addGap(57, 57, 57))
         );
@@ -176,7 +192,7 @@ public class EmployeeHome extends javax.swing.JFrame {
                 .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(78, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -228,6 +244,10 @@ public class EmployeeHome extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_expensesButton1ActionPerformed
 
+    private void expensesButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_expensesButton2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_expensesButton2ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -269,6 +289,7 @@ public class EmployeeHome extends javax.swing.JFrame {
     private javax.swing.JTable bookingsTable;
     private javax.swing.JButton expensesButton;
     private javax.swing.JButton expensesButton1;
+    private javax.swing.JButton expensesButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
