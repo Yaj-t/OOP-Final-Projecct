@@ -167,7 +167,7 @@ public class LoginPage extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-
+static Session session = null;
         private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginButtonActionPerformed
         String username = usernameField.getText();
         String password = passwordField.getText();
@@ -177,7 +177,7 @@ public class LoginPage extends javax.swing.JFrame {
 
             if (user != null && user.getPassword().equals(password)) {
                 UserType userType = user.getType();
-                Session session;
+                
                 if (userType == UserType.ADMIN) {
                     // Open main application window for admin
                     AdminHome home = new AdminHome();
