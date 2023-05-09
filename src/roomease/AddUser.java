@@ -198,12 +198,9 @@ public class AddUser extends javax.swing.JFrame {
 
             // Adds an entry to the Admin Log when a new user is added
             AdminActionLog log;
-            System.out.println("Error");
             int userID = Session.getCurrentUser().getUserID();
-            log = new AdminActionLog(0, userID, "Added a new user to the database", LocalDateTime.now());
-            System.out.println("Here Error");
+            log = new AdminActionLog(0, userID, "Added a new user to the database: "+'"'+ newUser.getUsername()+'"', LocalDateTime.now());
             AdminLogs.createAdminActionLog(log);
-            System.out.println("Here Error");
 
             // show success message and go back to users page
             JOptionPane.showMessageDialog(this, "User added successfully!");
