@@ -31,6 +31,7 @@ public class ExpensesPage extends javax.swing.JFrame {
      */
     
     public ExpensesPage() {
+        System.out.println("ExpensesPage");
         initComponents();
         try {
             
