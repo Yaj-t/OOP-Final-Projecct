@@ -4,6 +4,8 @@
  */
 package roomease;
 
+import roomease.rents.TenantsPage;
+import roomease.rents.RoomCheck;
 import roomease.expenses.ExpensesPage;
 import roomease.complaints.ComplaintsPage;
 import enums.LogType;

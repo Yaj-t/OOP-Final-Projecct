@@ -2,8 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package roomease;
+package roomease.rents;
 
+import roomease.rents.AddTenant;
 import database.RentalDAO;
 import database.TenantDAO;
 import database.UserDAO;
@@ -13,6 +14,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import roomease.AdminHome;
+import roomease.EditUser;
 import user.User;
 import util.Rental;
 import util.Tenant;
