@@ -35,6 +35,7 @@ public class AddTenant extends javax.swing.JFrame {
      * Creates new form AddTenant
      */
     public AddTenant() {
+        System.out.println("AddTenant");
         initComponents();
     }
 
