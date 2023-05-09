@@ -42,10 +42,12 @@ public class EditComplaint extends javax.swing.JFrame {
      * Creates new form NewJFrame
      */
     public EditComplaint() {
+        System.out.println("EditComplaint");
         initComponents();
     }
 
     public EditComplaint(Complaint complaint) {
+        System.out.println("EditComplaint");
         this.complaint = complaint;
         initComponents();
     }
