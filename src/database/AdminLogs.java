@@ -10,18 +10,17 @@ import util.AdminLoginLogs;
 public class AdminLogs {
     // Create Admin Action Log
     public static void createAdminActionLog(AdminActionLog adminActionLog) throws SQLException {
-        String sql = "INSERT INTO admin_action_log (admin_id, action, action_time) VALUES (?, ?, ?)";
-
-        try (
-             Connection connection = Connect.connectToDatabase();
+        String sql = "INSERT INTO admin_action_log (admin_id, action_description, action_time) VALUES (?, ?, ?)";
+        
+        try (Connection connection = Connect.connectToDatabase();
              PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setInt(1, adminActionLog.getuser_id());
             statement.setString(2, adminActionLog.getActionDescription());
             statement.setTimestamp(3, java.sql.Timestamp.valueOf(adminActionLog.getActionTime()));
             statement.executeUpdate();
-        }
-        Connect.closeConnection();
-      
+        }finally {
+        	Connect.closeConnection();
+        }      
     }
 
     // Create Admin Login Log
