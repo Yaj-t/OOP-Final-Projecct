@@ -34,29 +34,23 @@ public class AddRoom extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new javax.swing.JPanel();
         roomNumberLabel = new javax.swing.JLabel();
-        priceLabel = new javax.swing.JLabel();
-        roomNumberField = new javax.swing.JTextField();
         priceNumberField = new javax.swing.JTextField();
-        submit = new javax.swing.JButton();
-        backButton = new javax.swing.JButton();
+        roomNumberField = new javax.swing.JTextField();
         maxGuestLable = new javax.swing.JLabel();
+        priceLabel = new javax.swing.JLabel();
+        submit = new javax.swing.JButton();
         descriptionField = new javax.swing.JTextField();
+        backButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        jPanel1.setBackground(new java.awt.Color(8, 99, 117));
+
         roomNumberLabel.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
+        roomNumberLabel.setForeground(new java.awt.Color(247, 236, 89));
         roomNumberLabel.setText("Room #:");
-
-        priceLabel.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
-        priceLabel.setText("Price:");
-
-        roomNumberField.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
-        roomNumberField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                roomNumberFieldActionPerformed(evt);
-            }
-        });
 
         priceNumberField.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
         priceNumberField.addActionListener(new java.awt.event.ActionListener() {
@@ -65,11 +59,33 @@ public class AddRoom extends javax.swing.JFrame {
             }
         });
 
+        roomNumberField.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
+        roomNumberField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                roomNumberFieldActionPerformed(evt);
+            }
+        });
+
+        maxGuestLable.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
+        maxGuestLable.setForeground(new java.awt.Color(247, 236, 89));
+        maxGuestLable.setText("Description:");
+
+        priceLabel.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
+        priceLabel.setForeground(new java.awt.Color(247, 236, 89));
+        priceLabel.setText("Price:");
+
         submit.setFont(new java.awt.Font("Roboto", 1, 14)); // NOI18N
         submit.setText("Submit");
         submit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 submitActionPerformed(evt);
+            }
+        });
+
+        descriptionField.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
+        descriptionField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                descriptionFieldActionPerformed(evt);
             }
         });
 
@@ -81,59 +97,63 @@ public class AddRoom extends javax.swing.JFrame {
             }
         });
 
-        maxGuestLable.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
-        maxGuestLable.setText("Description:");
-
-        descriptionField.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
-        descriptionField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                descriptionFieldActionPerformed(evt);
-            }
-        });
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 337, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(backButton)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addGap(25, 25, 25)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(priceLabel)
+                                .addComponent(roomNumberLabel)
+                                .addComponent(maxGuestLable))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(submit)
+                                .addComponent(descriptionField)
+                                .addComponent(priceNumberField)
+                                .addComponent(roomNumberField, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addContainerGap(30, Short.MAX_VALUE)))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 262, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(backButton)
+                    .addGap(18, 18, 18)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(roomNumberLabel)
+                        .addComponent(roomNumberField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGap(18, 18, 18)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(priceLabel)
+                        .addComponent(priceNumberField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGap(18, 18, 18)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(maxGuestLable)
+                        .addComponent(descriptionField, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(submit)
+                    .addContainerGap(26, Short.MAX_VALUE)))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(backButton))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(37, 37, 37)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(priceLabel)
-                            .addComponent(roomNumberLabel)
-                            .addComponent(maxGuestLable))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(submit)
-                            .addComponent(descriptionField)
-                            .addComponent(priceNumberField)
-                            .addComponent(roomNumberField, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(93, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(backButton)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(roomNumberLabel)
-                    .addComponent(roomNumberField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(priceLabel)
-                    .addComponent(priceNumberField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(maxGuestLable)
-                    .addComponent(descriptionField, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(submit)
-                .addContainerGap(77, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -192,6 +212,7 @@ public class AddRoom extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton backButton;
     private javax.swing.JTextField descriptionField;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel maxGuestLable;
     private javax.swing.JLabel priceLabel;
     private javax.swing.JTextField priceNumberField;

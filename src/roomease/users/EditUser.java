@@ -68,6 +68,8 @@ public class EditUser extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        jPanel1.setBackground(new java.awt.Color(8, 99, 117));
+
         passwordField.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
         passwordField.setText(user.getPassword());
         passwordField.addActionListener(new java.awt.event.ActionListener() {
@@ -108,15 +110,19 @@ public class EditUser extends javax.swing.JFrame {
         });
 
         userTypeLabel.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
+        userTypeLabel.setForeground(new java.awt.Color(247, 236, 89));
         userTypeLabel.setText("User Type:");
 
         userTypeLabel1.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
+        userTypeLabel1.setForeground(new java.awt.Color(247, 236, 89));
         userTypeLabel1.setText("Username:");
 
         userTypeLabel2.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
+        userTypeLabel2.setForeground(new java.awt.Color(247, 236, 89));
         userTypeLabel2.setText("Password:");
 
         userTypeLabel3.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
+        userTypeLabel3.setForeground(new java.awt.Color(247, 236, 89));
         userTypeLabel3.setText("Name:");
 
         usernameField.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
