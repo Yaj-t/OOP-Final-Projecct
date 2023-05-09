@@ -7,9 +7,11 @@ package roomease.complaints;
 import roomease.complaints.EditComplaint;
 import roomease.complaints.AddComplaint;
 import database.ComplaintsDAO;
+import database.EmployeeLogs;
 import database.RoomDAO;
 import database.UserDAO;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -17,7 +19,9 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import roomease.homepage.EmployeeHome;
 import roomease.users.UsersPage;
+import user.Session;
 import util.Complaint;
+import util.EmployeeActionLog;
 import util.Room;
 
 /**
@@ -191,6 +195,13 @@ public class ComplaintsPage extends javax.swing.JFrame {
                         dispose();
                         new ComplaintsPage().setVisible(true);
                         JOptionPane.showMessageDialog(null, "Complaint deleted successfully.");
+                        
+                        EmployeeActionLog employeeActionLog = new EmployeeActionLog( Session.getCurrentUserId(), "Complaint deleted: " + complaintID);
+                        EmployeeLogs.createEmployeeActionLog(employeeActionLog);
+                        
+                        dispose();
+                        new ComplaintsPage().setVisible(true);
+
                     } catch (SQLException ex) {
                         JOptionPane.showMessageDialog(null, "Error deleting complaint: " + ex.getMessage());
                     }
