@@ -21,13 +21,13 @@ import util.Room;
  *
  * @author Predator
  */
-public class AddRenting extends javax.swing.JFrame {
+public class AddRent extends javax.swing.JFrame {
     List <Room> roomList;
     /**
      * Creates new form Rooms
      */
     
-    public AddRenting() {
+    public AddRent() {
         initComponents();
         try {
             
@@ -309,7 +309,7 @@ public class AddRenting extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new AddRenting().setVisible(true);
+                new AddRent().setVisible(true);
             }
         });
     }
