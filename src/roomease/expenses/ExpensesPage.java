@@ -6,6 +6,7 @@ package roomease.expenses;
 
 import roomease.expenses.EditExpense;
 import roomease.expenses.AddExpense;
+import database.EmployeeLogs;
 import database.ExpenseDAO;
 import database.UserDAO;
 import java.sql.SQLException;
@@ -15,6 +16,8 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import roomease.homepage.EmployeeHome;
+import user.Session;
+import util.EmployeeActionLog;
 import util.Expense;
 
 /**
@@ -178,6 +181,9 @@ public class ExpensesPage extends javax.swing.JFrame {
             if (option == JOptionPane.YES_OPTION) { // user confirms deletion
                 int expenseID =(int) expensesTable.getValueAt(row, 0); // get the username from the table
                 try {
+                        EmployeeActionLog employeeActionLog = new EmployeeActionLog(Session.getCurrentUserId(), "Deleted expense with ID: " + expenseID);
+                        EmployeeLogs.createEmployeeActionLog(employeeActionLog);
+
                         ExpenseDAO.deleteExpense(expenseID);
                         dispose();
                         new ExpensesPage().setVisible(true);
