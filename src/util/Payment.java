@@ -26,6 +26,7 @@ public class Payment {
     }
 
     public Payment(int rental_id, int employee_id, double amount, String description) {
+        this.payment_id = 0;
         this.rental_id = rental_id;
         this.employee_id = employee_id;
         this.amount = amount;
