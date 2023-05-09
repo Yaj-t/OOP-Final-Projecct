@@ -14,7 +14,7 @@ public class Tenant {
         this.phoneNumber = phoneNumber;
         this.email = email;
     }
-
+    
     public Tenant(String firstName, String lastName, String email, String phoneNumber) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
