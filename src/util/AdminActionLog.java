@@ -10,4 +10,8 @@ public class AdminActionLog extends ActionLog{
         super(logId, employeeId, actionDescription, actionTime);
     }
 
+    public AdminActionLog(int employeeId, String actionDescription) {
+        super(employeeId, actionDescription);
+    }
+
 }
