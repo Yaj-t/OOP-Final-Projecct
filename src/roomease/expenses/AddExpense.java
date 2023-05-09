@@ -79,6 +79,11 @@ public class AddExpense extends javax.swing.JFrame {
         amountField.setForeground(new java.awt.Color(8, 99, 117));
         amountField.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
         amountField.setText("0.00");
+        amountField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                amountFieldActionPerformed(evt);
+            }
+        });
 
         jDateChooser.setForeground(new java.awt.Color(8, 99, 117));
         jDateChooser.setDate(new Date());
@@ -104,7 +109,7 @@ public class AddExpense extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 384, Short.MAX_VALUE)
+            .addGap(0, 403, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel1Layout.createSequentialGroup()
                     .addContainerGap()
@@ -218,6 +223,10 @@ public class AddExpense extends javax.swing.JFrame {
         dispose();
         new ExpensesPage().setVisible(true);
     }//GEN-LAST:event_backButtonActionPerformed
+
+    private void amountFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_amountFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_amountFieldActionPerformed
 
     /**
      * @param args the command line arguments
