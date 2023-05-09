@@ -15,6 +15,9 @@ import javax.swing.table.DefaultTableModel;
 import util.EmployeeLoginLogs;
 import java.time.LocalDateTime;
 import roomease.LoginPage;
+import roomease.logs.ActionLogs;
+import util.AdminActionLog;
+import util.EmployeeActionLog;
 /**
  *
  * @author T-jay
@@ -26,6 +29,7 @@ public class AdminHome extends javax.swing.JFrame {
      * Creates new form Home
      */
     public AdminHome() {
+        System.out.println("AdminHome");
         initComponents();
         setResizable(false);
        
@@ -77,6 +81,8 @@ public class AdminHome extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         adminLogs = new javax.swing.JTable();
+        EmployeeActionLogs = new javax.swing.JButton();
+        AdminActionLog = new javax.swing.JButton();
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -171,9 +177,9 @@ public class AdminHome extends javax.swing.JFrame {
                 .addComponent(Users1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(rooms, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(98, 98, 98)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(logout, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(22, 22, 22))
         );
 
         jPanel2.setBackground(new java.awt.Color(8, 99, 117));
@@ -223,7 +229,7 @@ public class AdminHome extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID", "Employee ID", "Log Type", "Log Date Time"
+                "ID", "AdminID", "Log Type", "Log Date Time"
             }
         ) {
             Class[] types = new Class [] {
@@ -248,26 +254,51 @@ public class AdminHome extends javax.swing.JFrame {
             adminLogs.getColumnModel().getColumn(3).setPreferredWidth(150);
         }
 
+        EmployeeActionLogs.setText("Employee Action Logs");
+        EmployeeActionLogs.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                EmployeeActionLogs(evt);
+            }
+        });
+
+        AdminActionLog.setText("Admin Action Logs");
+        AdminActionLog.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AdminActionLogs(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 403, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap(285, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(AdminActionLog, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(EmployeeActionLogs, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addContainerGap())
             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel2Layout.createSequentialGroup()
                     .addContainerGap()
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(jPanel2Layout.createSequentialGroup()
-                            .addComponent(adminLogsLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 367, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGap(0, 12, Short.MAX_VALUE))
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 379, Short.MAX_VALUE))
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 379, Short.MAX_VALUE)
+                        .addGroup(jPanel2Layout.createSequentialGroup()
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(adminLogsLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGap(0, 267, Short.MAX_VALUE)))
                     .addContainerGap()))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 381, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(EmployeeActionLogs)
+                .addGap(159, 159, 159)
+                .addComponent(AdminActionLog)
+                .addContainerGap(170, Short.MAX_VALUE))
             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel2Layout.createSequentialGroup()
                     .addContainerGap()
@@ -288,7 +319,7 @@ public class AdminHome extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addComponent(sidePanle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -327,6 +358,26 @@ public class AdminHome extends javax.swing.JFrame {
         new UsersPage().setVisible(true);
     }//GEN-LAST:event_UsersButton
 
+    private void EmployeeActionLogs(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EmployeeActionLogs
+
+        EmployeeActionLog employeeActionLog = null;
+
+        dispose();
+        ActionLogs actionLogs = new ActionLogs(employeeActionLog);
+        actionLogs.setVisible(true);
+
+    }//GEN-LAST:event_EmployeeActionLogs
+
+    private void AdminActionLogs(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AdminActionLogs
+        
+        AdminActionLog AdminActionLogs = null;
+
+        dispose();
+        ActionLogs actionLogs = new ActionLogs(AdminActionLogs);
+        actionLogs.setVisible(true);
+
+    }//GEN-LAST:event_AdminActionLogs
+
     /**
      * @param args the command line arguments
      */
@@ -346,6 +397,8 @@ public class AdminHome extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton AdminActionLog;
+    private javax.swing.JButton EmployeeActionLogs;
     private javax.swing.JLabel ROOMEASE;
     private javax.swing.JButton Users1;
     private javax.swing.JTable adminLogs;
