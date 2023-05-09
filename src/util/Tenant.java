@@ -22,7 +22,6 @@ public class Tenant {
         this.email = email;
     }
     
-    
     public int getId() {
         return id;
     }

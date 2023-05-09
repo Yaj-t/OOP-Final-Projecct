@@ -4,6 +4,7 @@
  */
 package roomease;
 
+import roomease.complaints.AddComplaint;
 import database.ComplaintsDAO;
 import database.RoomDAO;
 import database.UserDAO;
