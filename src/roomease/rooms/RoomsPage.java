@@ -190,8 +190,7 @@ public class RoomsPage extends javax.swing.JFrame {
                             return;
                         }
                         RoomDAO.deleteRoombyID(roomID); // delete the room
-                        int user_id = Session.getCurrentUser().getUserID();
-                        AdminActionLog log = new AdminActionLog(0,user_id, "Deleted room with ID: "+'"'+ roomID+'"', LocalDateTime.now());
+                        AdminActionLog log = new AdminActionLog(Session.getCurrentUserId(), "Deleted room with ID: "+'"'+ roomID+'"');
                         AdminLogs.createAdminActionLog(log);
 
                         dispose();
