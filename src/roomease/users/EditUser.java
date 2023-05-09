@@ -27,6 +27,7 @@ public class EditUser extends javax.swing.JFrame {
     private User user;
 
     public User getUser() {
+        System.out.println("EditUser");
         return user;
     }
 
