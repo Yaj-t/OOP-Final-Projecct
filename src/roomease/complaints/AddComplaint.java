@@ -32,6 +32,7 @@ public class AddComplaint extends javax.swing.JFrame {
      */
     
     public AddComplaint() {
+        System.out.println("Add Complaint");
         initComponents();
         try {
             
