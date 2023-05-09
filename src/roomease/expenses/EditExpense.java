@@ -4,7 +4,10 @@
  */
 package roomease.expenses;
 
+import database.EmployeeLogs;
 import database.ExpenseDAO;
+import user.Session;
+
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -14,6 +17,7 @@ import util.Expense;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import util.EmployeeActionLog;
 
 
 /**
@@ -153,16 +157,33 @@ public class EditExpense extends javax.swing.JFrame {
 
     private void submitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitActionPerformed
         // TODO add your handling code here:
+        Date selectedDate = jDateChooser.getDate();
+
+
+        //Check if all fields are filled and valid
+        if (amountField.getText().isEmpty() || descriptionField.getText().isEmpty() || selectedDate == null) {
+            JOptionPane.showMessageDialog(this, "Please fill all fields!");
+            return;
+        }
+
+        if (Float.parseFloat(amountField.getText()) <= 0) {
+            JOptionPane.showMessageDialog(this, "Please enter a valid amount!");
+            return;
+        }
+
+        //Update expense
 
         expense.setAmount( Float.parseFloat( amountField.getText()));
         expense.setDescription(descriptionField.getText());
-        Date selectedDate = jDateChooser.getDate();
         Instant instant = selectedDate.toInstant();
         ZoneId zone = ZoneId.systemDefault();
         LocalDate localDate = instant.atZone(zone).toLocalDate();
         expense.setDate(localDate);
         System.out.println(expense.getAmount()+" "+ expense.getDate()+" "+ expense.getDescription());
         try {
+            EmployeeActionLog log = new EmployeeActionLog(Session.getCurrentUserId(), "Updated Expense with ID: " + expense.getId());
+            EmployeeLogs.createEmployeeActionLog(log);
+
             ExpenseDAO.updateExpense(expense);
             JOptionPane.showMessageDialog(this, "Expense Updated successfully!");
         } catch (SQLException ex) {
