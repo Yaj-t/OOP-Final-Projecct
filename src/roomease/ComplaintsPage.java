@@ -4,13 +4,16 @@
  */
 package roomease;
 
+import database.ComplaintsDAO;
 import database.RoomDAO;
+import database.UserDAO;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import util.Complaint;
 import util.Room;
 
 /**
@@ -18,7 +21,7 @@ import util.Room;
  * @author Predator
  */
 public class ComplaintsPage extends javax.swing.JFrame {
-    List <Room> roomList;
+    List <Complaint> complaintsList;
     /**
      * Creates new form Rooms
      */
@@ -27,13 +30,13 @@ public class ComplaintsPage extends javax.swing.JFrame {
         initComponents();
         try {
             
-            roomList = RoomDAO.getAllRooms();
-            DefaultTableModel tableModel = (DefaultTableModel) roomsTable.getModel();
-            for (Room room : roomList) {
-                Object[] rowData = {room.getRoomNumber(), room.getPrice(),room.getDescription()};
+            complaintsList = ComplaintsDAO.getUnresolvedComplaints();
+            DefaultTableModel tableModel = (DefaultTableModel) complaintsTable.getModel();
+            for (Complaint complaint : complaintsList) {
+                Object[] rowData = {complaint.getComplaintId(), RoomDAO.getRoomByID(complaint.getRoomId()).getRoomNumber(), complaint.getDate(), complaint.getDescription(), complaint.getStatus()};
                 tableModel.addRow(rowData);
             }
-            roomsTable.setModel(tableModel);
+            complaintsTable.setModel(tableModel);
         } catch (SQLException ex) {
             Logger.getLogger(Room.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -55,7 +58,7 @@ public class ComplaintsPage extends javax.swing.JFrame {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         jScrollPane2 = new javax.swing.JScrollPane();
-        roomsTable = new javax.swing.JTable();
+        complaintsTable = new javax.swing.JTable();
         delete = new javax.swing.JButton();
         add = new javax.swing.JButton();
         edit = new javax.swing.JButton();
@@ -63,7 +66,7 @@ public class ComplaintsPage extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        roomsTable.setModel(new javax.swing.table.DefaultTableModel(
+        complaintsTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -86,17 +89,17 @@ public class ComplaintsPage extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        roomsTable.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        roomsTable.setShowGrid(true);
-        roomsTable.getTableHeader().setReorderingAllowed(false);
-        jScrollPane2.setViewportView(roomsTable);
-        if (roomsTable.getColumnModel().getColumnCount() > 0) {
-            roomsTable.getColumnModel().getColumn(0).setMinWidth(40);
-            roomsTable.getColumnModel().getColumn(0).setPreferredWidth(40);
-            roomsTable.getColumnModel().getColumn(0).setMaxWidth(100);
-            roomsTable.getColumnModel().getColumn(1).setMinWidth(70);
-            roomsTable.getColumnModel().getColumn(1).setPreferredWidth(70);
-            roomsTable.getColumnModel().getColumn(1).setMaxWidth(100);
+        complaintsTable.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        complaintsTable.setShowGrid(true);
+        complaintsTable.getTableHeader().setReorderingAllowed(false);
+        jScrollPane2.setViewportView(complaintsTable);
+        if (complaintsTable.getColumnModel().getColumnCount() > 0) {
+            complaintsTable.getColumnModel().getColumn(0).setMinWidth(40);
+            complaintsTable.getColumnModel().getColumn(0).setPreferredWidth(40);
+            complaintsTable.getColumnModel().getColumn(0).setMaxWidth(100);
+            complaintsTable.getColumnModel().getColumn(1).setMinWidth(70);
+            complaintsTable.getColumnModel().getColumn(1).setPreferredWidth(70);
+            complaintsTable.getColumnModel().getColumn(1).setMaxWidth(100);
         }
 
         delete.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
@@ -172,20 +175,20 @@ public class ComplaintsPage extends javax.swing.JFrame {
 
     private void deleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteActionPerformed
         // TODO add your handling code here:
-        int row = roomsTable.getSelectedRow(); // get the selected row
+        int row = complaintsTable.getSelectedRow(); // get the selected row
         if (row != -1) { // check if a row is selected
-            int option = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete this room?",
+            int option = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete this complaint?",
                 "Confirm Deletion", JOptionPane.YES_NO_OPTION); // confirm deletion with user
 
             if (option == JOptionPane.YES_OPTION) { // user confirms deletion
-                String roomNumber = (String) roomsTable.getValueAt(row, 0); // get the username from the table
+                int complaintID = (int) complaintsTable.getValueAt(row, 0); // get the username from the table
                 try {
-                        RoomDAO.deleteRoom(roomNumber);
+                        ComplaintsDAO.deleteComplaintById(complaintID);
                         dispose();
                         new ComplaintsPage().setVisible(true);
-                        JOptionPane.showMessageDialog(null, "Room deleted successfully.");
+                        JOptionPane.showMessageDialog(null, "Complaint deleted successfully.");
                     } catch (SQLException ex) {
-                        JOptionPane.showMessageDialog(null, "Error deleting room: " + ex.getMessage());
+                        JOptionPane.showMessageDialog(null, "Error deleting complaint: " + ex.getMessage());
                     }
             }
         } else {
@@ -196,19 +199,18 @@ public class ComplaintsPage extends javax.swing.JFrame {
     private void addActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addActionPerformed
         //TODO add your handling code here:
         dispose();
-        AddRoom addRoom = new AddRoom();
-        addRoom.setVisible(true);
+        new AddComplaint().setVisible(true);
     }//GEN-LAST:event_addActionPerformed
 
     private void editActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editActionPerformed
-        int selectedRow = roomsTable.getSelectedRow();
+        int selectedRow = complaintsTable.getSelectedRow();
         if(selectedRow !=-1){
             try {
                 // TODO add your handling code here:
 
-                String roomNumber = (String) roomsTable.getValueAt(selectedRow, 0);
-                Room room = RoomDAO.getRoomByNumber(roomNumber);
-                new EditRoom(room).setVisible(true);
+                int complaintID =  (int) complaintsTable.getValueAt(selectedRow, 0);
+                Complaint complaint = ComplaintsDAO.getComplaintById(complaintID);
+                new EditComplaint(complaint).setVisible(true);
                 dispose();
             } catch (SQLException ex) {
                 Logger.getLogger(UsersPage.class.getName()).log(Level.SEVERE, null, ex);
@@ -221,7 +223,7 @@ public class ComplaintsPage extends javax.swing.JFrame {
     private void goBackButtomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_goBackButtomActionPerformed
         // TODO add your handling code here:
         dispose();
-        new AdminHome().setVisible(true);
+        new EmployeeHome().setVisible(true);
     }//GEN-LAST:event_goBackButtomActionPerformed
 
     /**
@@ -240,11 +242,11 @@ public class ComplaintsPage extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton add;
+    private javax.swing.JTable complaintsTable;
     private javax.swing.JButton delete;
     private javax.swing.JButton edit;
     private javax.swing.JButton goBackButtom;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable roomsTable;
     // End of variables declaration//GEN-END:variables
 }

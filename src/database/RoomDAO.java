@@ -52,10 +52,11 @@ public class RoomDAO {
              ResultSet resultSet = statement.executeQuery(sql)) {
 
             while (resultSet.next()) {
+                int roomID = resultSet.getInt("room_id");
                 String roomNumber = resultSet.getString("room_number");
                 double price = resultSet.getFloat("room_price");
                 String description = resultSet.getString("description");
-                Room room = new Room(roomNumber, price, description);
+                Room room = new Room(roomID, roomNumber, price, description);
                 rooms.add(room);
             }
         }
@@ -114,13 +115,9 @@ public class RoomDAO {
             try (ResultSet resultSet = statement.executeQuery()) {
                 if (resultSet.next()) {
                     int roomID = id;
-                    System.out.println(roomID);
                     String roomNumber = resultSet.getString("room_number");
-                    System.out.println(roomNumber);
                     Double price = resultSet.getDouble("room_price");
-                    System.out.println(price);
                     String description = resultSet.getString("description");
-                    System.out.println(description);
 
                     room = new Room( roomID ,roomNumber, price, description);
                 }

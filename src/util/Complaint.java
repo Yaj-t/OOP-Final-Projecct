@@ -13,17 +13,26 @@ import java.time.LocalDate;
 public class Complaint {
     private int complaintId;
     private int roomId;
-    private LocalDate complaintDate;
+    private LocalDate date;
     private String description;
     private Status status;
 
     public Complaint(int complaintId, int roomId, LocalDate complaintDate, String description, Status status) {
         this.complaintId = complaintId;
         this.roomId = roomId;
-        this.complaintDate = complaintDate;
+        this.date = complaintDate;
         this.description = description;
         this.status = status;
     }
+
+    public Complaint(int roomId, LocalDate date, String description, Status status) {
+        this.roomId = roomId;
+        this.date = date;
+        this.description = description;
+        this.status = status;
+    }
+    
+    
 
     // getter and setter methods
     public int getComplaintId() {
@@ -42,12 +51,12 @@ public class Complaint {
         this.roomId = roomId;
     }
 
-    public LocalDate getComplaintDate() {
-        return complaintDate;
+    public LocalDate getDate() {
+        return date;
     }
 
-    public void setComplaintDate(LocalDate complaintDate) {
-        this.complaintDate = complaintDate;
+    public void setDate(LocalDate date) {
+        this.date = date;
     }
 
     public String getDescription() {
