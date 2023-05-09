@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 09, 2023 at 04:22 PM
+-- Generation Time: May 09, 2023 at 08:13 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -88,7 +88,10 @@ INSERT INTO `admin_login_log` (`log_id`, `admin_id`, `log_type`, `log_time`) VAL
 (34, 1, 'LOGIN', '2023-05-09 15:52:08'),
 (35, 1, 'LOGIN', '2023-05-09 16:03:19'),
 (36, 1, 'LOGIN', '2023-05-09 17:27:06'),
-(37, 1, 'LOGOUT', '2023-05-09 17:28:04');
+(37, 1, 'LOGOUT', '2023-05-09 17:28:04'),
+(38, 1, 'LOGIN', '2023-05-09 22:56:25'),
+(39, 1, 'LOGOUT', '2023-05-09 22:56:59'),
+(40, 1, 'LOGIN', '2023-05-10 01:59:36');
 
 -- --------------------------------------------------------
 
@@ -99,10 +102,19 @@ INSERT INTO `admin_login_log` (`log_id`, `admin_id`, `log_type`, `log_time`) VAL
 CREATE TABLE `complaints` (
   `complaint_id` int(11) NOT NULL,
   `room_id` int(11) NOT NULL,
-  `complaint_date` datetime NOT NULL,
+  `complaint_date` date NOT NULL,
   `description` varchar(255) DEFAULT NULL,
   `status` enum('UNRESOLVED','RESOLVED') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `complaints`
+--
+
+INSERT INTO `complaints` (`complaint_id`, `room_id`, `complaint_date`, `description`, `status`) VALUES
+(1, 3, '2023-05-09', 'testing this', 'UNRESOLVED'),
+(2, 3, '2023-05-10', 'afafdafadfadf', 'RESOLVED'),
+(4, 12, '2023-05-10', 'testing complaint', 'RESOLVED');
 
 -- --------------------------------------------------------
 
@@ -194,7 +206,11 @@ INSERT INTO `employee_login_log` (`log_id`, `employee_id`, `log_type`, `log_time
 (57, 3, 'LOGOUT', '2023-05-09 15:45:59'),
 (58, 2, 'LOGIN', '2023-05-09 15:46:14'),
 (59, 2, 'LOGOUT', '2023-05-09 15:46:22'),
-(60, 3, 'LOGIN', '2023-05-09 17:28:10');
+(60, 3, 'LOGIN', '2023-05-09 17:28:10'),
+(61, 3, 'LOGIN', '2023-05-09 22:57:03'),
+(62, 2, 'LOGIN', '2023-05-10 00:11:11'),
+(63, 2, 'LOGIN', '2023-05-10 01:33:44'),
+(64, 2, 'LOGIN', '2023-05-10 01:51:48');
 
 -- --------------------------------------------------------
 
@@ -447,13 +463,13 @@ ALTER TABLE `admin_action_log`
 -- AUTO_INCREMENT for table `admin_login_log`
 --
 ALTER TABLE `admin_login_log`
-  MODIFY `log_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
+  MODIFY `log_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
 
 --
 -- AUTO_INCREMENT for table `complaints`
 --
 ALTER TABLE `complaints`
-  MODIFY `complaint_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `complaint_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `employee_action_log`
@@ -465,7 +481,7 @@ ALTER TABLE `employee_action_log`
 -- AUTO_INCREMENT for table `employee_login_log`
 --
 ALTER TABLE `employee_login_log`
-  MODIFY `log_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=61;
+  MODIFY `log_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=65;
 
 --
 -- AUTO_INCREMENT for table `expenses`
