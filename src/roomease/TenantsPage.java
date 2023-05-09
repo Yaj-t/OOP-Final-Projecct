@@ -4,6 +4,8 @@
  */
 package roomease;
 
+import database.RentalDAO;
+import database.TenantDAO;
 import database.UserDAO;
 import java.sql.SQLException;
 import java.util.List;
@@ -12,31 +14,32 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import user.User;
+import util.Rental;
+import util.Tenant;
 
 
 /**
  *
  * @author Predator
  */
-public class UsersPage extends javax.swing.JFrame {
-    List <User> userList;
+public class TenantsPage extends javax.swing.JFrame {
+    List <Tenant> tenantList;
     /**
      * Creates new form Users
      */
-    public UsersPage() {
+    public TenantsPage() {
         initComponents();
         try {
-            userList = UserDAO.getAllUsers();
+            tenantList = TenantDAO.getAlltenant();
         } catch (SQLException ex) {
-            Logger.getLogger(UsersPage.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TenantsPage.class.getName()).log(Level.SEVERE, null, ex);
         }
-        DefaultTableModel tableModel = (DefaultTableModel)usersTable.getModel();
-        for (User user : userList) {
-            System.out.println(user.getUserID()+" "+ user.getType()+ user.getUsername()+ user.getName());
-            Object[] rowData = {user.getUserID(), user.getType(), user.getUsername(), user.getName()};
+        DefaultTableModel tableModel = (DefaultTableModel)tenantsTable.getModel();
+        for (Tenant tenant : tenantList) {
+            Object[] rowData = {tenant.getId() , tenant.getFirstName(), tenant.getLastName(), tenant.getPhoneNumber(), tenant.getEmail()};
             tableModel.addRow(rowData);
         }
-        usersTable.setModel(tableModel);
+        tenantsTable.setModel(tableModel);
         
     }
 
@@ -50,27 +53,29 @@ public class UsersPage extends javax.swing.JFrame {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        usersTable = new javax.swing.JTable();
+        tenantsTable = new javax.swing.JTable();
         delete = new javax.swing.JButton();
         add = new javax.swing.JButton();
         edit = new javax.swing.JButton();
         goBackButtom = new javax.swing.JButton();
+        currentLbl = new javax.swing.JButton();
+        allLbl = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        usersTable.setModel(new javax.swing.table.DefaultTableModel(
+        tenantsTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "ID", "Type", "Username", "Name"
+                "ID", "First name", "Last name", "Phone", "Email"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false, true, true
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -81,10 +86,10 @@ public class UsersPage extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        usersTable.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        usersTable.setShowGrid(true);
-        usersTable.getTableHeader().setReorderingAllowed(false);
-        jScrollPane1.setViewportView(usersTable);
+        tenantsTable.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        tenantsTable.setShowGrid(true);
+        tenantsTable.getTableHeader().setReorderingAllowed(false);
+        jScrollPane1.setViewportView(tenantsTable);
 
         delete.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
         delete.setText("DELETE");
@@ -118,31 +123,55 @@ public class UsersPage extends javax.swing.JFrame {
             }
         });
 
+        currentLbl.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
+        currentLbl.setText("Current");
+        currentLbl.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                currentLblActionPerformed(evt);
+            }
+        });
+
+        allLbl.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
+        allLbl.setText("ALL");
+        allLbl.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                allLblActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(28, 28, 28)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(add, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(edit, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(delete, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(goBackButtom, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 510, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(151, 151, 151)
+                        .addComponent(allLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(currentLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(add, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(edit, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(delete, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(20, 20, 20))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addComponent(goBackButtom)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(currentLbl)
+                            .addComponent(allLbl)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(goBackButtom)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -166,38 +195,37 @@ public class UsersPage extends javax.swing.JFrame {
     }//GEN-LAST:event_goBackButtomActionPerformed
 
     private void editActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editActionPerformed
-        int selectedRow = usersTable.getSelectedRow();
+        int selectedRow = tenantsTable.getSelectedRow();
         if(selectedRow !=-1){
             try {
                 // TODO add your handling code here:
-                int userID = (int) usersTable.getValueAt(selectedRow, 0);
+                int userID = (int) tenantsTable.getValueAt(selectedRow, 0);
                 User user = UserDAO.getUserByID(userID);
                 new EditUser(user).setVisible(true);
                 dispose();
             } catch (SQLException ex) {
-                Logger.getLogger(UsersPage.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(TenantsPage.class.getName()).log(Level.SEVERE, null, ex);
             }
         }else{
-            JOptionPane.showMessageDialog(null, "Please select a row to edit.");
+            JOptionPane.showMessageDialog(null, "Please select a row to delete.");
         }
     }//GEN-LAST:event_editActionPerformed
 
     private void addActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addActionPerformed
         //TODO add your handling code here:
         dispose();
-        AddUser addUser = new AddUser();
-        addUser.setVisible(true);
+        new AddTenant().setVisible(true);
     }//GEN-LAST:event_addActionPerformed
 
     private void deleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteActionPerformed
         // TODO add your handling code here:
-        int row = usersTable.getSelectedRow(); // get the selected row
+        int row = tenantsTable.getSelectedRow(); // get the selected row
         if (row != -1) { // check if a row is selected
             int option = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete this user?",
                 "Confirm Deletion", JOptionPane.YES_NO_OPTION); // confirm deletion with user
 
             if (option == JOptionPane.YES_OPTION) { // user confirms deletion
-                int userID =(int) usersTable.getValueAt(row, 0); // get the username from the table
+                int userID =(int) tenantsTable.getValueAt(row, 0); // get the username from the table
                 User user;
                 try {
                     user = UserDAO.getUserByID(userID);
@@ -205,13 +233,13 @@ public class UsersPage extends javax.swing.JFrame {
                         // delete the user from the database
                         UserDAO.deleteUser(user);
                         dispose();
-                        new UsersPage().setVisible(true);
+                        new TenantsPage().setVisible(true);
                         JOptionPane.showMessageDialog(null, "User deleted successfully.");
                     } catch (SQLException ex) {
                         JOptionPane.showMessageDialog(null, "Error deleting user: " + ex.getMessage());
                     }
                 } catch (SQLException ex) {
-                    Logger.getLogger(UsersPage.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(TenantsPage.class.getName()).log(Level.SEVERE, null, ex);
                 }
 
             }
@@ -219,6 +247,38 @@ public class UsersPage extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Please select a row to delete.");
         }
     }//GEN-LAST:event_deleteActionPerformed
+
+    private void currentLblActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_currentLblActionPerformed
+        // TODO add your handling code here:
+        DefaultTableModel model = (DefaultTableModel) tenantsTable.getModel();
+        model.setRowCount(0);
+        Tenant tenant;
+        try {
+            List <Rental> rentals = RentalDAO.getActiveRentals();
+            for (Rental rental : rentals) {
+                tenant = TenantDAO.getTenantById(rental.getTenant_id());
+                Object[] rowData = {tenant.getId(), tenant.getFirstName(), tenant.getLastName(), tenant.getPhoneNumber(), tenant.getEmail()};
+                model.addRow(rowData);
+            }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(TenantsPage.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_currentLblActionPerformed
+
+    private void allLblActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_allLblActionPerformed
+        try {
+            tenantList = TenantDAO.getAlltenant();
+        } catch (SQLException ex) {
+            Logger.getLogger(TenantsPage.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        DefaultTableModel tableModel = (DefaultTableModel) tenantsTable.getModel();
+        tableModel.setRowCount(0);
+        for (Tenant tenant : tenantList) {
+            Object[] rowData = {tenant.getId(), tenant.getFirstName(), tenant.getLastName(), tenant.getPhoneNumber(), tenant.getEmail()};
+            tableModel.addRow(rowData);
+        }
+    }//GEN-LAST:event_allLblActionPerformed
 
     /**
      * @param args the command line arguments
@@ -237,31 +297,35 @@ public class UsersPage extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(UsersPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TenantsPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(UsersPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TenantsPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(UsersPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TenantsPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(UsersPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(TenantsPage.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new UsersPage().setVisible(true);
-            }
+                new TenantsPage().setVisible(true);
+            }   
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton add;
+    private javax.swing.JButton allLbl;
+    private javax.swing.JButton currentLbl;
     private javax.swing.JButton delete;
     private javax.swing.JButton edit;
     private javax.swing.JButton goBackButtom;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable usersTable;
+    private javax.swing.JTable tenantsTable;
     // End of variables declaration//GEN-END:variables
 }

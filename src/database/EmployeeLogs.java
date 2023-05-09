@@ -1,4 +1,5 @@
 package database;
+
 import enums.LogType;
 import java.sql.*;
 import java.util.ArrayList;
@@ -11,37 +12,40 @@ public class EmployeeLogs {
     // Connection
     private static Connection connection;
 
-    public EmployeeLogs(){
+    public EmployeeLogs() {
     }
 
     // Create Employee Action Log
     public static void createEmployeeActionLog(EmployeeActionLog employeeActionLog) throws SQLException {
         String sql = "INSERT INTO employee_action_log (employee_id, action, action_time) VALUES (?, ?, ?)";
-
-        try (PreparedStatement statement = getConnection().prepareStatement(sql)) {
+        connection = Connect.connectToDatabase();
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setInt(1, employeeActionLog.getuser_id());
             statement.setString(2, employeeActionLog.getActionDescription());
-            statement.setTimestamp(3, java.sql.Timestamp.valueOf(employeeActionLog.getActionTime()));
+            statement.setTimestamp(3, Timestamp.valueOf(employeeActionLog.getActionTime()));
             statement.executeUpdate();
         }
+        Connect.closeConnection();
     }
 
     // Create Employee Login Log
     public static void createEmployeeLoginLog(EmployeeLoginLogs employeeLoginLogs) throws SQLException {
         String sql = "INSERT INTO employee_login_log (employee_id, log_type, log_time) VALUES (?, ?, ?)";
-
-        try (PreparedStatement statement = getConnection().prepareStatement(sql)) {
+        connection = Connect.connectToDatabase();
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setInt(1, employeeLoginLogs.getuser_id());
             statement.setString(2, employeeLoginLogs.getType().toString());
-            statement.setTimestamp(3, java.sql.Timestamp.valueOf(employeeLoginLogs.getLogTime()));
+            statement.setTimestamp(3, Timestamp.valueOf(employeeLoginLogs.getLogTime()));
             statement.executeUpdate();
         }
+        Connect.closeConnection();
     }
 
     // Get All Employee Action Logs
     public static List<EmployeeActionLog> getAllEmployeeActionLogs() throws SQLException {
         List<EmployeeActionLog> employeeActionLogs = new ArrayList<>();
-        try (Statement statement = getConnection().createStatement()) {
+        connection = Connect.connectToDatabase();
+        try (Statement statement = connection.createStatement()) {
             ResultSet resultSet = statement.executeQuery("SELECT * FROM employee_action_log");
 
             while (resultSet.next()) {
@@ -53,15 +57,17 @@ public class EmployeeLogs {
                 );
                 employeeActionLogs.add(employeeActionLog);
             }
+        } finally {
+            Connect.closeConnection();
         }
-        //Connect.closeConnection();
         return employeeActionLogs;
     }
 
     // Get All Employee Login Logs
     public static List<EmployeeLoginLogs> getAllEmployeeLoginLogs() throws SQLException {
         List<EmployeeLoginLogs> employeeLoginLogs = new ArrayList<>();
-        try (Statement statement = getConnection().createStatement()) {
+        connection = Connect.connectToDatabase();
+        try (Statement statement = connection.createStatement()) {
             ResultSet resultSet = statement.executeQuery("SELECT * FROM employee_login_log");
 
             while (resultSet.next()) {
@@ -73,16 +79,9 @@ public class EmployeeLogs {
                 );
                 employeeLoginLogs.add(employeeLoginLog);
             }
+        } finally {
+            Connect.closeConnection();
         }
         return employeeLoginLogs;
-    }
-
-    // Helper method to get the connection object
-    private static Connection getConnection() throws SQLException {
-        if (connection == null) {
-            // Establish the connection here
-            connection = Connect.connectToDatabase();
-        }
-        return connection;
     }
 }

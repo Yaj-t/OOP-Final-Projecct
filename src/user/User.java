@@ -9,6 +9,7 @@ import enums.UserType;
  * @author T-jay
  */
 public class User {
+//    public static User currentUser;
     private int userID;
     private UserType type;
     private String username;

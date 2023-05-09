@@ -5,6 +5,7 @@ import java.time.LocalDate;
 
 public class Expense {
     private int id;
+    private int user_id;
     private double amount;
     private String description;
     private LocalDate date;
@@ -15,19 +16,22 @@ public class Expense {
         
     }
 
-    public Expense(double amount, LocalDate date, String description) {
-        this.amount = amount;
-        this.description = description;
-        this.date = date;
-    }
-    
-    
-    public Expense(int id, double amount, String description, LocalDate date) {
+    public Expense(int id, int user_id, double amount, String description, LocalDate date) {
         this.id = id;
+        this.user_id = user_id;
         this.amount = amount;
         this.description = description;
         this.date = date;
     }
+
+    public Expense(int user_id, double amount, String description, LocalDate date) {
+        this.user_id = user_id;
+        this.amount = amount;
+        this.description = description;
+        this.date = date;
+    }
+
+    
 
     // Getters and setters
     public int getId() {
@@ -37,6 +41,16 @@ public class Expense {
     public void setId(int id) {
         this.id = id;
     }
+
+    public int getUser_id() {
+        return user_id;
+    }
+
+    public void setUser_id(int user_id) {
+        this.user_id = user_id;
+    }
+    
+    
 
     public double getAmount() {
         return amount;

@@ -19,10 +19,8 @@ public class AdminLogs {
             statement.setString(2, adminActionLog.getActionDescription());
             statement.setTimestamp(3, java.sql.Timestamp.valueOf(adminActionLog.getActionTime()));
             statement.executeUpdate();
-        }finally{
-              // Connection will be automatically closed here
-              Connect.closeConnection();
         }
+        Connect.closeConnection();
       
     }
 
@@ -36,10 +34,8 @@ public class AdminLogs {
             statement.setString(2, adminLoginLogs.getType().toString());
             statement.setTimestamp(3, java.sql.Timestamp.valueOf(adminLoginLogs.getLogTime()));
             statement.executeUpdate();
-        }finally{
-              // Connection will be automatically closed here
-              Connect.closeConnection();
         }
+        Connect.closeConnection();
     }
 
     // Get All Admin Action Logs
@@ -60,6 +56,7 @@ public class AdminLogs {
             }
         }
         // Connection will be automatically closed here
+        Connect.closeConnection();
         return adminActionLogs;
     }
 
@@ -81,6 +78,7 @@ public class AdminLogs {
             }
         }
         // Connection will be automatically closed here
+        Connect.closeConnection();
         return adminLoginLogs;
     }
 }

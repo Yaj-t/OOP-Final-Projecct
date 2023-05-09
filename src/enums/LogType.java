@@ -2,6 +2,6 @@ package enums;
 
 
 public enum LogType {
-        Login,
-        Logout;
+        LOGIN,
+        LOGOUT;
 }

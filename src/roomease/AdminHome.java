@@ -1,41 +1,57 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
 package roomease;
-
 import user.Session;
-import user.User;
 import util.AdminLoginLogs;
 import database.AdminLogs;
+import database.EmployeeLogs;
 import database.UserDAO;
 import enums.LogType;
-import enums.UserType;
-import util.*;
-import java.time.LocalDate;
-import database.*;
-import java.sql.SQLException;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
+import java.sql.SQLException;   
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JOptionPane;
-import user.Admin;
-
+import javax.swing.table.DefaultTableModel;
+import util.EmployeeLoginLogs;
+import java.time.LocalDateTime;
 /**
  *
- * @author Predator
+ * @author T-jay
  */
 public class AdminHome extends javax.swing.JFrame {
-
+    List <EmployeeLoginLogs> employeeLogsList;
+    List <AdminLoginLogs> adminLogsList;
     /**
      * Creates new form Home
      */
     public AdminHome() {
         initComponents();
         setResizable(false);
-    }
+       
+        try {
+             employeeLogsList = EmployeeLogs.getAllEmployeeLoginLogs();
+            DefaultTableModel tableModel = (DefaultTableModel) employeeLogs.getModel();
 
+            for (EmployeeLoginLogs log : employeeLogsList) {
+                Object[] rowData = {log.getLogId(), log.getuser_id(), log.getType(), log.getLogTime()};
+                tableModel.addRow(rowData);
+            }
+            employeeLogs.setModel(tableModel);
+        } catch (SQLException ex) {
+            Logger.getLogger(EmployeeLoginLogs.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        try {
+            adminLogsList = AdminLogs.getAllAdminLoginLogs();
+            DefaultTableModel tableModel = (DefaultTableModel) adminLogs.getModel();
+
+            for (AdminLoginLogs log : adminLogsList) {
+                Object[] rowData = {log.getLogId(), log.getuser_id(), log.getType(), log.getLogTime()};
+                tableModel.addRow(rowData);
+            }
+            adminLogs.setModel(tableModel);
+        } catch (SQLException ex) {
+            Logger.getLogger(AdminLoginLogs.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -46,12 +62,17 @@ public class AdminHome extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        SidePanel = new javax.swing.JPanel();
-        MainPanel = new javax.swing.JPanel();
+        sidePanle = new javax.swing.JPanel();
         Users1 = new javax.swing.JButton();
         logout = new javax.swing.JButton();
         rooms = new javax.swing.JButton();
         ROOMEASE = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        employeeLogs = new javax.swing.JTable();
+        jLabel1 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        adminLogs = new javax.swing.JTable();
+        adminLogsLbl = new javax.swing.JLabel();
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -66,13 +87,8 @@ public class AdminHome extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(204, 204, 255));
-        getContentPane().setLayout(new javax.swing.BoxLayout(getContentPane(), javax.swing.BoxLayout.LINE_AXIS));
 
-        SidePanel.setBackground(new java.awt.Color(255, 255, 255));
-        SidePanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        getContentPane().add(SidePanel);
-
-        MainPanel.setBackground(new java.awt.Color(255, 255, 255));
+        sidePanle.setBackground(new java.awt.Color(255, 255, 255));
 
         Users1.setBackground(new java.awt.Color(79, 117, 155));
         Users1.setFont(new java.awt.Font("Roboto", 1, 18)); // NOI18N
@@ -128,75 +144,162 @@ public class AdminHome extends javax.swing.JFrame {
         ROOMEASE.setText("ROOMEASE");
         ROOMEASE.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
-        javax.swing.GroupLayout MainPanelLayout = new javax.swing.GroupLayout(MainPanel);
-        MainPanel.setLayout(MainPanelLayout);
-        MainPanelLayout.setHorizontalGroup(
-            MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(MainPanelLayout.createSequentialGroup()
-                .addGroup(MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(MainPanelLayout.createSequentialGroup()
-                        .addGap(64, 64, 64)
-                        .addComponent(ROOMEASE, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(MainPanelLayout.createSequentialGroup()
-                        .addGap(23, 23, 23)
-                        .addGroup(MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(rooms, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(Users1, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(logout, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(37, Short.MAX_VALUE))
+        javax.swing.GroupLayout sidePanleLayout = new javax.swing.GroupLayout(sidePanle);
+        sidePanle.setLayout(sidePanleLayout);
+        sidePanleLayout.setHorizontalGroup(
+            sidePanleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(sidePanleLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(sidePanleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(ROOMEASE, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(sidePanleLayout.createSequentialGroup()
+                        .addGap(9, 9, 9)
+                        .addGroup(sidePanleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(rooms, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(Users1, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(logout, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        MainPanelLayout.setVerticalGroup(
-            MainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(MainPanelLayout.createSequentialGroup()
+        sidePanleLayout.setVerticalGroup(
+            sidePanleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(sidePanleLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(ROOMEASE)
-                .addGap(29, 29, 29)
+                .addGap(18, 18, 18)
                 .addComponent(Users1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addComponent(rooms, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30)
+                .addGap(98, 98, 98)
                 .addComponent(logout, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(17, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        getContentPane().add(MainPanel);
+        employeeLogs.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "ID", "Employee ID", "Log Type", "Log Date Time"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.Integer.class, java.lang.Object.class, java.lang.Object.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(employeeLogs);
+        if (employeeLogs.getColumnModel().getColumnCount() > 0) {
+            employeeLogs.getColumnModel().getColumn(0).setPreferredWidth(30);
+            employeeLogs.getColumnModel().getColumn(1).setPreferredWidth(70);
+            employeeLogs.getColumnModel().getColumn(3).setPreferredWidth(150);
+        }
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 3, 18)); // NOI18N
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("Employee Logs");
+
+        adminLogs.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "ID", "Employee ID", "Log Type", "Log Date Time"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.Integer.class, java.lang.Object.class, java.lang.Object.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane2.setViewportView(adminLogs);
+        if (adminLogs.getColumnModel().getColumnCount() > 0) {
+            adminLogs.getColumnModel().getColumn(0).setPreferredWidth(30);
+            adminLogs.getColumnModel().getColumn(1).setPreferredWidth(70);
+            adminLogs.getColumnModel().getColumn(3).setPreferredWidth(150);
+        }
+
+        adminLogsLbl.setFont(new java.awt.Font("Segoe UI", 3, 18)); // NOI18N
+        adminLogsLbl.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        adminLogsLbl.setText("Admin Logs");
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(sidePanle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 367, Short.MAX_VALUE)
+                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                        .addComponent(adminLogsLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 367, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(sidePanle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(adminLogsLbl, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 15, Short.MAX_VALUE))
+        );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void RoomsButton(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RoomsButton
-        // TODO add your handling code here:
+
         dispose();
-        RoomsPage rooms = new RoomsPage();
-        rooms.setVisible(true);
+        new RoomsPage().setVisible(true);
     }//GEN-LAST:event_RoomsButton
 
     private void LogOutButton(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LogOutButton
 
         try {
-            // TODO add your handling code here:
-            System.out.println("Logged out");
-
             //Create new logout log entry
-            AdminLoginLogs log = new AdminLoginLogs(0, Session.getCurrentUser().getUserID(), LogType.Logout, LocalDateTime.now());
+            AdminLoginLogs log = new AdminLoginLogs( 0, Session.currentUser.getUserID(), LogType.LOGOUT, LocalDateTime.now());
+            AdminLogs.createAdminLoginLog(log);
              dispose();
             new LoginPage().setVisible(true);
-            AdminLogs.createAdminLoginLog(log);
-           
-            
         } catch (SQLException ex) {
             Logger.getLogger(AdminHome.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_LogOutButton
 
     private void UsersButton(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UsersButton
-        // TODO add your handling code here:
 
         dispose();
-        UsersPage users = new UsersPage();
-        users.setVisible(true);
-        
+        new UsersPage().setVisible(true);
     }//GEN-LAST:event_UsersButton
 
     /**
@@ -230,18 +333,29 @@ public class AdminHome extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
+                try {
+                    Session.currentUser = UserDAO.getUserByID(1);
+                } catch (SQLException ex) {
+                    Logger.getLogger(AdminHome.class.getName()).log(Level.SEVERE, null, ex);
+                }
                 new AdminHome().setVisible(true);
+                
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel MainPanel;
     private javax.swing.JLabel ROOMEASE;
-    private javax.swing.JPanel SidePanel;
     private javax.swing.JButton Users1;
+    private javax.swing.JTable adminLogs;
+    private javax.swing.JLabel adminLogsLbl;
+    private javax.swing.JTable employeeLogs;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JButton logout;
     private javax.swing.JButton rooms;
+    private javax.swing.JPanel sidePanle;
     // End of variables declaration//GEN-END:variables
 }

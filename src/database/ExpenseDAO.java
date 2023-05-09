@@ -17,11 +17,12 @@ public class ExpenseDAO {
     
     public static void addExpense(Expense expense) throws SQLException {
         connection = Connect.connectToDatabase();
-        String sql = "INSERT INTO expenses (amount, expense_date, description) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO expenses (amount, expense_date, description, user_id) VALUES (?, ?, ?, ?)";
         PreparedStatement statement = connection.prepareStatement(sql);
         statement.setDouble(1, expense.getAmount());
         statement.setDate(2,   java.sql.Date.valueOf(expense.getDate()));
         statement.setString(3, expense.getDescription());
+        statement.setInt(4, expense.getUser_id());
         statement.executeUpdate();
         Connect.closeConnection();
     }
@@ -49,6 +50,7 @@ public class ExpenseDAO {
     
     public static  List<Expense> getAllExpenses() throws SQLException {
         connection = Connect.connectToDatabase();
+        System.out.println("here");
         String sql = "SELECT * FROM expenses";
         PreparedStatement statement = connection.prepareStatement(sql);
         ResultSet result = statement.executeQuery();
@@ -56,11 +58,12 @@ public class ExpenseDAO {
         while (result.next()) {
             Expense expense = new Expense();
             expense.setId(result.getInt("expense_id"));
+            expense.setUser_id(result.getInt("user_id"));
             expense.setAmount(result.getDouble("amount"));
             expense.setDate(result.getDate("expense_date").toLocalDate());
             expense.setDescription(result.getString("description"));
             expenses.add(expense);
-        }
+        }   
         Connect.closeConnection();
         return expenses;
     }
@@ -74,6 +77,7 @@ public class ExpenseDAO {
         if (result.next()) {
             Expense expense = new Expense();
             expense.setId(result.getInt("expense_id"));
+            expense.setUser_id(result.getInt("user_id"));
             expense.setAmount(result.getDouble("amount"));
             expense.setDate(result.getDate("expense_date").toLocalDate());
             expense.setDescription(result.getString("description"));

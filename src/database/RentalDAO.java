@@ -15,12 +15,12 @@ public class RentalDAO {
 
     // Static function to add a new rental to the database
 public static boolean addRental(Rental rental) throws SQLException {
-    Connection connection = Connect.connectToDatabase();
+    connection = Connect.connectToDatabase();
 
     try {
         // Prepare the SQL statement with placeholders for the values
         String sql = "INSERT INTO rentals (tenant_id, room_id, check_in_date, check_out_date, total_amount) VALUES (?, ?, ?, ?, ?)";
-        PreparedStatement statement = connection.prepareStatement(sql);
+        PreparedStatement statement = connection.prepareStatement(sql)  ;
 
         // Set the values of the placeholders
         statement.setInt(1, rental.getTenant_id());
@@ -38,7 +38,7 @@ public static boolean addRental(Rental rental) throws SQLException {
     } catch (SQLException e) {
         e.printStackTrace();
     } finally {
-        connection.close();
+        Connect.closeConnection();
     }
     return false;
 }
@@ -50,7 +50,7 @@ public static boolean addRental(Rental rental) throws SQLException {
 
         try { 
             // Prepare the SQL statement with placeholders for the values
-            String sql = "UPDATE rental SET tenant_id = ?, room_id = ?, check_in_date = ?, check_out_date = ?, total_amount = ? WHERE rental_id = ?";
+            String sql = "UPDATE rentals SET tenant_id = ?, room_id = ?, check_in_date = ?, check_out_date = ?, total_amount = ? WHERE rental_id = ?";
             PreparedStatement statement = connection.prepareStatement(sql);
 
             // Set the values of the placeholders
@@ -70,7 +70,7 @@ public static boolean addRental(Rental rental) throws SQLException {
         }catch (SQLException e) {
             e.printStackTrace();
         }finally {
-            connection.close();
+            Connect.closeConnection();
         }
         return false;
     }
@@ -81,7 +81,7 @@ public static boolean addRental(Rental rental) throws SQLException {
 
         try { 
             // Prepare the SQL statement with placeholders for the values
-            String sql = "DELETE FROM rental WHERE rental_id = ?";
+            String sql = "DELETE FROM rentasl WHERE rental_id = ?";
             PreparedStatement statement = connection.prepareStatement(sql);
 
             // Set the values of the placeholders
@@ -96,7 +96,7 @@ public static boolean addRental(Rental rental) throws SQLException {
         }catch (SQLException e) {
             e.printStackTrace();
         }finally {
-            connection.close();
+            Connect.closeConnection();
         }
         return false;
     }
@@ -107,7 +107,7 @@ public static boolean addRental(Rental rental) throws SQLException {
 
         try { 
             // Prepare the SQL statement with placeholders for the values
-            String sql = "SELECT * FROM rental WHERE rental_id = ?";
+            String sql = "SELECT * FROM rentals WHERE rental_id = ?";
             PreparedStatement statement = connection.prepareStatement(sql);
 
             // Set the values of the placeholders
@@ -128,7 +128,7 @@ public static boolean addRental(Rental rental) throws SQLException {
         }catch (SQLException e) {
             e.printStackTrace();
         }finally {
-            connection.close();
+            Connect.closeConnection();
         }
         return null;
     }
@@ -139,7 +139,7 @@ public static boolean addRental(Rental rental) throws SQLException {
         List<Rental> rentals = new ArrayList<>();
         try {
             // Prepare the SQL statement with placeholders for the values
-            String sql = "SELECT * FROM rental";
+            String sql = "SELECT * FROM rentals";
             Statement statement = connection.createStatement();
 
             // Execute the SQL statement
@@ -159,7 +159,7 @@ public static boolean addRental(Rental rental) throws SQLException {
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            connection.close();
+            Connect.closeConnection();
         }
         return rentals;
     }
@@ -170,7 +170,7 @@ public static boolean addRental(Rental rental) throws SQLException {
         List<Rental> rentals = new ArrayList<>();
         try {
             // Prepare the SQL statement with placeholders for the values
-            String sql = "SELECT * FROM rental WHERE tenant_id = ?";
+            String sql = "SELECT * FROM rentals WHERE tenant_id = ?";
             PreparedStatement statement = connection.prepareStatement(sql);
 
             // Set the values of the placeholders
@@ -193,7 +193,7 @@ public static boolean addRental(Rental rental) throws SQLException {
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            connection.close();
+            Connect.closeConnection();
         }
         return rentals;
     }
@@ -204,7 +204,7 @@ public static boolean addRental(Rental rental) throws SQLException {
         List<Rental> rentals = new ArrayList<>();
         try {
             // Prepare the SQL statement with placeholders for the values
-            String sql = "SELECT * FROM rental WHERE room_id = ?";
+            String sql = "SELECT * FROM rentals WHERE room_id = ?";
             PreparedStatement statement = connection.prepareStatement(sql);
 
             // Set the values of the placeholders
@@ -227,27 +227,25 @@ public static boolean addRental(Rental rental) throws SQLException {
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            connection.close();
+            Connect.closeConnection();
         }
         return rentals;
     }
 
     // Static function to get all rentals where the check out date is far in the future of the current date
-    public static List<Rental> getActiveRentals() throws SQLException {
-        connection = Connect.connectToDatabase();
-        List<Rental> rentals = new ArrayList<>();
-        //Current date
-        LocalDate currentDate = LocalDate.now();
-        try {
-            // Prepare the SQL statement with placeholders for the values
-            String sql = "SELECT * FROM rental WHERE check_out_date > ?";
-            PreparedStatement statement = connection.prepareStatement(sql);
+   public static List<Rental> getActiveRentals() throws SQLException {
+    List<Rental> rentals = new ArrayList<>();
+    //Current date
+    LocalDate currentDate = LocalDate.now();
+    try (Connection connection = Connect.connectToDatabase();
+         PreparedStatement statement = connection.prepareStatement(
+                 "SELECT * FROM rentals WHERE check_out_date > ? ")) {
 
-            // Set the values of the placeholders
-            statement.setDate(1, Date.valueOf(currentDate));
+        // Set the values of the placeholders
+        statement.setDate(1, Date.valueOf(currentDate));
 
-            // Execute the SQL statement
-            ResultSet result = statement.executeQuery();
+        // Execute the SQL statement
+        try (ResultSet result = statement.executeQuery()) {
 
             // Loop through the results and add them to the list
             while (result.next()) {
@@ -260,13 +258,15 @@ public static boolean addRental(Rental rental) throws SQLException {
                 rental.setTotal_amount(result.getDouble("total_amount"));
                 rentals.add(rental);
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            connection.close();
         }
-        return rentals;
+    } catch (SQLException e) {
+        e.printStackTrace();
+    } finally{
+        Connect.closeConnection();
     }
+    return rentals;
+}
+
 
     // Static function to get all rentals where the check out date is in the past of the current date
     public static List<Rental> getPastRentals() throws SQLException {
@@ -276,7 +276,7 @@ public static boolean addRental(Rental rental) throws SQLException {
         LocalDate currentDate = LocalDate.now();
         try {
             // Prepare the SQL statement with placeholders for the values
-            String sql = "SELECT * FROM rental WHERE check_out_date < ?";
+            String sql = "SELECT * FROM rentals WHERE check_out_date < ?";
             PreparedStatement statement = connection.prepareStatement(sql);
 
             // Set the values of the placeholders
@@ -299,7 +299,7 @@ public static boolean addRental(Rental rental) throws SQLException {
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            connection.close();
+            Connect.closeConnection();
         }
         return rentals;
     }
