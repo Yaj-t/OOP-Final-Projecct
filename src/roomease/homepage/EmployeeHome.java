@@ -298,7 +298,7 @@ public class EmployeeHome extends javax.swing.JFrame {
 
         try {
             //create a new employee login log
-            EmployeeLoginLogs log = new EmployeeLoginLogs(0, Session.getCurrentUser().getUserID(), LogType.LOGOUT, LocalDateTime.now());
+            EmployeeLoginLogs log = new EmployeeLoginLogs(0, Session.getCurrentUserId(), LogType.LOGOUT, LocalDateTime.now());
             //add the log to the database
             EmployeeLogs.createEmployeeLoginLog(log);
             Session.logout();
