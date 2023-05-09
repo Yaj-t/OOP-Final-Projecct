@@ -1,4 +1,4 @@
-package roomease;
+package roomease.homepage;
 import roomease.users.UsersPage;
 import roomease.rooms.RoomsPage;
 import user.Session;
@@ -14,6 +14,7 @@ import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
 import util.EmployeeLoginLogs;
 import java.time.LocalDateTime;
+import roomease.LoginPage;
 /**
  *
  * @author T-jay

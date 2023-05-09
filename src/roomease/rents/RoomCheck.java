@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import javax.swing.table.DefaultTableModel;
-import roomease.EmployeeHome;
+import roomease.homepage.EmployeeHome;
 import util.Booking;
 import util.Room;
 

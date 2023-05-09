@@ -15,7 +15,7 @@ import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import roomease.EmployeeHome;
+import roomease.homepage.EmployeeHome;
 import util.Rental;
 import util.Room;
 import util.Tenant;
