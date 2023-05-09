@@ -157,8 +157,7 @@ public class AddRoom extends javax.swing.JFrame {
         Room newRoom = new Room(roomNumber, price,description);
         try {
             RoomDAO.addRoom(newRoom);
-            int userID = Session.getCurrentUser().getUserID();
-            AdminActionLog log = new AdminActionLog(0, userID, "Added room "+'"'+ roomNumber+'"', LocalDateTime.now());
+            AdminActionLog log = new AdminActionLog( Session.getCurrentUserId(),  "Added room "+'"'+ roomNumber+'"');
             AdminLogs.createAdminActionLog(log);
             JOptionPane.showMessageDialog(this, "Room added successfully!");
             dispose();
