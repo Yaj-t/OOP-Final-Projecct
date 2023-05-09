@@ -24,6 +24,10 @@ public class Session {
         Session.currentUser = currentUser;
     }
 
+    public static int getCurrentUserId() {
+        return currentUser.getUserID();
+    }
+
     public static void logout() {
         currentUser = null;
     }
