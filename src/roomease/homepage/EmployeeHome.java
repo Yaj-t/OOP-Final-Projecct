@@ -6,6 +6,7 @@ package roomease.homepage;
 
 import roomease.rents.RoomCheck;
 import roomease.expenses.ExpensesPage;
+import roomease.payment.PaymentPage;
 import roomease.complaints.ComplaintsPage;
 import enums.LogType;
 import java.time.LocalDateTime;
@@ -90,6 +91,7 @@ public class EmployeeHome extends javax.swing.JFrame {
         jButton3 = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         complaints = new javax.swing.JButton();
+        PaymentBut = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -140,6 +142,14 @@ public class EmployeeHome extends javax.swing.JFrame {
             }
         });
 
+        PaymentBut.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        PaymentBut.setText("Payments");
+        PaymentBut.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                PaymentPerform(evt);
+            }
+        });
+
         javax.swing.GroupLayout sidePanelLayout = new javax.swing.GroupLayout(sidePanel);
         sidePanel.setLayout(sidePanelLayout);
         sidePanelLayout.setHorizontalGroup(
@@ -151,7 +161,8 @@ public class EmployeeHome extends javax.swing.JFrame {
                     .addComponent(complaints, javax.swing.GroupLayout.DEFAULT_SIZE, 113, Short.MAX_VALUE)
                     .addComponent(jButton3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(expensesButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(bookingsButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(bookingsButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(PaymentBut, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         sidePanelLayout.setVerticalGroup(
@@ -165,7 +176,9 @@ public class EmployeeHome extends javax.swing.JFrame {
                 .addComponent(expensesButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(complaints)
-                .addGap(98, 98, 98)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(PaymentBut)
+                .addGap(63, 63, 63)
                 .addComponent(jButton3)
                 .addContainerGap(54, Short.MAX_VALUE))
         );
@@ -321,6 +334,12 @@ public class EmployeeHome extends javax.swing.JFrame {
         dispose();
                 
     }//GEN-LAST:event_complaintsActionPerformed
+
+    private void PaymentPerform(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PaymentPerform
+        
+        dispose();
+        new PaymentPage().setVisible(true);
+    }//GEN-LAST:event_PaymentPerform
     
     
     
@@ -337,6 +356,7 @@ public class EmployeeHome extends javax.swing.JFrame {
     }
     private DefaultTableModel tableModel;
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton PaymentBut;
     private javax.swing.JButton bookingsButton;
     private javax.swing.JButton complaints;
     private javax.swing.JButton expensesButton;
