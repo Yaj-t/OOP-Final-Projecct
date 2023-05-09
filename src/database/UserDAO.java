@@ -19,11 +19,6 @@ public class UserDAO {
     private static Connection connection;
 
     public UserDAO() throws SQLException {
-        // Initialize database connection
-        if(Connect.connection == null){
-            Connect.connectToDatabase();
-        }
-        connection = Connect.connection;
     }
 
     public static List<User> getAllUsers() throws SQLException {
@@ -44,6 +39,7 @@ public class UserDAO {
             }
         }
         //Connect.closeConnection();
+        Connect.closeConnection();
         return users;
     }
 
@@ -67,7 +63,7 @@ public class UserDAO {
                 );
             }
         }
-        //Connect.closeConnection();
+        Connect.closeConnection();
         return user;
     }
     
@@ -91,7 +87,7 @@ public class UserDAO {
                 );
             }
         }
-        //Connect.closeConnection();
+        Connect.closeConnection();
         return user;
     }
 

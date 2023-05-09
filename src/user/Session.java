@@ -1,8 +1,10 @@
 package user;
 
+import database.UserDAO;
+
 public class Session {
 
-    private static User currentUser;
+    public static User currentUser = null;
 
     //Constructor
     public Session() {

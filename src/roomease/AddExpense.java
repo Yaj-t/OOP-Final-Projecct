@@ -12,6 +12,7 @@ import java.util.Date;
 import javax.swing.JOptionPane;
 import util.Expense;
 import java.sql.SQLException;
+import user.Session;
 import user.User;
 
 
@@ -148,7 +149,7 @@ public class AddExpense extends javax.swing.JFrame {
         ZoneId zone = ZoneId.systemDefault();
         LocalDate localDate = instant.atZone(zone).toLocalDate();
 
-        Expense newExpense = new Expense(User.currentUser.getUserID(), amount, description, localDate);
+        Expense newExpense = new Expense(Session.currentUser.getUserID(), amount, description, localDate);
         System.out.println(newExpense.getAmount()+" "+ newExpense.getDate()+" "+ newExpense.getDescription());
         try {
             ExpenseDAO.addExpense(newExpense);

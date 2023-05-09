@@ -181,7 +181,6 @@ public class LoginPage extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-static Session session = null;
         private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginButtonActionPerformed
         login();
     }
@@ -262,25 +261,24 @@ static Session session = null;
 
             if (user != null && user.getPassword().equals(password)) {
                 UserType userType = user.getType();
-                User.currentUser = user;
+                Session.currentUser = user;
                 if (userType == UserType.ADMIN) {
                     // Open main application window for admin
                     AdminHome home = new AdminHome();
-                    AdminLoginLogs loginLogs = new AdminLoginLogs(0, user.getUserID(), LogType.Login, LocalDateTime.now());
+                    AdminLoginLogs loginLogs = new AdminLoginLogs(0, user.getUserID(), LogType.LOGIN, LocalDateTime.now());
                     AdminLogs.createAdminLoginLog(loginLogs);
                     home.setVisible(true);
                 } else if (userType == UserType.EMPLOYEE) {
                     // Open main application window for employee
                     EmployeeHome home = new EmployeeHome();
-                    EmployeeLoginLogs loginLogs = new EmployeeLoginLogs(0, user.getUserID(), LogType.Login, LocalDateTime.now());
+                    EmployeeLoginLogs loginLogs = new EmployeeLoginLogs(0, user.getUserID(), LogType.LOGIN, LocalDateTime.now());
                     EmployeeLogs.createEmployeeLoginLog(loginLogs);
                     home.setVisible(true);
                 } else {
                     throw new IllegalArgumentException("Invalid user type: " + userType);
                 }
 
-                // Create a login session
-                session = new Session(user);                
+                // Create a login session           
                 dispose();
             } else {
                 // Invalid username or password

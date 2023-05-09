@@ -11,25 +11,21 @@ import database.EmployeeLogs;
 import database.RentalDAO;
 import database.RoomDAO;
 import database.TenantDAO;
-import database.UserDAO;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.SQLException;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.Date;
 import java.util.List;
-import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
-import user.Employee;
 import user.Session;
 import util.EmployeeLoginLogs;
 import util.Rental;
-import util.Room;
+import util.Tenant;
 
 /**
  *
@@ -43,19 +39,33 @@ public class EmployeeHome extends javax.swing.JFrame {
     public EmployeeHome() {
         initComponents();
         try {
-            
             rentalsList = RentalDAO.getActiveRentals();
             System.out.println("here");
             tableModel = (DefaultTableModel) rentalsTable.getModel();
             
             for (Rental rental : rentalsList) {
-                Object[] rowData = {TenantDAO.getTenantById(rental.getTenant_id()).getFirstName(), RoomDAO.getRoomByID(rental.getRoom_id()).getRoomNumber(), rental.getCheck_in_date(), rental.getCheck_out_date(), rental.getTotal_amount()};
+                Object[] rowData = {rental.getTenant_id(), RoomDAO.getRoomByID(rental.getRoom_id()).getRoomNumber(), rental.getCheck_in_date(), rental.getCheck_out_date(), rental.getTotal_amount()};
                 tableModel.addRow(rowData);
             }
 //            rentalsTable.setModel(tableModel);
             rentalsTable.setModel(tableModel);
         } catch (SQLException ex) {
             Logger.getLogger(Rental.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        DefaultTableModel model = (DefaultTableModel) tenantsTable.getModel();
+        model.setRowCount(0);
+        Tenant tenant;
+        try {
+            List <Rental> rentals = RentalDAO.getActiveRentals();
+            for (Rental rental : rentals) {
+                tenant = TenantDAO.getTenantById(rental.getTenant_id());
+                Object[] rowData = {tenant.getId(), tenant.getFirstName(), tenant.getLastName(), tenant.getPhoneNumber(), tenant.getEmail()};
+                model.addRow(rowData);
+            }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(TenantsPage.class.getName()).log(Level.SEVERE, null, ex);
         }
    
     }
@@ -73,11 +83,13 @@ public class EmployeeHome extends javax.swing.JFrame {
         bookingsButton = new javax.swing.JButton();
         expensesButton = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
-        expensesButton1 = new javax.swing.JButton();
-        expensesButton2 = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         rentalsTable = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tenantsTable = new javax.swing.JTable();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -107,21 +119,11 @@ public class EmployeeHome extends javax.swing.JFrame {
             }
         });
 
-        expensesButton1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        expensesButton1.setText("Tenants");
-        expensesButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                expensesButton1ActionPerformed(evt);
-            }
-        });
-
-        expensesButton2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        expensesButton2.setText("Active Rentals");
-        expensesButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                expensesButton2ActionPerformed(evt);
-            }
-        });
+        jLabel3.setBackground(new java.awt.Color(102, 102, 255));
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(102, 255, 255));
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel3.setText("ROOMEASE");
 
         javax.swing.GroupLayout sidePanelLayout = new javax.swing.GroupLayout(sidePanel);
         sidePanel.setLayout(sidePanelLayout);
@@ -130,27 +132,24 @@ public class EmployeeHome extends javax.swing.JFrame {
             .addGroup(sidePanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(sidePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(expensesButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(expensesButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(expensesButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(expensesButton, javax.swing.GroupLayout.DEFAULT_SIZE, 113, Short.MAX_VALUE)
                     .addComponent(bookingsButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         sidePanelLayout.setVerticalGroup(
             sidePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(sidePanelLayout.createSequentialGroup()
                 .addContainerGap()
+                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(5, 5, 5)
                 .addComponent(bookingsButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(expensesButton)
-                .addGap(18, 18, 18)
-                .addComponent(expensesButton1)
-                .addGap(18, 18, 18)
-                .addComponent(expensesButton2)
-                .addGap(85, 85, 85)
+                .addGap(133, 133, 133)
                 .addComponent(jButton3)
-                .addContainerGap(77, Short.MAX_VALUE))
+                .addContainerGap(47, Short.MAX_VALUE))
         );
 
         rentalsTable.setModel(new javax.swing.table.DefaultTableModel(
@@ -158,11 +157,11 @@ public class EmployeeHome extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Tenant", "Room", "Check in", "Check out", "Amount"
+                "Tenant ID", "Room", "Check in", "Check out", "Amount"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class, java.lang.Double.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class, java.lang.Double.class
             };
             boolean[] canEdit = new boolean [] {
                 false, false, false, false, false
@@ -186,13 +185,56 @@ public class EmployeeHome extends javax.swing.JFrame {
             @Override
             public void mouseClicked(MouseEvent e) {
                 int column = rentalsTable.columnAtPoint(e.getPoint());
-                sortData(column);
+                sortData(rentalsTable, column);
             }
         });
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Rentals");
+        jLabel1.setText("Tenants");
+
+        tenantsTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "ID", "First name", "Last name", "Phone", "Email"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        tenantsTable.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        tenantsTable.setShowGrid(true);
+        tenantsTable.getTableHeader().setReorderingAllowed(false);
+        jScrollPane2.setViewportView(tenantsTable);
+        if (tenantsTable.getColumnModel().getColumnCount() > 0) {
+            tenantsTable.getColumnModel().getColumn(0).setPreferredWidth(30);
+        }
+        // Add a mouse listener to the table header to handle sorting
+        tenantsTable.getTableHeader().addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                int column = rentalsTable.columnAtPoint(e.getPoint());
+                sortData(tenantsTable, column);
+            }
+        });
+
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel2.setText("Rentals");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -200,40 +242,43 @@ public class EmployeeHome extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(sidePanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 308, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(17, 17, 17)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 308, Short.MAX_VALUE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 308, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(sidePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addGap(9, 9, 9)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 253, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(3, 3, 3)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 253, Short.MAX_VALUE))
+                .addContainerGap(17, Short.MAX_VALUE))
         );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void expensesButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_expensesButton2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_expensesButton2ActionPerformed
-
-    private void expensesButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_expensesButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_expensesButton1ActionPerformed
-
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
 
         try {
             //create a new employee login log
-            EmployeeLoginLogs log = new EmployeeLoginLogs(0, Session.getCurrentUser().getUserID(), LogType.Logout, LocalDateTime.now());
+            EmployeeLoginLogs log = new EmployeeLoginLogs(0, Session.getCurrentUser().getUserID(), LogType.LOGOUT, LocalDateTime.now());
             //add the log to the database
             EmployeeLogs.createEmployeeLoginLog(log);
             Session.logout();
@@ -300,17 +345,20 @@ public class EmployeeHome extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bookingsButton;
     private javax.swing.JButton expensesButton;
-    private javax.swing.JButton expensesButton1;
-    private javax.swing.JButton expensesButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable rentalsTable;
     private javax.swing.JPanel sidePanel;
+    private javax.swing.JTable tenantsTable;
     // End of variables declaration//GEN-END:variables
     
-    private void sortData(int column) {
-        DefaultTableModel model = (DefaultTableModel) rentalsTable.getModel();
+    
+    private void sortData(JTable table, int column) {
+        DefaultTableModel model = (DefaultTableModel) table.getModel();
         Object[] rowData = new Object[model.getColumnCount()];
 
         // Get the current data from the table
@@ -345,12 +393,15 @@ public class EmployeeHome extends javax.swing.JFrame {
             }
         });
 
-        // Clear the table and add the sorted data back
+        // Clear the table
         model.setRowCount(0);
+
+        // Add the sorted data back to the table
         for (Object[] row : data) {
             model.addRow(row);
         }
     }
+   
 
 
 }
