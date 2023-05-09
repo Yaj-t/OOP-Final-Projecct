@@ -214,8 +214,7 @@ public class UsersPage extends javax.swing.JFrame {
                         UserDAO.deleteUser(user);
                         dispose();
                         new UsersPage().setVisible(true);
-                        int ID = Session.getCurrentUser().getUserID();
-                        AdminActionLog log = new AdminActionLog(0, ID , "Deleted user: " +'"'+ user.getUsername()+'"', LocalDateTime.now());
+                        AdminActionLog log = new AdminActionLog( Session.getCurrentUserId() , "Deleted user: " +'"'+ user.getUsername()+'"');
                         AdminLogs.createAdminActionLog(log);
 
                         JOptionPane.showMessageDialog(null, "User deleted successfully.");
