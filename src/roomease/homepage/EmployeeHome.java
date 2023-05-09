@@ -128,7 +128,7 @@ public class EmployeeHome extends javax.swing.JFrame {
 
         jLabel3.setBackground(new java.awt.Color(102, 102, 255));
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(102, 255, 255));
+        jLabel3.setForeground(new java.awt.Color(247, 236, 89));
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setText("ROOMEASE");
 
