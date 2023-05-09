@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package roomease;
+package roomease.expenses;
 
 import database.ExpenseDAO;
 import java.time.Instant;
@@ -12,37 +12,22 @@ import java.util.Date;
 import javax.swing.JOptionPane;
 import util.Expense;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import user.Session;
+import user.User;
 
 
 /**
  *
  * @author Predator
  */
-public class EditExpense extends javax.swing.JFrame {
-    private Expense expense;
+public class AddExpense extends javax.swing.JFrame {
 
-    public Expense getExpense() {
-        return expense;
-    }
-
-    public void setExpense(Expense expense) {
-        this.expense = expense;
-    }
     /**
      * Creates new form NewJFrame
      */
-    public EditExpense() {
+    public AddExpense() {
         initComponents();
     }
-
-    public EditExpense(Expense expense) {
-        this.expense = expense;
-        initComponents();
-    }
-    
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -92,12 +77,12 @@ public class EditExpense extends javax.swing.JFrame {
 
         descriptionField.setColumns(20);
         descriptionField.setRows(5);
-        descriptionField.setText(expense.getDescription());
         jScrollPane1.setViewportView(descriptionField);
 
-        jDateChooser.setDate(Date.from(expense.getDate().atStartOfDay(ZoneId.systemDefault()).toInstant()));
+        jDateChooser.setDate(new Date());
 
         amountField.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
+        amountField.setText("0.00");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -109,18 +94,22 @@ public class EditExpense extends javax.swing.JFrame {
                         .addContainerGap()
                         .addComponent(backButton))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(37, 37, 37)
+                        .addGap(71, 71, 71)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(dateLabel)
-                            .addComponent(amountLabel)
-                            .addComponent(descriptionLabel))
+                            .addComponent(amountLabel))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(amountField, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(32, 32, 32)
+                        .addComponent(descriptionLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(submit)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(amountField, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(35, Short.MAX_VALUE))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(40, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -139,13 +128,11 @@ public class EditExpense extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(descriptionLabel)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addComponent(submit)
-                .addContainerGap(48, Short.MAX_VALUE))
+                .addContainerGap(63, Short.MAX_VALUE))
         );
-
-        amountField.setValue(expense.getAmount());
 
         pack();
         setLocationRelativeTo(null);
@@ -153,20 +140,22 @@ public class EditExpense extends javax.swing.JFrame {
 
     private void submitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitActionPerformed
         // TODO add your handling code here:
-
-        expense.setAmount( Float.parseFloat( amountField.getText()));
-        expense.setDescription(descriptionField.getText());
+      
+        float amount = Float.parseFloat( amountField.getText());
+        String description = descriptionField.getText();
+       
         Date selectedDate = jDateChooser.getDate();
         Instant instant = selectedDate.toInstant();
         ZoneId zone = ZoneId.systemDefault();
         LocalDate localDate = instant.atZone(zone).toLocalDate();
-        expense.setDate(localDate);
-        System.out.println(expense.getAmount()+" "+ expense.getDate()+" "+ expense.getDescription());
+
+        Expense newExpense = new Expense(Session.currentUser.getUserID(), amount, description, localDate);
+        System.out.println(newExpense.getAmount()+" "+ newExpense.getDate()+" "+ newExpense.getDescription());
         try {
-            ExpenseDAO.updateExpense(expense);
-            JOptionPane.showMessageDialog(this, "Expense Updated successfully!");
+            ExpenseDAO.addExpense(newExpense);
+            JOptionPane.showMessageDialog(this, "Expense added successfully!");
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(this, "Error Updating Expense: " + ex.getMessage());
+            JOptionPane.showMessageDialog(this, "Error adding Expense: " + ex.getMessage());
         }
     }//GEN-LAST:event_submitActionPerformed
 
@@ -183,11 +172,7 @@ public class EditExpense extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                try {
-                    new EditExpense(ExpenseDAO.getExpenseById(1)).setVisible(true);
-                } catch (SQLException ex) {
-                    Logger.getLogger(EditExpense.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                new AddExpense().setVisible(true);
             }
         });
     }

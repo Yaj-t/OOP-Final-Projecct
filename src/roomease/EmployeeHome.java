@@ -4,6 +4,7 @@
  */
 package roomease;
 
+import roomease.expenses.ExpensesPage;
 import roomease.complaints.ComplaintsPage;
 import enums.LogType;
 import java.time.LocalDateTime;

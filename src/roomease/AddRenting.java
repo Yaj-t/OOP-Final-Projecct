@@ -4,6 +4,7 @@
  */
 package roomease;
 
+import roomease.expenses.AddExpense;
 import database.RoomDAO;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
