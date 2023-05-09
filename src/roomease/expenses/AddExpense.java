@@ -4,12 +4,15 @@
  */
 package roomease.expenses;
 
+import database.EmployeeLogs;
 import database.ExpenseDAO;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
 import javax.swing.JOptionPane;
+
+import util.EmployeeActionLog;
 import util.Expense;
 import java.sql.SQLException;
 import user.Session;
@@ -149,11 +152,31 @@ public class AddExpense extends javax.swing.JFrame {
         ZoneId zone = ZoneId.systemDefault();
         LocalDate localDate = instant.atZone(zone).toLocalDate();
 
+
+        //Check if the fields are empty and validate the input
+
+        if(amountField.getText().isEmpty() || descriptionField.getText().isEmpty() || jDateChooser.getDate() == null ){
+            JOptionPane.showMessageDialog(this, "Please fill in all the fields!");
+            return;
+        }
+
+        if(amount <= 0){
+            JOptionPane.showMessageDialog(this, "Please enter a valid amount!");
+            return;
+        }
+
+
         Expense newExpense = new Expense(Session.currentUser.getUserID(), amount, description, localDate);
         System.out.println(newExpense.getAmount()+" "+ newExpense.getDate()+" "+ newExpense.getDescription());
         try {
             ExpenseDAO.addExpense(newExpense);
             JOptionPane.showMessageDialog(this, "Expense added successfully!");
+
+            EmployeeActionLog log = new EmployeeActionLog(Session.currentUser.getUserID(), "Added an expense");
+            EmployeeLogs.createEmployeeActionLog(log);
+
+            dispose();
+            new ExpensesPage().setVisible(true);
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(this, "Error adding Expense: " + ex.getMessage());
         }
