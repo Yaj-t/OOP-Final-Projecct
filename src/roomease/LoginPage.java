@@ -56,15 +56,15 @@ public class LoginPage extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        background.setBackground(new java.awt.Color(244, 233, 205));
+        background.setBackground(new java.awt.Color(8, 99, 117));
 
-        jLabel3.setBackground(new java.awt.Color(158, 183, 229));
+        jLabel3.setBackground(new java.awt.Color(180, 149, 148));
         jLabel3.setFont(new java.awt.Font("SansSerif", 1, 36)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(100, 141, 229));
+        jLabel3.setForeground(new java.awt.Color(180, 149, 148));
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setText("ROOMEASE");
 
-        loginBox.setBackground(new java.awt.Color(106, 112, 98));
+        loginBox.setBackground(new java.awt.Color(213, 223, 229));
 
         jLabel1.setFont(new java.awt.Font("Roboto", 1, 24)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);

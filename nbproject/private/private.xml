@@ -3,7 +3,14 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Predator/Documents/NetBeansProjects/roomease/src/roomease/AddExpense.java</file>
+            <file>file:/C:/Users/Predator/Documents/NetBeansProjects/roomease/src/util/Room.java</file>
+            <file>file:/C:/Users/Predator/Documents/NetBeansProjects/roomease/src/database/AdminLogs.java</file>
+            <file>file:/C:/Users/Predator/Documents/NetBeansProjects/roomease/src/roomease/rents/TenantsPage.java</file>
+            <file>file:/C:/Users/Predator/Documents/NetBeansProjects/roomease/src/roomease/complaints/AddComplaint.java</file>
+            <file>file:/C:/Users/Predator/Documents/NetBeansProjects/roomease/src/util/Tenant.java</file>
+            <file>file:/C:/Users/Predator/Documents/NetBeansProjects/roomease/src/roomease/rents/AddRent.java</file>
+            <file>file:/C:/Users/Predator/Documents/NetBeansProjects/roomease/src/roomease/rents/AddTenant.java</file>
+            <file>file:/C:/Users/Predator/Documents/NetBeansProjects/roomease/src/roomease/homepage/AdminHome.java</file>
         </group>
     </open-files>
 </project-private>
