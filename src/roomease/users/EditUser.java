@@ -232,8 +232,7 @@ public class EditUser extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "User updated successfully!");
             
             //Create another log
-            int userID = Session.getCurrentUser().getUserID();
-            AdminActionLog log = new AdminActionLog(0,userID, "Updated user: "+ '"'+ user.getUsername()+'"', LocalDateTime.now());
+            AdminActionLog log = new AdminActionLog(Session.getCurrentUserId(), "Updated user: "+ '"'+ user.getUsername()+'"');
             AdminLogs.createAdminActionLog(log);
 
             dispose();
