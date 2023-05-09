@@ -48,7 +48,7 @@ public class AdminLogs {
                 AdminActionLog adminActionLog = new AdminActionLog(
                         resultSet.getInt("log_id"),
                         resultSet.getInt("admin_id"),
-                        resultSet.getString("action"),
+                        resultSet.getString("action_description"),
                         resultSet.getTimestamp("action_time").toLocalDateTime()
                 );
                 adminActionLogs.add(adminActionLog);
