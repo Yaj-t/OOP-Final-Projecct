@@ -32,6 +32,7 @@ public class UsersPage extends javax.swing.JFrame {
      * Creates new form Users
      */
     public UsersPage() {
+        System.out.println("UsersPage");
         initComponents();
         try {
             userList = UserDAO.getAllUsers();
