@@ -304,5 +304,88 @@ public static boolean addRental(Rental rental) throws SQLException {
         return rentals;
     }
 
+    // Get all rentals that are not fully paid
+
+    public static List<Rental> getUnPainRentals() throws SQLException {
+        connection = Connect.connectToDatabase();
+        List<Rental> rentals = new ArrayList<>();
+  
+        try { 
+            // Prepare the SQL statement with placeholders for the values
+            String sql = "SELECT * FROM rentals WHERE total_amount > 0";
+            PreparedStatement statement = connection.prepareStatement(sql);
+
+            // Execute the SQL statement
+            ResultSet result = statement.executeQuery();
+
+            // Loop through the results and add them to the list
+            while (result.next()) {
+                Rental rental = new Rental();
+                rental.setRental_id(result.getInt("rental_id"));
+                rental.setTenant_id(result.getInt("tenant_id"));
+                rental.setRoom_id(result.getInt("room_id"));
+                rental.setCheck_in_date(result.getDate("check_in_date").toLocalDate());
+                rental.setCheck_out_date(result.getDate("check_out_date").toLocalDate());
+                rental.setTotal_amount(result.getDouble("total_amount"));
+                rentals.add(rental);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            Connect.closeConnection();
+        }
+        return rentals;
+    }
+
+
+    // For payments, recieve the rental id and the amount paid
+    public static void payRental(int rentalId, double amountPaid) throws SQLException {
+        connection = Connect.connectToDatabase();
+        try {
+            // Prepare the SQL statement with placeholders for the values
+            String sql = "UPDATE rentals SET total_amount = total_amount - ? WHERE rental_id = ?";
+            PreparedStatement statement = connection.prepareStatement(sql);
+
+            // Set the values of the placeholders
+            statement.setDouble(1, amountPaid);
+            statement.setInt(2, rentalId);
+
+            // Execute the SQL statement
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            Connect.closeConnection();
+        }
+    }
+
+    // For payments, recieve the rental id and give the total amount due   
+    public static double getRentalAmount(int rentalId) throws SQLException {
+        connection = Connect.connectToDatabase();
+        double totalAmount = 0;
+        try {
+            // Prepare the SQL statement with placeholders for the values
+            String sql = "SELECT total_amount FROM rentals WHERE rental_id = ?";
+            PreparedStatement statement = connection.prepareStatement(sql);
+
+            // Set the values of the placeholders
+            statement.setInt(1, rentalId);
+
+            // Execute the SQL statement
+            ResultSet result = statement.executeQuery();
+
+            // Loop through the results and add them to the list
+            while (result.next()) {
+                totalAmount = result.getDouble("total_amount");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            Connect.closeConnection();
+        }
+        return totalAmount;
+    }
+
+
     
 }
