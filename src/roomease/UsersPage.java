@@ -4,14 +4,19 @@
  */
 package roomease;
 
+import database.AdminLogs;
 import database.UserDAO;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+
+import user.Session;
 import user.User;
+import util.AdminActionLog;
 
 
 /**
@@ -206,6 +211,10 @@ public class UsersPage extends javax.swing.JFrame {
                         UserDAO.deleteUser(user);
                         dispose();
                         new UsersPage().setVisible(true);
+                        int ID = Session.getCurrentUser().getUserID();
+                        AdminActionLog log = new AdminActionLog(0, ID , "Deleted user: " +'"'+ user.getUsername()+'"', LocalDateTime.now());
+                        AdminLogs.createAdminActionLog(log);
+
                         JOptionPane.showMessageDialog(null, "User deleted successfully.");
                     } catch (SQLException ex) {
                         JOptionPane.showMessageDialog(null, "Error deleting user: " + ex.getMessage());
