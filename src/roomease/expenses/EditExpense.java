@@ -38,10 +38,12 @@ public class EditExpense extends javax.swing.JFrame {
      * Creates new form NewJFrame
      */
     public EditExpense() {
+        System.out.println("EditExpense");
         initComponents();
     }
 
     public EditExpense(Expense expense) {
+        System.out.println("EditExpense");
         this.expense = expense;
         initComponents();
     }
