@@ -4,7 +4,6 @@
  */
 package roomease.homepage;
 
-import roomease.rents.TenantsPage;
 import roomease.rents.RoomCheck;
 import roomease.expenses.ExpensesPage;
 import roomease.complaints.ComplaintsPage;
@@ -42,6 +41,7 @@ public class EmployeeHome extends javax.swing.JFrame {
      * Creates new form EmployeeHome
      */
     public EmployeeHome() {
+        System.out.println("EmployeeHome");
         initComponents();
         try {
             rentalsList = RentalDAO.getActiveRentals();
@@ -70,7 +70,7 @@ public class EmployeeHome extends javax.swing.JFrame {
             }
             
         } catch (SQLException ex) {
-            Logger.getLogger(TenantsPage.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(EmployeeHome.class.getName()).log(Level.SEVERE, null, ex);
         }
    
     }
@@ -147,15 +147,13 @@ public class EmployeeHome extends javax.swing.JFrame {
             .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 137, Short.MAX_VALUE)
             .addGroup(sidePanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(sidePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(sidePanelLayout.createSequentialGroup()
-                        .addGroup(sidePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(expensesButton, javax.swing.GroupLayout.DEFAULT_SIZE, 113, Short.MAX_VALUE)
-                            .addComponent(bookingsButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(complaints, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+                .addGroup(sidePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(complaints, javax.swing.GroupLayout.DEFAULT_SIZE, 113, Short.MAX_VALUE)
+                    .addGroup(sidePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(expensesButton, javax.swing.GroupLayout.DEFAULT_SIZE, 113, Short.MAX_VALUE)
+                        .addComponent(bookingsButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addContainerGap(18, Short.MAX_VALUE))
         );
         sidePanelLayout.setVerticalGroup(
             sidePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -313,7 +311,6 @@ public class EmployeeHome extends javax.swing.JFrame {
         try {
             dispose();
             new RoomCheck().setVisible(true);
-            //new BookingPage().setVisible(true);
         } catch (SQLException ex) {
             Logger.getLogger(EmployeeHome.class.getName()).log(Level.SEVERE, null, ex);
         }
