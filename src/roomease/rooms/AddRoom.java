@@ -25,6 +25,7 @@ public class AddRoom extends javax.swing.JFrame {
      * Creates new form AddRoom
      */
     public AddRoom() {
+        System.out.println("AddRoom constructor");
         initComponents();
     }
 
