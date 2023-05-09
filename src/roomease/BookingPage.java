@@ -4,6 +4,7 @@
  */
 package roomease;
 
+import roomease.rooms.AddRoom;
 import database.BookingDAO;
 import database.RoomDAO;
 import java.sql.SQLException;
