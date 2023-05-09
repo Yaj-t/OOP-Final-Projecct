@@ -35,12 +35,13 @@ public class EditRoom extends javax.swing.JFrame {
      * Creates new form EditRoom
      */
     public EditRoom(Room room) {
+        System.out.println("EditRoom constructor");
         this.room = room;
         initComponents();
     }
     
     public EditRoom() {
-
+        System.out.println("EditRoom constructor");
         initComponents();
     }
 
