@@ -20,7 +20,7 @@ public static boolean addRental(Rental rental) throws SQLException {
     try {
         // Prepare the SQL statement with placeholders for the values
         String sql = "INSERT INTO rentals (tenant_id, room_id, check_in_date, check_out_date, total_amount) VALUES (?, ?, ?, ?, ?)";
-        PreparedStatement statement = connection.prepareStatement(sql);
+        PreparedStatement statement = connection.prepareStatement(sql)  ;
 
         // Set the values of the placeholders
         statement.setInt(1, rental.getTenant_id());

@@ -12,9 +12,16 @@ import database.RentalDAO;
 import database.RoomDAO;
 import database.TenantDAO;
 import database.UserDAO;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
+import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
@@ -39,7 +46,7 @@ public class EmployeeHome extends javax.swing.JFrame {
             
             rentalsList = RentalDAO.getActiveRentals();
             System.out.println("here");
-            DefaultTableModel tableModel = (DefaultTableModel) rentalsTable.getModel();
+            tableModel = (DefaultTableModel) rentalsTable.getModel();
             
             for (Rental rental : rentalsList) {
                 Object[] rowData = {TenantDAO.getTenantById(rental.getTenant_id()).getFirstName(), RoomDAO.getRoomByID(rental.getRoom_id()).getRoomNumber(), rental.getCheck_in_date(), rental.getCheck_out_date(), rental.getTotal_amount()};
@@ -174,6 +181,14 @@ public class EmployeeHome extends javax.swing.JFrame {
             rentalsTable.getColumnModel().getColumn(2).setPreferredWidth(100);
             rentalsTable.getColumnModel().getColumn(3).setPreferredWidth(100);
         }
+        // Add a mouse listener to the table header to handle sorting
+        rentalsTable.getTableHeader().addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                int column = rentalsTable.columnAtPoint(e.getPoint());
+                sortData(column);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -244,7 +259,9 @@ public class EmployeeHome extends javax.swing.JFrame {
             Logger.getLogger(EmployeeHome.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_bookingsButtonActionPerformed
-
+    
+    
+    
     /**
      * @param args the command line arguments
      */
@@ -279,7 +296,7 @@ public class EmployeeHome extends javax.swing.JFrame {
             }
         });
     }
-
+    private DefaultTableModel tableModel;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bookingsButton;
     private javax.swing.JButton expensesButton;
@@ -291,4 +308,49 @@ public class EmployeeHome extends javax.swing.JFrame {
     private javax.swing.JTable rentalsTable;
     private javax.swing.JPanel sidePanel;
     // End of variables declaration//GEN-END:variables
+    
+    private void sortData(int column) {
+        DefaultTableModel model = (DefaultTableModel) rentalsTable.getModel();
+        Object[] rowData = new Object[model.getColumnCount()];
+
+        // Get the current data from the table
+        List<Object[]> data = new ArrayList<>();
+        for (int i = 0; i < model.getRowCount(); i++) {
+            for (int j = 0; j < model.getColumnCount(); j++) {
+                rowData[j] = model.getValueAt(i, j);
+            }
+            data.add(rowData.clone());
+        }
+
+        // Sort the data based on the selected column
+        Collections.sort(data, new Comparator<Object[]>() {
+            @Override
+            public int compare(Object[] o1, Object[] o2) {
+                Object obj1 = o1[column];
+                Object obj2 = o2[column];
+                if (obj1 == null && obj2 == null) {
+                    return 0;
+                }
+                if (obj1 == null) {
+                    return -1;
+                }
+                if (obj2 == null) {
+                    return 1;
+                }
+                if (obj1 instanceof Comparable) {
+                    return ((Comparable) obj1).compareTo(obj2);
+                } else {
+                    return obj1.toString().compareTo(obj2.toString());
+                }
+            }
+        });
+
+        // Clear the table and add the sorted data back
+        model.setRowCount(0);
+        for (Object[] row : data) {
+            model.addRow(row);
+        }
+    }
+
+
 }

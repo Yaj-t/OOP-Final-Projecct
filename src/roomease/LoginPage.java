@@ -81,6 +81,20 @@ public class LoginPage extends javax.swing.JFrame {
         Password.setLabelFor(usernameField);
         Password.setText("Password:");
 
+        passwordField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                passwordFieldActionPerformed(evt);
+            }
+        });
+        passwordField.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                passwordFieldKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                passwordFieldKeyTyped(evt);
+            }
+        });
+
         loginButton.setLabel("Login");
         loginButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -169,44 +183,26 @@ public class LoginPage extends javax.swing.JFrame {
 
 static Session session = null;
         private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginButtonActionPerformed
-        String username = usernameField.getText();
-        String password = passwordField.getText();
-
-        try {
-            User user = UserDAO.getUserByUsername(username);
-
-            if (user != null && user.getPassword().equals(password)) {
-                UserType userType = user.getType();
-                User.currentUser = user;
-                if (userType == UserType.ADMIN) {
-                    // Open main application window for admin
-                    AdminHome home = new AdminHome();
-                    AdminLoginLogs loginLogs = new AdminLoginLogs(0, user.getUserID(), LogType.Login, LocalDateTime.now());
-                    AdminLogs.createAdminLoginLog(loginLogs);
-                    home.setVisible(true);
-                } else if (userType == UserType.EMPLOYEE) {
-                    // Open main application window for employee
-                    EmployeeHome home = new EmployeeHome();
-                    EmployeeLoginLogs loginLogs = new EmployeeLoginLogs(0, user.getUserID(), LogType.Login, LocalDateTime.now());
-                    EmployeeLogs.createEmployeeLoginLog(loginLogs);
-                    home.setVisible(true);
-                } else {
-                    throw new IllegalArgumentException("Invalid user type: " + userType);
-                }
-
-                // Create a login session
-                session = new Session(user);                
-                dispose();
-            } else {
-                // Invalid username or password
-                JOptionPane.showMessageDialog(this, "Invalid username or password", "Login Error", JOptionPane.ERROR_MESSAGE);
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(LoginPage.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(this, "An error occurred while trying to log in", "Login Error", JOptionPane.ERROR_MESSAGE);
-        }
+        login();
     }
 //GEN-LAST:event_loginButtonActionPerformed
+
+    private void passwordFieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_passwordFieldKeyPressed
+        if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER) {
+            // Enter key pressed
+            passwordFieldActionPerformed(null);
+            login();
+        }
+    }//GEN-LAST:event_passwordFieldKeyPressed
+
+    private void passwordFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passwordFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_passwordFieldActionPerformed
+
+    private void passwordFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_passwordFieldKeyTyped
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_passwordFieldKeyTyped
     /**
      * @param args the command line arguments
      */
@@ -256,4 +252,44 @@ static Session session = null;
     private javax.swing.JPasswordField passwordField;
     private javax.swing.JTextField usernameField;
     // End of variables declaration//GEN-END:variables
+    
+    public void login(){
+        String username = usernameField.getText();
+        String password = passwordField.getText();
+
+        try {
+            User user = UserDAO.getUserByUsername(username);
+
+            if (user != null && user.getPassword().equals(password)) {
+                UserType userType = user.getType();
+                User.currentUser = user;
+                if (userType == UserType.ADMIN) {
+                    // Open main application window for admin
+                    AdminHome home = new AdminHome();
+                    AdminLoginLogs loginLogs = new AdminLoginLogs(0, user.getUserID(), LogType.Login, LocalDateTime.now());
+                    AdminLogs.createAdminLoginLog(loginLogs);
+                    home.setVisible(true);
+                } else if (userType == UserType.EMPLOYEE) {
+                    // Open main application window for employee
+                    EmployeeHome home = new EmployeeHome();
+                    EmployeeLoginLogs loginLogs = new EmployeeLoginLogs(0, user.getUserID(), LogType.Login, LocalDateTime.now());
+                    EmployeeLogs.createEmployeeLoginLog(loginLogs);
+                    home.setVisible(true);
+                } else {
+                    throw new IllegalArgumentException("Invalid user type: " + userType);
+                }
+
+                // Create a login session
+                session = new Session(user);                
+                dispose();
+            } else {
+                // Invalid username or password
+                JOptionPane.showMessageDialog(this, "Invalid username or password", "Login Error", JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(LoginPage.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(this, "An error occurred while trying to log in", "Login Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
 }
