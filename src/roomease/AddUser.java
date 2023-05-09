@@ -4,11 +4,16 @@
  */
 package roomease;
 
+import database.AdminLogs;
 import database.UserDAO;
 import enums.UserType;
 import javax.swing.JOptionPane;
+
+import user.Session;
 import user.User;
 import java.sql.*;
+import java.time.LocalDateTime;
+import util.AdminActionLog;
 
 /**
  *
@@ -170,9 +175,38 @@ public class AddUser extends javax.swing.JFrame {
         UserType type = (UserType) userType.getSelectedItem();
         User newUser = new User(type, username, password, name);
 
+        // check if fields are empty
+        if (username.isEmpty() || password.isEmpty() || name.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please fill in all fields!");
+            return;
+        }
+
+        // check if username already exists
+        try {
+            if (UserDAO.getUserByUsername(username) != null) {
+                JOptionPane.showMessageDialog(this, "Username already exists!");
+                return;
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, "Error checking username: " + ex.getMessage());
+            return;
+        }
+
+        // add user to database
         try {
             UserDAO.addUser(newUser);
+
+            // Adds an entry to the Admin Log when a new user is added
+           
+            int userID = Session.getCurrentUser().getUserID();
+            AdminActionLog log = new AdminActionLog(0, userID, "Added a new user to the database: "+'"'+ newUser.getUsername()+'"', LocalDateTime.now());
+            AdminLogs.createAdminActionLog(log);
+
+            // show success message and go back to users page
             JOptionPane.showMessageDialog(this, "User added successfully!");
+            dispose();
+            UsersPage users = new UsersPage();
+            users.setVisible(true);
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(this, "Error adding user: " + ex.getMessage());
         }

@@ -38,7 +38,6 @@ public class UserDAO {
                 users.add(user);
             }
         }
-        //Connect.closeConnection();
         Connect.closeConnection();
         return users;
     }
@@ -89,6 +88,25 @@ public class UserDAO {
         }
         Connect.closeConnection();
         return user;
+    }
+
+    // A function that returns Boolean value based on whether the user exists in the database or not
+    public static boolean userExists(String username) throws SQLException {
+        connection = Connect.connectToDatabase();
+        String sql = "SELECT * FROM users WHERE username = ?";
+
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setString(1, username);
+            ResultSet resultSet = statement.executeQuery();
+
+            if (resultSet.next()) {
+                Connect.closeConnection();
+                return true;
+            }
+        }finally{ 
+            Connect.closeConnection();
+        }
+        return false;
     }
 
     public static void addUser(User user) throws SQLException {

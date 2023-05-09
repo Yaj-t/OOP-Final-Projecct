@@ -4,13 +4,19 @@
  */
 package roomease;
 
+import database.AdminLogs;
 import database.RoomDAO;
+import user.Session;
+
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+
+import util.AdminActionLog;
 import util.Room;
 
 /**
@@ -171,10 +177,20 @@ public class RoomsPage extends javax.swing.JFrame {
             int option = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete this room?",
                 "Confirm Deletion", JOptionPane.YES_NO_OPTION); // confirm deletion with user
 
+
             if (option == JOptionPane.YES_OPTION) { // user confirms deletion
-                String roomNumber = (String) roomsTable.getValueAt(row, 0); // get the username from the table
+                int roomID = roomList.get(row).getId(); // get the room ID of the selected row
                 try {
-                        RoomDAO.deleteRoom(roomNumber);
+
+                        if(RoomDAO.isRoomRented(roomID)) {
+                            JOptionPane.showMessageDialog(null, "Cannot delete room. Room is currently rented.");
+                            return;
+                        }
+                        RoomDAO.deleteRoombyID(roomID); // delete the room
+                        int user_id = Session.getCurrentUser().getUserID();
+                        AdminActionLog log = new AdminActionLog(0,user_id, "Deleted room with ID: "+'"'+ roomID+'"', LocalDateTime.now());
+                        AdminLogs.createAdminActionLog(log);
+
                         dispose();
                         new RoomsPage().setVisible(true);
                         JOptionPane.showMessageDialog(null, "Room deleted successfully.");
@@ -197,11 +213,10 @@ public class RoomsPage extends javax.swing.JFrame {
     private void editActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editActionPerformed
         int selectedRow = roomsTable.getSelectedRow();
         if(selectedRow !=-1){
+        
             try {
-                // TODO add your handling code here:
-
-                String roomNumber = (String) roomsTable.getValueAt(selectedRow, 0);
-                Room room = RoomDAO.getRoomByNumber(roomNumber);
+                int roomID = roomList.get(selectedRow).getId();
+                Room room = RoomDAO.getRoomByID(roomID);
                 new EditRoom(room).setVisible(true);
                 dispose();
             } catch (SQLException ex) {

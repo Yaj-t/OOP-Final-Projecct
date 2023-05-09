@@ -4,13 +4,17 @@
  */
 package roomease;
 
+import database.AdminLogs;
 import database.RoomDAO;
 import enums.RoomStatus;
 import javax.swing.JOptionPane;
 import util.Room;
 import java.sql.*;
+import java.time.LocalDateTime;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import user.Session;
+import util.AdminActionLog;
 
 /**
  *
@@ -151,13 +155,17 @@ public class EditRoom extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void submitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitActionPerformed
-        // TODO add your handling code here:
         room.setPrice(Float.parseFloat(priceField.getText()));
         room.setDescription(descriptionField.getText());
-        
         try {
             RoomDAO.updateRoom(room);
             JOptionPane.showMessageDialog(this, "Room updated successfully!");
+            
+            // Create log message
+            int userID = Session.getCurrentUser().getUserID();
+            AdminActionLog log = new AdminActionLog(0, userID, "Updated room "+'"'+ room.getId() +'"', LocalDateTime.now());
+            AdminLogs.createAdminActionLog(log);
+
             dispose();
             new RoomsPage().setVisible(true);
         } catch (SQLException ex) {
