@@ -35,6 +35,7 @@ public class ComplaintsPage extends javax.swing.JFrame {
      */
     
     public ComplaintsPage() {
+        System.out.println("ComplaintsPage");
         initComponents();
         try {
             
