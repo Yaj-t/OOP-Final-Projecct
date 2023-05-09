@@ -4,10 +4,14 @@
  */
 package roomease;
 
+import database.AdminLogs;
 import database.RoomDAO;
 import javax.swing.JOptionPane;
 import util.Room;
 import java.sql.*;
+import java.time.LocalDateTime;
+import user.Session;
+import util.AdminActionLog;
 /**
  *
  * @author Predator
@@ -153,7 +157,13 @@ public class AddRoom extends javax.swing.JFrame {
         Room newRoom = new Room(roomNumber, price,description);
         try {
             RoomDAO.addRoom(newRoom);
+            int userID = Session.getCurrentUser().getUserID();
+            AdminActionLog log = new AdminActionLog(0, userID, "Added room "+'"'+ roomNumber+'"', LocalDateTime.now());
+            AdminLogs.createAdminActionLog(log);
             JOptionPane.showMessageDialog(this, "Room added successfully!");
+            dispose();
+            new RoomsPage().setVisible(true);
+            
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(this, "Error adding Room: " + ex.getMessage());
         }
