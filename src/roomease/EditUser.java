@@ -4,11 +4,20 @@
  */
 package roomease;
 
+import database.AdminLogs;
 import database.UserDAO;
 import enums.UserType;
 import javax.swing.JOptionPane;
+
+import user.Session;
 import user.User;
+import util.AdminActionLog;
+import util.AdminLoginLogs;
+
 import java.sql.*;
+import java.time.LocalDateTime;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -191,16 +200,41 @@ public class EditUser extends javax.swing.JFrame {
     }//GEN-LAST:event_nameFieldActionPerformed
 
     private void submitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitActionPerformed
-        // TODO add your handling code here:
+        
+        // check if user is valid and if username doesn't already exist
+        if (usernameField.getText().isEmpty() || passwordField.getText().isEmpty() || nameField.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please fill in all fields!");
+            return;
+        }
+
+        try {
+            if (UserDAO.userExists(usernameField.getText())) {
+                JOptionPane.showMessageDialog(this, "Username already exists!");
+                return;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(EditUser.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        
         user.setUsername(usernameField.getText());
         user.setPassword(passwordField.getText());
         user.setName(nameField.getText());
         user.setType((UserType) userType.getSelectedItem());
-        
 
         try {
             UserDAO.updateUser(user);
             JOptionPane.showMessageDialog(this, "User updated successfully!");
+            
+            //Create another log
+            int userID = Session.getCurrentUser().getUserID();
+            AdminActionLog log = new AdminActionLog(0,userID, "Updated user: "+ '"'+ user.getUsername()+'"', LocalDateTime.now());
+            AdminLogs.createAdminActionLog(log);
+
+            dispose();
+            UsersPage users = new UsersPage();
+            users.setVisible(true);
+
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(this, "Error updating user: " + ex.getMessage());
         }
