@@ -29,6 +29,7 @@ public class AddExpense extends javax.swing.JFrame {
      * Creates new form NewJFrame
      */
     public AddExpense() {
+        System.out.println("AddExpense");
         initComponents();
     }
 
