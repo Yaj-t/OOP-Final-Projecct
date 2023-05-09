@@ -33,6 +33,7 @@ public class RoomsPage extends javax.swing.JFrame {
      */
     
     public RoomsPage() {
+        System.out.println("RoomsPage");
         initComponents();
         try {
             
