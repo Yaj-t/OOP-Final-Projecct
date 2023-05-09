@@ -30,6 +30,10 @@ public class EditUser extends javax.swing.JFrame {
         return user;
     }
 
+    public boolean originalUsernamesMatch() {
+        return user.getUsername().equals(usernameField.getText());
+    } 
+
     public void setUser(User user) {
         this.user = user;
     }
@@ -219,10 +223,14 @@ public class EditUser extends javax.swing.JFrame {
         }
 
         try {
-            if (UserDAO.userExists(usernameField.getText())) {
-                JOptionPane.showMessageDialog(this, "Username already exists!");
-                return;
+            if(!originalUsernamesMatch())
+            {
+                if (UserDAO.userExists(usernameField.getText())) {
+                    JOptionPane.showMessageDialog(this, "Username already exists!");
+                    return;
+                }
             }
+            
         } catch (SQLException ex) {
             Logger.getLogger(EditUser.class.getName()).log(Level.SEVERE, null, ex);
         }
