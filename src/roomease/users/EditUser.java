@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package roomease;
+package roomease.users;
 
 import database.AdminLogs;
 import database.UserDAO;
@@ -11,20 +11,37 @@ import javax.swing.JOptionPane;
 
 import user.Session;
 import user.User;
+import util.AdminActionLog;
+import util.AdminLoginLogs;
+
 import java.sql.*;
 import java.time.LocalDateTime;
-import util.AdminActionLog;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author Predator
  */
-public class AddUser extends javax.swing.JFrame {
+public class EditUser extends javax.swing.JFrame {
+    private User user;
 
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
     /**
-     * Creates new form AddUser
+     * Creates new form EditUser
      */
-    public AddUser() {
+    public EditUser(User user) {
+        this.user = user;
+        initComponents();
+    }
+    
+    public EditUser() {
         initComponents();
     }
 
@@ -37,39 +54,22 @@ public class AddUser extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        userTypeLabel = new javax.swing.JLabel();
-        userTypeLabel1 = new javax.swing.JLabel();
-        userTypeLabel2 = new javax.swing.JLabel();
-        userTypeLabel3 = new javax.swing.JLabel();
-        usernameField = new javax.swing.JTextField();
+        jPanel1 = new javax.swing.JPanel();
         passwordField = new javax.swing.JTextField();
         nameField = new javax.swing.JTextField();
         userType = new javax.swing.JComboBox<>(UserType.values());
         submit = new javax.swing.JButton();
         backButton = new javax.swing.JButton();
+        userTypeLabel = new javax.swing.JLabel();
+        userTypeLabel1 = new javax.swing.JLabel();
+        userTypeLabel2 = new javax.swing.JLabel();
+        userTypeLabel3 = new javax.swing.JLabel();
+        usernameField = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        userTypeLabel.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
-        userTypeLabel.setText("User Type:");
-
-        userTypeLabel1.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
-        userTypeLabel1.setText("Username:");
-
-        userTypeLabel2.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
-        userTypeLabel2.setText("Password:");
-
-        userTypeLabel3.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
-        userTypeLabel3.setText("Name:");
-
-        usernameField.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
-        usernameField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                usernameFieldActionPerformed(evt);
-            }
-        });
-
         passwordField.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
+        passwordField.setText(user.getPassword());
         passwordField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 passwordFieldActionPerformed(evt);
@@ -77,9 +77,17 @@ public class AddUser extends javax.swing.JFrame {
         });
 
         nameField.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
+        nameField.setText(user.getName());
         nameField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 nameFieldActionPerformed(evt);
+            }
+        });
+
+        userType.setSelectedItem(user.getType());
+        userType.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                userTypeActionPerformed(evt);
             }
         });
 
@@ -99,51 +107,71 @@ public class AddUser extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
+        userTypeLabel.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
+        userTypeLabel.setText("User Type:");
+
+        userTypeLabel1.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
+        userTypeLabel1.setText("Username:");
+
+        userTypeLabel2.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
+        userTypeLabel2.setText("Password:");
+
+        userTypeLabel3.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
+        userTypeLabel3.setText("Name:");
+
+        usernameField.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
+        usernameField.setText(user.getUsername());
+        usernameField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                usernameFieldActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(65, 65, 65)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(userTypeLabel3)
                             .addComponent(userTypeLabel2)
                             .addComponent(userTypeLabel1)
                             .addComponent(userTypeLabel))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(submit)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(usernameField)
                                 .addComponent(passwordField)
                                 .addComponent(nameField)
                                 .addComponent(userType, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(layout.createSequentialGroup()
+                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(backButton)))
-                .addContainerGap(83, Short.MAX_VALUE))
+                .addContainerGap(79, Short.MAX_VALUE))
         );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(backButton)
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(userTypeLabel)
                     .addComponent(userType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(userTypeLabel1)
                     .addComponent(usernameField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(userTypeLabel2)
                     .addComponent(passwordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(userTypeLabel3)
                     .addComponent(nameField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
@@ -151,13 +179,22 @@ public class AddUser extends javax.swing.JFrame {
                 .addGap(51, 51, 51))
         );
 
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void usernameFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usernameFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_usernameFieldActionPerformed
 
     private void passwordFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passwordFieldActionPerformed
         // TODO add your handling code here:
@@ -168,47 +205,43 @@ public class AddUser extends javax.swing.JFrame {
     }//GEN-LAST:event_nameFieldActionPerformed
 
     private void submitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitActionPerformed
-        // TODO add your handling code here:
-        String username = usernameField.getText();
-        String password = passwordField.getText();
-        String name = nameField.getText();
-        UserType type = (UserType) userType.getSelectedItem();
-        User newUser = new User(type, username, password, name);
-
-        // check if fields are empty
-        if (username.isEmpty() || password.isEmpty() || name.isEmpty()) {
+        
+        // check if user is valid and if username doesn't already exist
+        if (usernameField.getText().isEmpty() || passwordField.getText().isEmpty() || nameField.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Please fill in all fields!");
             return;
         }
 
-        // check if username already exists
         try {
-            if (UserDAO.getUserByUsername(username) != null) {
+            if (UserDAO.userExists(usernameField.getText())) {
                 JOptionPane.showMessageDialog(this, "Username already exists!");
                 return;
             }
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(this, "Error checking username: " + ex.getMessage());
-            return;
+            Logger.getLogger(EditUser.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        // add user to database
-        try {
-            UserDAO.addUser(newUser);
+        
+        user.setUsername(usernameField.getText());
+        user.setPassword(passwordField.getText());
+        user.setName(nameField.getText());
+        user.setType((UserType) userType.getSelectedItem());
 
-            // Adds an entry to the Admin Log when a new user is added
-           
+        try {
+            UserDAO.updateUser(user);
+            JOptionPane.showMessageDialog(this, "User updated successfully!");
+            
+            //Create another log
             int userID = Session.getCurrentUser().getUserID();
-            AdminActionLog log = new AdminActionLog(0, userID, "Added a new user to the database: "+'"'+ newUser.getUsername()+'"', LocalDateTime.now());
+            AdminActionLog log = new AdminActionLog(0,userID, "Updated user: "+ '"'+ user.getUsername()+'"', LocalDateTime.now());
             AdminLogs.createAdminActionLog(log);
 
-            // show success message and go back to users page
-            JOptionPane.showMessageDialog(this, "User added successfully!");
             dispose();
             UsersPage users = new UsersPage();
             users.setVisible(true);
+
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(this, "Error adding user: " + ex.getMessage());
+            JOptionPane.showMessageDialog(this, "Error updating user: " + ex.getMessage());
         }
     }//GEN-LAST:event_submitActionPerformed
 
@@ -219,6 +252,14 @@ public class AddUser extends javax.swing.JFrame {
         users.setVisible(true);
     }//GEN-LAST:event_backButtonActionPerformed
 
+    private void usernameFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usernameFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_usernameFieldActionPerformed
+
+    private void userTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userTypeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_userTypeActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -226,13 +267,14 @@ public class AddUser extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new AddUser().setVisible(true);
+                new EditUser().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton backButton;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField nameField;
     private javax.swing.JTextField passwordField;
     private javax.swing.JButton submit;

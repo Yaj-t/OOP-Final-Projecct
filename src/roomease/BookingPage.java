@@ -4,6 +4,7 @@
  */
 package roomease;
 
+import roomease.users.UsersPage;
 import roomease.rooms.AddRoom;
 import database.BookingDAO;
 import database.RoomDAO;

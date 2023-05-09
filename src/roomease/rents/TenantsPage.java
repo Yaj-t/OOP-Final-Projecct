@@ -15,7 +15,7 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import roomease.AdminHome;
-import roomease.EditUser;
+import roomease.users.EditUser;
 import user.User;
 import util.Rental;
 import util.Tenant;
