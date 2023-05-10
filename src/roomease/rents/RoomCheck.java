@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
+/**The RoomCheck is a JFrame that displays the GUI for the checking the rooms availability*/
 package roomease.rents;
 
 import java.time.LocalDate;
@@ -21,6 +18,7 @@ import util.WindowCloseHandler;
  * @author KaiserV
  */
 public class RoomCheck extends javax.swing.JFrame {
+    
     List <Room> roomList;
     /**
      * Creates new form NewJFrame
@@ -39,13 +37,12 @@ public class RoomCheck extends javax.swing.JFrame {
              checkoutCurrent = today;
             roomList = RoomDAO.getAvailableRooms(today, today);
             DefaultTableModel tableModel = (DefaultTableModel) roomsTable.getModel();
+            /**FIlls the table with data from database*/
             for (Room room : roomList) {
                 Object[] rowData = { room.getRoomNumber(), room.getPrice(),room.getDescription()};
                 tableModel.addRow(rowData);
             }
             roomsTable.setModel(tableModel);
-        
-
         //setResizable(false);
         WindowCloseHandler.addWindowClosingListener(this);
     }
@@ -237,7 +234,7 @@ public class RoomCheck extends javax.swing.JFrame {
     
 
 
-
+    /**Finds available rooms based on the dates*/
     public Boolean FF(){
         LocalDate checkInDate = null;
         LocalDate checkOutDate = null;
@@ -295,7 +292,7 @@ public class RoomCheck extends javax.swing.JFrame {
         check = true;
         return check;
     }
-
+    /**Represents the Find button. It calls the FF method to find available rooms*/
     private void FindButton(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FindButton
         //TODO add your handling code here:
         System.out.println("Add expense button pressed");
@@ -303,7 +300,7 @@ public class RoomCheck extends javax.swing.JFrame {
         
         
     }//GEN-LAST:event_FindButton
-
+/**Disposes current frame and creates a new EmployeeHome*/
     private void GoBack(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GoBack
         // TODO add your handling code here:
         System.out.println("Go back button pressed");
@@ -312,7 +309,7 @@ public class RoomCheck extends javax.swing.JFrame {
 
 
     }//GEN-LAST:event_GoBack
-
+    /**Check if the values in the fields are valid and then creates Add tenant*/
     private void AddButton(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddButton
         // TODO add your handling code here:
         System.out.println("Add button pressed");

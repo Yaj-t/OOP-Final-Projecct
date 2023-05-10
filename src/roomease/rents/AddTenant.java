@@ -1,21 +1,13 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
+/**The AddTenant class represent a JFrame the displays field and buttons for adding a tenant*/
 package roomease.rents;
 
 import database.EmployeeLogs;
 import database.RentalDAO;
 import database.TenantDAO;
-import database.UserDAO;
-import enums.UserType;
 import javax.swing.JOptionPane;
-
 import user.Session;
-import user.User;
 import java.sql.*;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -26,10 +18,6 @@ import util.Room;
 import util.Tenant;
 import util.WindowCloseHandler;
 
-/**
- *
- * @author Predator
- */
 public class AddTenant extends javax.swing.JFrame {
 
     /**
@@ -202,7 +190,7 @@ public class AddTenant extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
+    /**Represents the submit button and when clicked will asses the fields and then insert into the database*/
     private void Submit(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Submit
         // TODO add your handling code here:
         //Get the values from the text fields
@@ -269,7 +257,7 @@ public class AddTenant extends javax.swing.JFrame {
         }
         
     }//GEN-LAST:event_Submit
-
+    /**Diposes the frame*/
     private void CancelButton(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CancelButton
         // TODO add your handling code here:
         dispose();
