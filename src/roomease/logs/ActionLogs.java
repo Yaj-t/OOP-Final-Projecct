@@ -122,7 +122,7 @@ public class ActionLogs extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Log ID", "User #", "Description", "Date"
+                "Log ID", "User ID", "Description", "Date"
             }
         ) {
             Class[] types = new Class [] {
@@ -152,6 +152,7 @@ public class ActionLogs extends javax.swing.JFrame {
             ActionTable.getColumnModel().getColumn(3).setPreferredWidth(150);
             ActionTable.getColumnModel().getColumn(3).setMaxWidth(150);
         }
+        ActionTable.setAutoCreateRowSorter(true);
 
         goBackButtom.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
         goBackButtom.setText("Go back");
