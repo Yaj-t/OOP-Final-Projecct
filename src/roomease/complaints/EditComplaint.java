@@ -1,37 +1,33 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
+/**
+ *
+ * The EditComplaint class provides functionality to edit an existing complaint in the system.
+ * It displays the details of the selected complaint, such as its description, status, and date.
+ * It allows the user to modify these details and submit the updated complaint to the system.
+ * It also logs the actions performed by the user on the complaint.
  */
 package roomease.complaints;
 
 import database.ComplaintsDAO;
 import database.EmployeeLogs;
-import database.ExpenseDAO;
 import user.Session;
-
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
 import javax.swing.JOptionPane;
-import util.Expense;
 import util.WindowCloseHandler;
-
 import java.sql.SQLException;
-import java.time.LocalDateTime;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import util.Complaint;
 import util.EmployeeActionLog;
 
 
-/**
- *
- * @author Predator
- */
 public class EditComplaint extends javax.swing.JFrame {
+    /** Creates a global Complaint type field */
     private Complaint complaint;
-
+    
+  
     public Complaint getComplaint() {
         return complaint;
     }
@@ -186,6 +182,16 @@ public class EditComplaint extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+/**
+
+This method is called when the "submit" button is clicked. It updates the complaint with the new status, description, and date.
+
+If the update is successful, a message is displayed indicating that the complaint was updated successfully, an employee action log is created, and the current window is closed and a new ComplaintsPage window is opened.
+
+If there is an error with updating the complaint, an error message is displayed.
+
+@param evt the ActionEvent object representing the "submit" button being clicked
+*/
     private void submitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitActionPerformed
         // TODO add your handling code here:
         complaint.setStatus((Complaint.Status) statusCombo.getSelectedItem());
@@ -213,9 +219,15 @@ public class EditComplaint extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_submitActionPerformed
 
+
+/**
+
+This method is called when the "back" button is clicked. It disposes of the current window and creates a new instance
+of the ComplaintsPage class, which is set to be visible.
+*/
     private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
-        // TODO add your handling code here:
-        dispose();
+
+        dispose();  
         new ComplaintsPage().setVisible(true);
     }//GEN-LAST:event_backButtonActionPerformed
 

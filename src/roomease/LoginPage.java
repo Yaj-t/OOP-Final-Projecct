@@ -210,7 +210,13 @@ public class LoginPage extends javax.swing.JFrame {
     private javax.swing.JPasswordField passwordField;
     private javax.swing.JTextField usernameField;
     // End of variables declaration//GEN-END:variables
-    
+/**
+
+Authenticates user login by retrieving username and password entered by the user from text fields,
+validating them against the database, and then launching the corresponding main application window for
+the user type (admin or employee).
+@throws IllegalArgumentException if an invalid user type is encountered
+*/ 
     public void login(){
         String username = usernameField.getText();
         String password = passwordField.getText();

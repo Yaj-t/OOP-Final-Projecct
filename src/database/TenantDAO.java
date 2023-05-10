@@ -1,3 +1,7 @@
+/**
+ *
+ * The TenantDAO class provides methods to interact with the tenant table in the database.
+ */
 package database;
 
 import java.sql.*;
@@ -13,7 +17,13 @@ public class TenantDAO {
  
     }
 
-    // Add a new tenant to the database
+    /**
+     * Adds a new tenant to the database.
+     *
+     * @param tenant The Tenant object containing the tenant information to add.
+     * @return The ID of the new tenant added to the database.
+     * @throws SQLException If a database access error occurs.
+     */
     public static int addTenant(Tenant tenant) throws SQLException {
         conn = Connect.connectToDatabase();
         PreparedStatement stmt = conn.prepareStatement("INSERT INTO tenant (first_name, last_name, phone_number, email) VALUES (?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
@@ -34,7 +44,14 @@ public class TenantDAO {
     }
     
 
-    // Retrieve a tenant from the database by ID
+    /**
+     * Retrieves a tenant from the database by ID.
+     *
+     * @param id The ID of the tenant to retrieve from the database.
+     * @return The Tenant object corresponding to the given ID, or null if no
+     * such tenant is found.
+     * @throws SQLException If a database access error occurs.
+     */
     public static Tenant getTenantById(int id) throws SQLException {
         
         conn = Connect.connectToDatabase();
@@ -49,7 +66,13 @@ public class TenantDAO {
         return tenant;
     }
 
-    // Retrieve all tenant from the database
+    /**
+     * Retrieves all tenants from the database.
+     *
+     * @return A List of Tenant objects representing all tenants in the
+     * database.
+     * @throws SQLException If a database access error occurs.
+     */
     public static List<Tenant> getAlltenant() throws SQLException {
         conn = Connect.connectToDatabase();
         List<Tenant> tenant = new ArrayList<>();
@@ -63,7 +86,13 @@ public class TenantDAO {
         
     }
 
-    // Update a tenant in the database
+    /**
+     * Updates a tenant in the database.
+     *
+     * @param tenant The Tenant object containing the updated tenant
+     * information.
+     * @throws SQLException If a database access error occurs.
+     */
     public static void updateTenant(Tenant tenant) throws SQLException {
         conn = Connect.connectToDatabase();
         PreparedStatement stmt = conn.prepareStatement("UPDATE tenant SET first_name = ?, last_name = ?, phone_number = ?, email = ? WHERE tenant_id = ?");
@@ -76,7 +105,13 @@ public class TenantDAO {
         Connect.closeConnection();
     }
 
-    // Delete a tenant from the database by ID
+    /**
+     * Delete a tenant from the database by ID
+     *
+     * @param id the ID of the tenant to be deleted
+     * @throws SQLException if an error occurs while deleting the tenant from
+     * the database
+     */
     public static void deleteTenantById(int id) throws SQLException {
         conn = Connect.connectToDatabase();
         PreparedStatement stmt = conn.prepareStatement("DELETE FROM tenant WHERE tenant_id = ?");

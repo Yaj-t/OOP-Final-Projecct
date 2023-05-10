@@ -4,22 +4,15 @@
  */
 package roomease.rents;
 
-import java.sql.Date;
 import java.time.LocalDate;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
-
 import database.RoomDAO;
-import database.BookingDAO;
-import java.lang.System.Logger;
 import java.sql.SQLException;
-import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import javax.swing.table.DefaultTableModel;
 import roomease.homepage.EmployeeHome;
-import util.Booking;
 import util.Room;
 import util.WindowCloseHandler;
 

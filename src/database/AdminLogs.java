@@ -1,3 +1,8 @@
+
+/**
+The AdminLogs class provides methods to interact with the admin_action_log and admin_login_log tables in the database.
+*/
+
 package database;
 
 import enums.LogType;
@@ -8,7 +13,13 @@ import util.AdminActionLog;
 import util.AdminLoginLogs;
 
 public class AdminLogs {
-    // Create Admin Action Log
+    /**
+     * Creates a new admin action log in the admin_action_log table.
+     *
+     * @param adminActionLog The AdminActionLog object to be inserted into the
+     * table.
+     * @throws SQLException if there is an error while accessing the database.
+     */
     public static void createAdminActionLog(AdminActionLog adminActionLog) throws SQLException {
         String sql = "INSERT INTO admin_action_log (admin_id, action_description, action_time) VALUES (?, ?, ?)";
         
@@ -22,8 +33,14 @@ public class AdminLogs {
         	Connect.closeConnection();
         }      
     }
-
-    // Create Admin Login Log
+    
+    /**
+     * Creates a new admin login log in the admin_login_log table.
+     *
+     * @param adminLoginLogs The AdminLoginLogs object to be inserted into the
+     * table.
+     * @throws SQLException if there is an error while accessing the database.
+     */
     public static void createAdminLoginLog(AdminLoginLogs adminLoginLogs) throws SQLException {
         String sql = "INSERT INTO admin_login_log (admin_id, log_type, log_time) VALUES (?, ?, ?)";
 
@@ -37,7 +54,12 @@ public class AdminLogs {
         Connect.closeConnection();
     }
 
-    // Get All Admin Action Logs
+    /**
+     * Retrieves all admin action logs from the admin_action_log table.
+     *
+     * @return A List of AdminActionLog objects containing the log data.
+     * @throws SQLException if there is an error while accessing the database.
+     */
     public static List<AdminActionLog> getAllAdminActionLogs() throws SQLException {
         List<AdminActionLog> adminActionLogs = new ArrayList<>();
         try (Connection connection = Connect.connectToDatabase();
@@ -54,12 +76,16 @@ public class AdminLogs {
                 adminActionLogs.add(adminActionLog);
             }
         }
-        // Connection will be automatically closed here
         Connect.closeConnection();
         return adminActionLogs;
     }
 
-    // Get All Admin Login Logs
+    /**
+     * Retrieves all admin login logs from the admin_login_log table.
+     *
+     * @return A List of AdminLoginLogs objects containing the log data.
+     * @throws SQLException if there is an error while accessing the database.
+     */
     public static List<AdminLoginLogs> getAllAdminLoginLogs() throws SQLException {
         List<AdminLoginLogs> adminLoginLogs = new ArrayList<>();
         try (Connection connection = Connect.connectToDatabase();

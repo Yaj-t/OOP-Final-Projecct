@@ -1,6 +1,5 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
+/**
+ * The ComplaintsPage class represents a JFrame window for adding complaints.
  */
 package roomease.complaints;
 
@@ -8,10 +7,8 @@ import database.ComplaintsDAO;
 import database.EmployeeLogs;
 import database.RoomDAO;
 import user.Session;
-
 import java.sql.SQLException;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -22,10 +19,6 @@ import util.EmployeeActionLog;
 import util.Room;
 import util.WindowCloseHandler;
 
-/**
- *
- * @author Predator
- */
 public class AddComplaint extends javax.swing.JFrame {
     List <Room> roomList;
     /**
@@ -35,8 +28,8 @@ public class AddComplaint extends javax.swing.JFrame {
     public AddComplaint() {
         System.out.println("Add Complaint");
         initComponents();
+        /**Filling the tables with data from database*/
         try {
-            
             roomList = RoomDAO.getAllRooms();
             DefaultTableModel tableModel = (DefaultTableModel) roomsTable.getModel();
             for (Room room : roomList) {
@@ -192,13 +185,20 @@ public class AddComplaint extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
+/** Disposes the  current frame and creates a new ComplaintsPage and sets it to visible*/
     private void goBackButtomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_goBackButtomActionPerformed
         // TODO add your handling code here:
         dispose();
         new ComplaintsPage().setVisible(true);
     }//GEN-LAST:event_goBackButtomActionPerformed
 
+/**
+
+Handles the action of adding a complaint for a selected room from the roomsTable.
+Validates the description field and adds the complaint to the database.
+Displays appropriate messages and logs the action in the employee logs.
+@param evt the ActionEvent that triggered the action
+*/
     private void addActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addActionPerformed
         //TODO add your handling code here:
         int selectedRow = roomsTable.getSelectedRow();

@@ -1,13 +1,11 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Enum.java to edit this template
- */
+/**
+
+Enum class representing the different types of users that can exist in the system.
+Currently, there are two types of users: Admin and Employee.
+
+*/
 package enums;
 
-/**
- *
- * @author Predator
- */
 public enum UserType {
     ADMIN,
     EMPLOYEE;   

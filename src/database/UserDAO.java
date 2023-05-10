@@ -1,13 +1,9 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-package database;
-
 /**
- *
- * @author Predator
- */
+
+This class represents a Data Access Object (DAO) for the User entity. It provides methods for performing
+CRUD (Create, Read, Update, Delete) operations on User objects in the database.
+*/
+package database;
 
 import enums.UserType;  
 import java.sql.*;
@@ -18,9 +14,21 @@ import user.User;
 public class UserDAO {
     private static Connection connection;
 
+    /**
+ * Default constructor for UserDAO.
+ * 
+ * @throws SQLException if an error occurs while connecting to the database
+ */
+
     public UserDAO() throws SQLException {
     }
 
+/**
+ * Retrieves a list of all users in the database.
+ * 
+ * @return a list of all users in the database
+ * @throws SQLException if an error occurs while executing the SQL query
+ */
     public static List<User> getAllUsers() throws SQLException {
         List<User> users = new ArrayList<>();
         connection = Connect.connectToDatabase();
@@ -42,6 +50,13 @@ public class UserDAO {
         return users;
     }
 
+/**
+ * Retrieves a user from the database by their username.
+ * 
+ * @param username the username of the user to retrieve
+ * @return the User object representing the retrieved user, or null if the user was not found
+ * @throws SQLException if an error occurs while executing the SQL query
+ */
     public static User getUserByUsername(String username) throws SQLException {
         User user = null;
         connection = Connect.connectToDatabase();
@@ -66,6 +81,14 @@ public class UserDAO {
         return user;
     }
     
+
+/**
+ * Retrieves a user from the database by their ID.
+ * 
+ * @param ID the ID of the user to retrieve
+ * @return the User object representing the retrieved user, or null if the user was not found
+ * @throws SQLException if an error occurs while executing the SQL query
+ */
     public static User getUserByID(int ID) throws SQLException {
         User user = null;
         connection = Connect.connectToDatabase();
@@ -90,7 +113,13 @@ public class UserDAO {
         return user;
     }
 
-    // A function that returns Boolean value based on whether the user exists in the database or not
+/**
+ * Checks if a user with the given username exists in the database.
+ * 
+ * @param username the username of the user to check for existence
+ * @return true if the user exists in the database, false otherwise
+ * @throws SQLException if an error occurs while executing the SQL query
+ */
     public static boolean userExists(String username) throws SQLException {
         connection = Connect.connectToDatabase();
         String sql = "SELECT * FROM users WHERE username = ?";
@@ -109,6 +138,12 @@ public class UserDAO {
         return false;
     }
 
+/**
+ * Adds a user to the database.
+ * 
+ * @param user the User object representing the user to add
+ * @throws SQLException if an error occurs while executing the SQL query
+ */
     public static void addUser(User user) throws SQLException {
         connection = Connect.connectToDatabase();
         String sql = "INSERT INTO users (username, password, name, user_type) VALUES (?, ?, ?, ?)";
@@ -123,6 +158,12 @@ public class UserDAO {
       Connect.closeConnection();
     }
 
+/**
+ * Updates an existing user in the database.
+ * 
+ * @param user the User object representing the user to update
+ * @throws SQLException if an error occurs while executing the SQL query
+ */
     public static void updateUser(User user) throws SQLException {
         connection = Connect.connectToDatabase();
         String sql = "UPDATE users SET username = ?, password = ?, name = ?, user_type = ? WHERE user_id = ?";
@@ -138,6 +179,12 @@ public class UserDAO {
        Connect.closeConnection();
     }
 
+/**
+ * Deletes a user from the database.
+ * 
+ * @param user the User object representing the user to delete
+ * @throws SQLException if an error occurs while executing the SQL query
+ */
     public static void deleteUser(User user) throws SQLException {
         connection = Connect.connectToDatabase();
         String sql = "DELETE FROM users WHERE user_id = ?";

@@ -1,5 +1,12 @@
-package util;
+/**
 
+The Expense class represents an expense made by a user.
+
+It contains information such as the ID of the expense, the user who made the expense,
+
+the amount spent, the description of the expense, and the date it was made.
+*/
+package util;
 
 import java.time.LocalDate;
 
@@ -11,11 +18,23 @@ public class Expense {
     private LocalDate date;
 
     // Constructors
-    
+/**
+
+Creates an empty Expense object.
+*/
     public Expense(){
         
     }
 
+/**
+
+Creates an Expense object with all its attributes.
+@param id the ID of the expense
+@param user_id the ID of the user who made the expense
+@param amount the amount spent in the expense
+@param description the description of the expense
+@param date the date the expense was made
+*/
     public Expense(int id, int user_id, double amount, String description, LocalDate date) {
         this.id = id;
         this.user_id = user_id;
@@ -24,6 +43,15 @@ public class Expense {
         this.date = date;
     }
 
+/**
+
+Creates an Expense object without the ID.
+The ID is set to 0 by default and should be assigned by a database manager.
+@param user_id the ID of the user who made the expense
+@param amount the amount spent in the expense
+@param description the description of the expense
+@param date the date the expense was made
+*/
     public Expense(int user_id, double amount, String description, LocalDate date) {
         this.user_id = user_id;
         this.amount = amount;
