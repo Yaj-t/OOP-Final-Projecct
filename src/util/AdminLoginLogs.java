@@ -11,4 +11,8 @@ public class AdminLoginLogs extends LoginLogs{
     public AdminLoginLogs(int logId, int employeeId, LogType type, LocalDateTime logTime) {
         super(logId, employeeId, type, logTime);
     }
+
+    public AdminLoginLogs(int employeeId, LogType type) {
+        super(employeeId, type);
+    }
 }

@@ -6,6 +6,7 @@ public class Rental {
     //Attributes
     private int rental_id;
     private int tenant_id;
+    private int user_id;
     private int room_id;
     private LocalDate check_in_date;
     private LocalDate check_out_date;
@@ -15,9 +16,11 @@ public class Rental {
     public Rental() {
     }
 
-    public Rental(int rental_id, int tenant_id, int room_id, LocalDate check_in_date, LocalDate check_out_date, double total_amount) {
-        this.rental_id = rental_id;
+
+    public Rental(int tenant_id, int user_id, int room_id, LocalDate check_in_date, LocalDate check_out_date, double total_amount) {
+        this.rental_id = 0;
         this.tenant_id = tenant_id;
+        this.user_id = user_id;
         this.room_id = room_id;
         this.check_in_date = check_in_date;
         this.check_out_date = check_out_date;
@@ -39,6 +42,14 @@ public class Rental {
 
     public void setTenant_id(int tenant_id) {
         this.tenant_id = tenant_id;
+    }
+
+    public int getUser_id() {
+        return this.user_id;
+    }
+
+    public void setUser_id(int user_id) {
+        this.user_id = user_id;
     }
 
     public int getRoom_id() {

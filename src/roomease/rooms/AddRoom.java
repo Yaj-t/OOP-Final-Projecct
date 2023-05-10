@@ -10,8 +10,11 @@ import javax.swing.JOptionPane;
 import util.Room;
 import java.sql.*;
 import java.time.LocalDateTime;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import user.Session;
 import util.AdminActionLog;
+
 /**
  *
  * @author Predator
@@ -22,6 +25,7 @@ public class AddRoom extends javax.swing.JFrame {
      * Creates new form AddRoom
      */
     public AddRoom() {
+        System.out.println("AddRoom constructor");
         initComponents();
     }
 
@@ -169,21 +173,44 @@ public class AddRoom extends javax.swing.JFrame {
     }//GEN-LAST:event_priceNumberFieldActionPerformed
 
     private void submitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitActionPerformed
-        // TODO add your handling code here:
-        float price = Float.parseFloat( priceNumberField.getText());
+        //Check if the fields are empty and validate the data
         String roomNumber = roomNumberField.getText();
-       String description = descriptionField.getText();
+        String description = descriptionField.getText();
+
+        // Check if price is a number and is positive
+        if ( !priceNumberField.getText().matches("[0-9]+(\\.[0-9][0-9]?)?")) {
+            JOptionPane.showMessageDialog(this, "Please enter a valid price!");
+            return;
+        }
+
+        if (roomNumber.equals("") || priceNumberField.getText().equals("") || description.equals("")) {
+            JOptionPane.showMessageDialog(this, "Please fill all the fields!");
+            return;
+        }
+
+        float price = Float.parseFloat(priceNumberField.getText());
+
+        try {
+            // Check if room number is unique
+            if (RoomDAO.getRoomByNumber(roomNumber) != null) {
+                JOptionPane.showMessageDialog(this, "Room number already exists!");
+                return;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(AddRoom.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
         
-        Room newRoom = new Room(roomNumber, price,description);
+
+        Room newRoom = new Room(roomNumber, price, description);
         try {
             RoomDAO.addRoom(newRoom);
-            int userID = Session.getCurrentUser().getUserID();
-            AdminActionLog log = new AdminActionLog(0, userID, "Added room "+'"'+ roomNumber+'"', LocalDateTime.now());
+            AdminActionLog log = new AdminActionLog(Session.getCurrentUserId(), "Added room " + '"' + roomNumber + '"');
             AdminLogs.createAdminActionLog(log);
             JOptionPane.showMessageDialog(this, "Room added successfully!");
             dispose();
             new RoomsPage().setVisible(true);
-            
+
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(this, "Error adding Room: " + ex.getMessage());
         }

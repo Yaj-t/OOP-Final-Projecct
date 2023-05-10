@@ -17,7 +17,7 @@ public class EmployeeLogs {
 
     // Create Employee Action Log
     public static void createEmployeeActionLog(EmployeeActionLog employeeActionLog) throws SQLException {
-        String sql = "INSERT INTO employee_action_log (employee_id, action, action_time) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO employee_action_log (employee_id, action_description, action_time) VALUES (?, ?, ?)";
         connection = Connect.connectToDatabase();
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setInt(1, employeeActionLog.getuser_id());
@@ -52,7 +52,7 @@ public class EmployeeLogs {
                 EmployeeActionLog employeeActionLog = new EmployeeActionLog(
                         resultSet.getInt("log_id"),
                         resultSet.getInt("employee_id"),
-                        resultSet.getString("action"),
+                        resultSet.getString("action_description"),
                         resultSet.getTimestamp("action_time").toLocalDateTime()
                 );
                 employeeActionLogs.add(employeeActionLog);

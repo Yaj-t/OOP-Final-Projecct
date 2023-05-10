@@ -4,12 +4,15 @@
  */
 package roomease.expenses;
 
+import database.EmployeeLogs;
 import database.ExpenseDAO;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
 import javax.swing.JOptionPane;
+
+import util.EmployeeActionLog;
 import util.Expense;
 import java.sql.SQLException;
 import user.Session;
@@ -26,6 +29,7 @@ public class AddExpense extends javax.swing.JFrame {
      * Creates new form NewJFrame
      */
     public AddExpense() {
+        System.out.println("AddExpense");
         initComponents();
     }
 
@@ -75,6 +79,11 @@ public class AddExpense extends javax.swing.JFrame {
         amountField.setForeground(new java.awt.Color(8, 99, 117));
         amountField.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
         amountField.setText("0.00");
+        amountField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                amountFieldActionPerformed(evt);
+            }
+        });
 
         jDateChooser.setForeground(new java.awt.Color(8, 99, 117));
         jDateChooser.setDate(new Date());
@@ -100,7 +109,7 @@ public class AddExpense extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 384, Short.MAX_VALUE)
+            .addGap(0, 403, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel1Layout.createSequentialGroup()
                     .addContainerGap()
@@ -179,11 +188,31 @@ public class AddExpense extends javax.swing.JFrame {
         ZoneId zone = ZoneId.systemDefault();
         LocalDate localDate = instant.atZone(zone).toLocalDate();
 
+
+        //Check if the fields are empty and validate the input
+
+        if(amountField.getText().isEmpty() || descriptionField.getText().isEmpty() || jDateChooser.getDate() == null ){
+            JOptionPane.showMessageDialog(this, "Please fill in all the fields!");
+            return;
+        }
+
+        if(amount <= 0){
+            JOptionPane.showMessageDialog(this, "Please enter a valid amount!");
+            return;
+        }
+
+
         Expense newExpense = new Expense(Session.currentUser.getUserID(), amount, description, localDate);
         System.out.println(newExpense.getAmount()+" "+ newExpense.getDate()+" "+ newExpense.getDescription());
         try {
             ExpenseDAO.addExpense(newExpense);
             JOptionPane.showMessageDialog(this, "Expense added successfully!");
+
+            EmployeeActionLog log = new EmployeeActionLog(Session.currentUser.getUserID(), "Added an expense");
+            EmployeeLogs.createEmployeeActionLog(log);
+
+            dispose();
+            new ExpensesPage().setVisible(true);
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(this, "Error adding Expense: " + ex.getMessage());
         }
@@ -194,6 +223,10 @@ public class AddExpense extends javax.swing.JFrame {
         dispose();
         new ExpensesPage().setVisible(true);
     }//GEN-LAST:event_backButtonActionPerformed
+
+    private void amountFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_amountFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_amountFieldActionPerformed
 
     /**
      * @param args the command line arguments

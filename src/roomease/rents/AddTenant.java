@@ -4,18 +4,23 @@
  */
 package roomease.rents;
 
+import database.EmployeeLogs;
 import database.RentalDAO;
 import database.TenantDAO;
 import database.UserDAO;
 import enums.UserType;
 import javax.swing.JOptionPane;
+
+import user.Session;
 import user.User;
 import java.sql.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import roomease.homepage.EmployeeHome;
+import util.EmployeeActionLog;
 import util.Rental;
 import util.Room;
 import util.Tenant;
@@ -30,6 +35,7 @@ public class AddTenant extends javax.swing.JFrame {
      * Creates new form AddTenant
      */
     public AddTenant() {
+        System.out.println("AddTenant");
         initComponents();
     }
 
@@ -233,8 +239,18 @@ public class AddTenant extends javax.swing.JFrame {
                     double totalPrice = days * room.getPrice();
                     
                     //Create a new rental object
-                    Rental rental = new Rental(0, tenantID, room.getId(), startDate, endDate, totalPrice);
-                    
+                    int userID = Session.getCurrentUserId();
+                    Rental rental = new Rental(tenantID, userID, room.getId(), startDate, endDate, totalPrice);
+
+                    //Add Action to the log
+                    String action = "Added a new rental";
+                    EmployeeActionLog employeeActionLog = new EmployeeActionLog(userID, action);
+
+                    //Add the action to the database
+                    EmployeeLogs.createEmployeeActionLog(employeeActionLog);
+
+
+                    //Add the rental to the database
                     RentalDAO.addRental(rental);
                     JOptionPane.showMessageDialog(null, "Rental added successfully");
                 } catch (SQLException ex) {

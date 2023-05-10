@@ -27,8 +27,13 @@ public class EditUser extends javax.swing.JFrame {
     private User user;
 
     public User getUser() {
+        System.out.println("EditUser");
         return user;
     }
+
+    public boolean originalUsernamesMatch() {
+        return user.getUsername().equals(usernameField.getText());
+    } 
 
     public void setUser(User user) {
         this.user = user;
@@ -219,10 +224,14 @@ public class EditUser extends javax.swing.JFrame {
         }
 
         try {
-            if (UserDAO.userExists(usernameField.getText())) {
-                JOptionPane.showMessageDialog(this, "Username already exists!");
-                return;
+            if(!originalUsernamesMatch())
+            {
+                if (UserDAO.userExists(usernameField.getText())) {
+                    JOptionPane.showMessageDialog(this, "Username already exists!");
+                    return;
+                }
             }
+            
         } catch (SQLException ex) {
             Logger.getLogger(EditUser.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -238,8 +247,7 @@ public class EditUser extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "User updated successfully!");
             
             //Create another log
-            int userID = Session.getCurrentUser().getUserID();
-            AdminActionLog log = new AdminActionLog(0,userID, "Updated user: "+ '"'+ user.getUsername()+'"', LocalDateTime.now());
+            AdminActionLog log = new AdminActionLog(Session.getCurrentUserId(), "Updated user: "+ '"'+ user.getUsername()+'"');
             AdminLogs.createAdminActionLog(log);
 
             dispose();

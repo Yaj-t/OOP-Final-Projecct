@@ -118,6 +118,7 @@ CREATE TABLE `payments` (
 
 CREATE TABLE `rentals` (
   `rental_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
   `tenant_id` int(11) NOT NULL,
   `room_id` int(11) NOT NULL,
   `check_in_date` datetime NOT NULL,
@@ -369,7 +370,8 @@ ALTER TABLE `payments`
 --
 ALTER TABLE `rentals`
   ADD CONSTRAINT `fk_rentals_room_id` FOREIGN KEY (`room_id`) REFERENCES `rooms` (`room_id`),
-  ADD CONSTRAINT `fk_rentals_tenant_id` FOREIGN KEY (`tenant_id`) REFERENCES `tenant` (`tenant_id`);
+  ADD CONSTRAINT `fk_rentals_tenant_id` FOREIGN KEY (`tenant_id`) REFERENCES `tenant` (`tenant_id`),
+  ADD CONSTRAINT `fk_rentals_user_id` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

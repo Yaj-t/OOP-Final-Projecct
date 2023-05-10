@@ -29,6 +29,7 @@ public class AddRent extends javax.swing.JFrame {
      */
     
     public AddRent() {
+        System.out.println("AddRent");
         initComponents();
         try {
             

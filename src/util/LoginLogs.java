@@ -21,6 +21,13 @@ public class LoginLogs {
         this.logTime = logTime;
     }
 
+    public LoginLogs(int user_id, LogType type) {
+        this.logId = 0;
+        this.user_id = user_id;
+        this.type = type;
+        this.logTime = LocalDateTime.now();
+    }
+
     //Getter and Setter
     
     public int getLogId() {

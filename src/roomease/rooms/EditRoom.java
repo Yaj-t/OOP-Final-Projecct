@@ -35,12 +35,13 @@ public class EditRoom extends javax.swing.JFrame {
      * Creates new form EditRoom
      */
     public EditRoom(Room room) {
+        System.out.println("EditRoom constructor");
         this.room = room;
         initComponents();
     }
     
     public EditRoom() {
-
+        System.out.println("EditRoom constructor");
         initComponents();
     }
 
@@ -182,8 +183,7 @@ public class EditRoom extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Room updated successfully!");
             
             // Create log message
-            int userID = Session.getCurrentUser().getUserID();
-            AdminActionLog log = new AdminActionLog(0, userID, "Updated room "+'"'+ room.getId() +'"', LocalDateTime.now());
+            AdminActionLog log = new AdminActionLog(Session.getCurrentUserId(), "Updated room "+'"'+ room.getId() +'"');
             AdminLogs.createAdminActionLog(log);
 
             dispose();

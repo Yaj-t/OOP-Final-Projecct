@@ -25,6 +25,7 @@ public class AddUser extends javax.swing.JFrame {
      * Creates new form AddUser
      */
     public AddUser() {
+        System.out.println("AddUser constructor");
         initComponents();
     }
 
@@ -221,8 +222,7 @@ public class AddUser extends javax.swing.JFrame {
 
             // Adds an entry to the Admin Log when a new user is added
            
-            int userID = Session.getCurrentUser().getUserID();
-            AdminActionLog log = new AdminActionLog(0, userID, "Added a new user to the database: "+'"'+ newUser.getUsername()+'"', LocalDateTime.now());
+            AdminActionLog log = new AdminActionLog(Session.getCurrentUserId(), "Added a new user to the database: "+'"'+ newUser.getUsername()+'"');
             AdminLogs.createAdminActionLog(log);
 
             // show success message and go back to users page

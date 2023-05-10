@@ -36,6 +36,7 @@ public class RoomCheck extends javax.swing.JFrame {
     LocalDate checkinCurrent = null;
     LocalDate checkoutCurrent = null;
     public RoomCheck() throws SQLException {
+        System.out.println("WTF ROOMCHECK");
         
         initComponents();
      

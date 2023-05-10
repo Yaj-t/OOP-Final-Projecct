@@ -2,6 +2,8 @@ package util;
 
 import java.time.LocalDateTime;
 
+import javax.swing.Action;
+
 public class ActionLog {
 
     // Attributes
@@ -19,6 +21,13 @@ public class ActionLog {
         this.user_id = user_id;
         this.actionDescription = actionDescription;
         this.actionTime = actionTime;
+    }
+
+    public ActionLog(int user_id, String actionDescription) {
+        this.logId = 0;
+        this.user_id = user_id;
+        this.actionDescription = actionDescription;
+        this.actionTime = LocalDateTime.now();
     }
 
     // Getter and Setter

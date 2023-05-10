@@ -5,7 +5,10 @@
 package roomease.complaints;
 
 import database.ComplaintsDAO;
+import database.EmployeeLogs;
 import database.ExpenseDAO;
+import user.Session;
+
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -13,9 +16,11 @@ import java.util.Date;
 import javax.swing.JOptionPane;
 import util.Expense;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import util.Complaint;
+import util.EmployeeActionLog;
 
 
 /**
@@ -37,10 +42,12 @@ public class EditComplaint extends javax.swing.JFrame {
      * Creates new form NewJFrame
      */
     public EditComplaint() {
+        System.out.println("EditComplaint");
         initComponents();
     }
 
     public EditComplaint(Complaint complaint) {
+        System.out.println("EditComplaint");
         this.complaint = complaint;
         initComponents();
     }
@@ -188,6 +195,13 @@ public class EditComplaint extends javax.swing.JFrame {
         try {
             ComplaintsDAO.updateComplaint(complaint);
             JOptionPane.showMessageDialog(this, "Complaint Updated successfully!");
+
+            EmployeeActionLog employeeActionLog = new EmployeeActionLog(Session.getCurrentUserId(), "Updated complaint: " + complaint.getComplaintId());
+            EmployeeLogs.createEmployeeActionLog(employeeActionLog);
+            
+            dispose();
+            new ComplaintsPage().setVisible(true);
+        
         } catch (SQLException e) {
             JOptionPane.showMessageDialog(this, "Error adding complaint: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         } catch (IllegalArgumentException e){

@@ -5,15 +5,20 @@
 package roomease.complaints;
 
 import database.ComplaintsDAO;
+import database.EmployeeLogs;
 import database.RoomDAO;
+import user.Session;
+
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import util.Complaint;
+import util.EmployeeActionLog;
 import util.Room;
 
 /**
@@ -27,6 +32,7 @@ public class AddComplaint extends javax.swing.JFrame {
      */
     
     public AddComplaint() {
+        System.out.println("Add Complaint");
         initComponents();
         try {
             
@@ -195,10 +201,22 @@ public class AddComplaint extends javax.swing.JFrame {
         //TODO add your handling code here:
         int selectedRow = roomsTable.getSelectedRow();
         if(selectedRow !=-1){
+            
+            // Check if the description field is empty
+            if(descriptionField.getText().isEmpty()){
+                JOptionPane.showMessageDialog(null, "Please enter a description.");
+                return;
+            }
+
             try {
                 int roomID = (int) roomsTable.getValueAt(selectedRow, 0);
                 ComplaintsDAO.addComplaint(new Complaint(roomID, LocalDate.now(), descriptionField.getText(), Complaint.Status.UNRESOLVED));
                 JOptionPane.showMessageDialog(this, "Complaint added successfully!");
+
+                // Add to employee logs
+                String description = "Added complaint for room: " + roomID;
+                EmployeeActionLog employeeActionLog = new EmployeeActionLog( Session.getCurrentUserId(), description);
+                EmployeeLogs.createEmployeeActionLog(employeeActionLog);
             } catch (SQLException ex) {
                 JOptionPane.showMessageDialog(null, "Error adding complaint: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
             }

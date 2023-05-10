@@ -11,4 +11,8 @@ public class EmployeeActionLog extends ActionLog {
     public EmployeeActionLog(int logId, int employeeId, String actionDescription, LocalDateTime actionTime) {
         super(logId, employeeId, actionDescription, actionTime);
     }
+
+    public EmployeeActionLog(int employeeId, String actionDescription) {
+        super(employeeId, actionDescription);
+    }
 }

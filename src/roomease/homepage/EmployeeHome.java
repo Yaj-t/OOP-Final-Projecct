@@ -4,9 +4,9 @@
  */
 package roomease.homepage;
 
-import roomease.rents.TenantsPage;
 import roomease.rents.RoomCheck;
 import roomease.expenses.ExpensesPage;
+import roomease.payment.PaymentPage;
 import roomease.complaints.ComplaintsPage;
 import enums.LogType;
 import java.time.LocalDateTime;
@@ -42,6 +42,7 @@ public class EmployeeHome extends javax.swing.JFrame {
      * Creates new form EmployeeHome
      */
     public EmployeeHome() {
+        System.out.println("EmployeeHome");
         initComponents();
         try {
             rentalsList = RentalDAO.getActiveRentals();
@@ -70,7 +71,7 @@ public class EmployeeHome extends javax.swing.JFrame {
             }
             
         } catch (SQLException ex) {
-            Logger.getLogger(TenantsPage.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(EmployeeHome.class.getName()).log(Level.SEVERE, null, ex);
         }
    
     }
@@ -90,6 +91,7 @@ public class EmployeeHome extends javax.swing.JFrame {
         jButton3 = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         complaints = new javax.swing.JButton();
+        PaymentBut = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -140,22 +142,28 @@ public class EmployeeHome extends javax.swing.JFrame {
             }
         });
 
+        PaymentBut.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        PaymentBut.setText("Payments");
+        PaymentBut.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                PaymentPerform(evt);
+            }
+        });
+
         javax.swing.GroupLayout sidePanelLayout = new javax.swing.GroupLayout(sidePanel);
         sidePanel.setLayout(sidePanelLayout);
         sidePanelLayout.setHorizontalGroup(
             sidePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 137, Short.MAX_VALUE)
+            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(sidePanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(sidePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(sidePanelLayout.createSequentialGroup()
-                        .addGroup(sidePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(expensesButton, javax.swing.GroupLayout.DEFAULT_SIZE, 113, Short.MAX_VALUE)
-                            .addComponent(bookingsButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(complaints, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+                .addGroup(sidePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(complaints, javax.swing.GroupLayout.DEFAULT_SIZE, 113, Short.MAX_VALUE)
+                    .addComponent(jButton3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(expensesButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(bookingsButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(PaymentBut, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         sidePanelLayout.setVerticalGroup(
             sidePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -168,7 +176,9 @@ public class EmployeeHome extends javax.swing.JFrame {
                 .addComponent(expensesButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(complaints)
-                .addGap(98, 98, 98)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(PaymentBut)
+                .addGap(63, 63, 63)
                 .addComponent(jButton3)
                 .addContainerGap(54, Short.MAX_VALUE))
         );
@@ -221,7 +231,7 @@ public class EmployeeHome extends javax.swing.JFrame {
             }
         });
 
-        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(335, 50, 308, 250));
+        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 50, 308, 250));
 
         jLabel1.setBackground(new java.awt.Color(8, 99, 117));
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -292,7 +302,7 @@ public class EmployeeHome extends javax.swing.JFrame {
 
         try {
             //create a new employee login log
-            EmployeeLoginLogs log = new EmployeeLoginLogs(0, Session.getCurrentUser().getUserID(), LogType.LOGOUT, LocalDateTime.now());
+            EmployeeLoginLogs log = new EmployeeLoginLogs(0, Session.getCurrentUserId(), LogType.LOGOUT, LocalDateTime.now());
             //add the log to the database
             EmployeeLogs.createEmployeeLoginLog(log);
             Session.logout();
@@ -313,7 +323,6 @@ public class EmployeeHome extends javax.swing.JFrame {
         try {
             dispose();
             new RoomCheck().setVisible(true);
-            //new BookingPage().setVisible(true);
         } catch (SQLException ex) {
             Logger.getLogger(EmployeeHome.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -323,10 +332,14 @@ public class EmployeeHome extends javax.swing.JFrame {
 
         new ComplaintsPage().setVisible(true);
         dispose();
-        
-        //new BookingPage().setVisible(true);
-        
+                
     }//GEN-LAST:event_complaintsActionPerformed
+
+    private void PaymentPerform(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PaymentPerform
+        
+        dispose();
+        new PaymentPage().setVisible(true);
+    }//GEN-LAST:event_PaymentPerform
     
     
     
@@ -343,6 +356,7 @@ public class EmployeeHome extends javax.swing.JFrame {
     }
     private DefaultTableModel tableModel;
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton PaymentBut;
     private javax.swing.JButton bookingsButton;
     private javax.swing.JButton complaints;
     private javax.swing.JButton expensesButton;

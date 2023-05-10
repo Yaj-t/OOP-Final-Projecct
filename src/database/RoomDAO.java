@@ -205,4 +205,21 @@ public class RoomDAO {
         return false;
     }
 
+    public static boolean isRoomNumberUsed(String roomNumber) throws SQLException {
+        connection = Connect.connectToDatabase();
+        String sql = "SELECT * FROM rooms WHERE room_number = ?";
+
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setString(1, roomNumber);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    return true;
+                }
+            }
+        } finally {
+            Connect.closeConnection();
+        }
+        return false;
+    }
+
 }
