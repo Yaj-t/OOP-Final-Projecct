@@ -3,7 +3,7 @@ package util;
 /**
  * Represents a tenant in the system.
  */
-public class Tenant {
+public class Tenant {   
     private int id;
     private String firstName;
     private String lastName;
