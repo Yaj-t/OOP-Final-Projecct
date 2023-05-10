@@ -1,12 +1,13 @@
-/**
- *
- * The Payment class represents a payment made for a rental by a tenant to an employee..
- * It includes information such as payment ID, rental ID, employee ID, payment amount, payment date, and payment description.
- */
 package util;
 
 import java.time.LocalDate;
 
+/**
+ *
+ * The Payment class represents a payment made for a rental by a tenant to an
+ * employee.. It includes information such as payment ID, rental ID, employee
+ * ID, payment amount, payment date, and payment description.
+ */
 public class Payment {
     
   // Attributes

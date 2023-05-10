@@ -1,7 +1,4 @@
-/**
 
-Provides a utility class for handling the closing of a JFrame.
-*/
 package util;
 
 import enums.LogType;
@@ -13,6 +10,10 @@ import database.AdminLogs;
 import database.EmployeeLogs;
 import user.Session;
 
+/**
+ *
+ * Provides a utility class for handling the closing of a JFrame.
+ */
 public class WindowCloseHandler {
 /**
  * Adds a window closing listener to the specified JFrame.

@@ -1,6 +1,3 @@
-/**
- * The ComplaintsPage class represents a JFrame window that displays unresolved complaints.
- */
 package roomease.complaints;
 
 import database.ComplaintsDAO;
@@ -21,8 +18,7 @@ import util.Room;
 import util.WindowCloseHandler;
 
 /**
- *
- * @author Predator
+ * The ComplaintsPage class represents a JFrame window that displays unresolved complaints.
  */
 public class ComplaintsPage extends javax.swing.JFrame {
     List <Complaint> complaintsList;

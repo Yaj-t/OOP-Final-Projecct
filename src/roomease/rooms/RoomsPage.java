@@ -1,4 +1,4 @@
-/**The RoomsPage represents a JFrame that displays all the rooms and some buttons for CRUD operations*/
+
 package roomease.rooms;
 
 import database.AdminLogs;
@@ -16,7 +16,10 @@ import util.AdminActionLog;
 import util.Room;
 import util.WindowCloseHandler;
 
-
+/**
+ * The RoomsPage represents a JFrame that displays all the rooms and some
+ * buttons for CRUD operations
+ */
 public class RoomsPage extends javax.swing.JFrame {
     List <Room> roomList;
     /**

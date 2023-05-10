@@ -1,8 +1,3 @@
-/**
- *
- * This class provides data access to the rooms table in the database. It allows to perform
- * CRUD operations on the rooms table, including adding, updating and deleting rooms.
- */
 package database;
 
 import java.sql.*;
@@ -12,6 +7,13 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import util.Room;
+
+/**
+ *
+ * This class provides data access to the rooms table in the database. It allows
+ * to perform CRUD operations on the rooms table, including adding, updating and
+ * deleting rooms.
+ */
 
 public class RoomDAO {
 

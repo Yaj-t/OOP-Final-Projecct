@@ -1,4 +1,3 @@
-/**The EditUser Class represents a JFrame that shows fields and buttons for editing a user*/
 package roomease.users;
 
 import database.AdminLogs;
@@ -13,7 +12,7 @@ import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-
+/**The EditUser Class represents a JFrame that shows fields and buttons for editing a user*/
 public class EditUser extends javax.swing.JFrame {
     private User user;
 

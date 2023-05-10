@@ -1,6 +1,3 @@
-/**
- * The ExpensesPage class represents a JFrame window that displays the expenses.
- */
 package roomease.expenses;
 
 import database.EmployeeLogs;
@@ -18,6 +15,9 @@ import util.EmployeeActionLog;
 import util.Expense;
 import util.WindowCloseHandler;
 
+/**
+ * The ExpensesPage class represents a JFrame window that displays the expenses.
+ */
 public class ExpensesPage extends javax.swing.JFrame {
     List <Expense>  expenseList;
     /**

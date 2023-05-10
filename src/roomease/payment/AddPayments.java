@@ -1,4 +1,3 @@
-/**The AddPayments class represent a JFrame that displays fields and buttons for adding payments*/
 package roomease.payment;
 
 import roomease.complaints.*;
@@ -20,6 +19,7 @@ import util.Payment;
 import util.Rental;
 import util.WindowCloseHandler;
 
+/**The AddPayments class represent a JFrame that displays fields and buttons for adding payments*/
 public class AddPayments extends javax.swing.JFrame {
     /**Creates a Rental List for class*/
     List<Rental> rentalList;

@@ -1,18 +1,20 @@
-/**
- *
- * The ActionLog class represents a log of an action performed by a user in the system.
- *
- * Each ActionLog object contains information about the action such as its description, the ID of the user who performed the action,
- *
- * and the time when the action was performed.
- *
- * This class also provides methods for setting and getting the values of these attributes.
- */
-
 package util;
 
 import java.time.LocalDateTime;
 
+/**
+ *
+ * The ActionLog class represents a log of an action performed by a user in the
+ * system.
+ *
+ * Each ActionLog object contains information about the action such as its
+ * description, the ID of the user who performed the action,
+ *
+ * and the time when the action was performed.
+ *
+ * This class also provides methods for setting and getting the values of these
+ * attributes.
+ */
 public class ActionLog {
 
     // Attributes

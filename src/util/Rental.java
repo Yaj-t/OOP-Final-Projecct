@@ -1,9 +1,11 @@
-/**
-
-A class representing a rental agreement between a tenant and a landlord for a room.
-*/
 package util;
 import java.time.LocalDate;
+
+/**
+ *
+ * A class representing a rental agreement between a tenant and a landlord for a
+ * room.
+ */
 public class Rental {
 //Attributes
 private int rental_id;

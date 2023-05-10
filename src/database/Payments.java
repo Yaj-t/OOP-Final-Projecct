@@ -1,7 +1,3 @@
-/**
- *
- * This class handles database operations related to payments.
- */
 package database;
 
 import java.sql.*;
@@ -10,6 +6,10 @@ import java.util.ArrayList;
 import java.util.List;
 import util.Payment;
 
+/**
+ *
+ * This class handles database operations related to payments.
+ */
 public class Payments {
 
     /**

@@ -1,7 +1,3 @@
-/**
- *
- * Provides methods to create and retrieve employee action logs and employee login logs from the database.
- */
 package database;
 
 import enums.LogType;
@@ -11,6 +7,11 @@ import java.util.List;
 import util.EmployeeActionLog;
 import util.EmployeeLoginLogs;
 
+/**
+ *
+ * Provides methods to create and retrieve employee action logs and employee
+ * login logs from the database.
+ */
 public class EmployeeLogs {
 
     // Connection

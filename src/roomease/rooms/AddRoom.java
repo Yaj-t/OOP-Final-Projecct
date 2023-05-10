@@ -1,4 +1,4 @@
-/**The AddRoom class represent a JFrame the displays field and buttons for adding a room*/
+
 package roomease.rooms;
 
 import database.AdminLogs;
@@ -12,6 +12,10 @@ import java.util.logging.Logger;
 import user.Session;
 import util.AdminActionLog;
 
+/**
+ * The AddRoom class represent a JFrame the displays field and buttons for
+ * adding a room
+ */
 public class AddRoom extends javax.swing.JFrame {
 
     /**

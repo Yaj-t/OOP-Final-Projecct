@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
+
 package roomease;
 
 import roomease.homepage.EmployeeHome;
@@ -22,10 +19,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author Predator
- */
+/**LoginPage represents a JFrame that display a login page*/
 public class LoginPage extends javax.swing.JFrame {
 
     /**
@@ -166,11 +160,12 @@ public class LoginPage extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    /**Represents a login button when clicked calls the login method*/
         private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginButtonActionPerformed
         login();
     }
 //GEN-LAST:event_loginButtonActionPerformed
-
+/**Calls the login method when Enter key is pressed while on the passwordField*/
     private void passwordFieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_passwordFieldKeyPressed
         if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER) {
             // Enter key pressed

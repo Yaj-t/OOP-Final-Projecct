@@ -1,8 +1,3 @@
-/**
-
-This class represents a Data Access Object (DAO) for the User entity. It provides methods for performing
-CRUD (Create, Read, Update, Delete) operations on User objects in the database.
-*/
 package database;
 
 import enums.UserType;  
@@ -11,6 +6,11 @@ import java.util.ArrayList;
 import java.util.List;
 import user.User;
 
+/**
+
+This class represents a Data Access Object (DAO) for the User entity. It provides methods for performing
+CRUD (Create, Read, Update, Delete) operations on User objects in the database.
+*/
 public class UserDAO {
     private static Connection connection;
 

@@ -1,6 +1,3 @@
-/**
- * The ActionLogs class represents a JFrame window that displays all actions of either ADMIN or employee.
- */
 package roomease.logs;
 
 import database.AdminLogs;
@@ -16,7 +13,9 @@ import util.EmployeeActionLog;
 import util.Room;
 import util.WindowCloseHandler;
 
-
+/**
+ * The ActionLogs class represents a JFrame window that displays all actions of either ADMIN or employee.
+ */
 public class ActionLogs extends javax.swing.JFrame {
     List <AdminActionLog> adminList;
     List <EmployeeActionLog> employeeList;

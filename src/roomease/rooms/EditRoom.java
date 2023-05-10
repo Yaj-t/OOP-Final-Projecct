@@ -1,4 +1,3 @@
-/**The EditRoomt class represent a JFrame the displays field and buttons editing rooms*/
 package roomease.rooms;
 
 import database.AdminLogs;
@@ -12,6 +11,7 @@ import java.util.logging.Logger;
 import user.Session;
 import util.AdminActionLog;
 
+/**The EditRoomt class represent a JFrame the displays field and buttons editing rooms*/
 public class EditRoom extends javax.swing.JFrame {
     private Room room;
 

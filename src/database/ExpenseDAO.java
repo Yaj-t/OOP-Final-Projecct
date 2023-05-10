@@ -1,8 +1,3 @@
-/**
- *
- * This class represents a data access object (DAO) for the Expense model, which provides methods for
- * CRUD operations (Create, Read, Update, Delete) on expenses in the database.
- */
 package database;
 
 import java.sql.Connection;
@@ -13,6 +8,11 @@ import java.util.ArrayList;
 import java.util.List;
 import util.Expense;
 
+/**
+ *
+ * This class represents a data access object (DAO) for the Expense model, which provides methods for
+ * CRUD operations (Create, Read, Update, Delete) on expenses in the database.
+ */
 public class ExpenseDAO {
     
     private static Connection connection;

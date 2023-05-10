@@ -1,4 +1,4 @@
-/**The UsersPage Class represents a JFrame that show Tables and buttons for CRUD operations on users*/
+
 package roomease.users;
 
 import database.AdminLogs;
@@ -15,6 +15,10 @@ import user.User;
 import util.AdminActionLog;
 import util.WindowCloseHandler;
 
+/**
+ * The UsersPage Class represents a JFrame that show Tables and buttons for CRUD
+ * operations on users
+ */
 public class UsersPage extends javax.swing.JFrame {
     List <User> userList;
     /**

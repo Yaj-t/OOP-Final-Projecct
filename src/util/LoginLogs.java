@@ -1,14 +1,13 @@
-/**
-
-The LoginLogs class represents login logs of users.
-It contains information such as log ID, user ID, log type, and log time.
-*/
 package util;
 
 import java.time.LocalDateTime;
 import enums.LogType;
 
-
+/**
+ *
+ * The LoginLogs class represents login logs of users. It contains information
+ * such as log ID, user ID, log type, and log time.
+ */
 public class LoginLogs {
     //Attributes
     private int logId;

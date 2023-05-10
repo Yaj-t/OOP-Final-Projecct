@@ -1,6 +1,3 @@
-/**
- * The AdminHome class represents a JFrame window that displays the homepage of the administrator.
- */
 package roomease.homepage;
 
 import roomease.users.UsersPage;
@@ -24,6 +21,10 @@ import roomease.logs.ActionLogs;
 import util.AdminActionLog;
 import util.EmployeeActionLog;
 
+/**
+ * The AdminHome class represents a JFrame window that displays the homepage of
+ * the administrator.
+ */
 public class AdminHome extends javax.swing.JFrame {
     List <EmployeeLoginLogs> employeeLogsList;
     List <AdminLoginLogs> adminLogsList;

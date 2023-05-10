@@ -1,4 +1,3 @@
-/**The AddUser Class represents a JFrame that shows fields and buttons for adding a user*/
 package roomease.users;
 
 import database.AdminLogs;
@@ -11,6 +10,7 @@ import java.sql.*;
 import util.AdminActionLog;
 import util.WindowCloseHandler;
 
+/**The AddUser Class represents a JFrame that shows fields and buttons for adding a user*/
 public class AddUser extends javax.swing.JFrame {
 
     /**

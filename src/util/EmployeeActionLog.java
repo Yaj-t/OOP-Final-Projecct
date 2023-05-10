@@ -1,14 +1,13 @@
-/**
-
-The EmployeeActionLog class represents the action log of an employee.
-It extends the ActionLog class.
-*/
 package util;
 
 import java.time.LocalDateTime;
 
 
-//Extends to action log
+/**
+ *
+ * The EmployeeActionLog class represents the action log of an employee. It
+ * extends the ActionLog class.
+ */
 public class EmployeeActionLog extends ActionLog {
     //Constructor
     public EmployeeActionLog() {

@@ -1,7 +1,3 @@
-/**
- *
- * The TenantDAO class provides methods to interact with the tenant table in the database.
- */
 package database;
 
 import java.sql.*;
@@ -9,7 +5,10 @@ import java.util.ArrayList;
 import java.util.List;
 import util.Tenant;
 
-
+/**
+ *
+ * The TenantDAO class provides methods to interact with the tenant table in the database.
+ */
 public class TenantDAO {
     private static Connection conn;
 

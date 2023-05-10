@@ -1,6 +1,4 @@
-/**
- * A class that provides methods to interact with the rentals table in the database.
- */
+
 package database;
 
 import java.sql.*;
@@ -9,6 +7,9 @@ import java.util.ArrayList;
 import java.util.List;
 import util.Rental;
 
+/**
+ * A class that provides methods to interact with the rentals table in the database.
+ */
 public class RentalDAO {
     
     private static Connection connection;
@@ -363,8 +364,6 @@ public static boolean addRental(Rental rental) throws SQLException {
     * Updates the total amount owed for a rental by subtracting the specified amount paid from the
      * rental's total amount.
      *
-     * @param rentalId the ID of the rental to be updated
-     * @param amountPaid the amount paid towards the rental
      * @throws SQLException if there is an error accessing the database
      */
 

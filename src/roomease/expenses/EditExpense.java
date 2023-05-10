@@ -1,6 +1,3 @@
-/**
- * The EditExpense class represents a JFrame window for Editing expenses.
- */
 package roomease.expenses;
 
 import database.EmployeeLogs;
@@ -18,6 +15,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import util.EmployeeActionLog;
 
+/**
+ * The EditExpense class represents a JFrame window for Editing expenses.
+ */
 public class EditExpense extends javax.swing.JFrame {
     /** creates an Expense field for the Class*/
     private Expense expense;

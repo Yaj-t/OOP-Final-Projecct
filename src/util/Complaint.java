@@ -1,11 +1,11 @@
-/**
-
-A Complaint class that represents a complaint submitted by a user regarding a room issue.
-*/
 package util;
 
 import java.time.LocalDate;
 
+/**
+
+A Complaint class that represents a complaint submitted by a user regarding a room issue.
+*/
 public class Complaint {
     private int complaintId;
     private int roomId;

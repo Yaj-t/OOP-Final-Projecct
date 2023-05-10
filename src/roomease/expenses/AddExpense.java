@@ -1,6 +1,3 @@
-/**
- * The AddExpense class represents a JFrame window for adding expenses.
- */
 package roomease.expenses;
 
 import database.EmployeeLogs;
@@ -16,6 +13,9 @@ import util.WindowCloseHandler;
 import java.sql.SQLException;
 import user.Session;
 
+/**
+ * The AddExpense class represents a JFrame window for adding expenses.
+ */
 public class AddExpense extends javax.swing.JFrame {
 
     /**

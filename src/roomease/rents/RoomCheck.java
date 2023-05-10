@@ -1,4 +1,3 @@
-/**The RoomCheck is a JFrame that displays the GUI for the checking the rooms availability*/
 package roomease.rents;
 
 import java.time.LocalDate;
@@ -13,17 +12,11 @@ import roomease.homepage.EmployeeHome;
 import util.Room;
 import util.WindowCloseHandler;
 
-/**
- *
- * @author KaiserV
- */
+/**The RoomCheck is a JFrame that displays the GUI for the checking the rooms availability*/
 public class RoomCheck extends javax.swing.JFrame {
     
     List <Room> roomList;
-    /**
-     * Creates new form NewJFrame
-     * @throws java.sql.SQLException
-     */
+  
 
     LocalDate checkinCurrent = null;
     LocalDate checkoutCurrent = null;

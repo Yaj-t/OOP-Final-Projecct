@@ -1,10 +1,3 @@
-/**
- *
- * The EditComplaint class provides functionality to edit an existing complaint in the system.
- * It displays the details of the selected complaint, such as its description, status, and date.
- * It allows the user to modify these details and submit the updated complaint to the system.
- * It also logs the actions performed by the user on the complaint.
- */
 package roomease.complaints;
 
 import database.ComplaintsDAO;
@@ -22,7 +15,13 @@ import java.util.logging.Logger;
 import util.Complaint;
 import util.EmployeeActionLog;
 
-
+/**
+ *
+ * The EditComplaint class provides functionality to edit an existing complaint in the system.
+ * It displays the details of the selected complaint, such as its description, status, and date.
+ * It allows the user to modify these details and submit the updated complaint to the system.
+ * It also logs the actions performed by the user on the complaint.
+ */
 public class EditComplaint extends javax.swing.JFrame {
     /** Creates a global Complaint type field */
     private Complaint complaint;

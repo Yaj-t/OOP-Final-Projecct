@@ -1,10 +1,3 @@
-/**
-
-This class represents a data access object for the Complaints table in the database.
-It provides methods to retrieve, add, update, and delete Complaint objects.
-*/
-
-
 package database;
 
 import java.sql.*;
@@ -13,6 +6,12 @@ import java.util.ArrayList;
 import java.util.List;
 import util.Complaint;
 
+/**
+ *
+ * This class represents a data access object for the Complaints table in the
+ * database. It provides methods to retrieve, add, update, and delete Complaint
+ * objects.
+ */
 public class ComplaintsDAO {
     /**
      *

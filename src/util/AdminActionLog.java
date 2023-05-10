@@ -1,10 +1,11 @@
-/**
-
-Represents an action log of an administrator.
-*/
 
 package util;
 import java.time.LocalDateTime;
+
+/**
+ *
+ * Represents an action log of an administrator.
+ */
 
 public class AdminActionLog extends ActionLog{
     //Constructor   

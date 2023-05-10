@@ -1,4 +1,3 @@
-/**The AddTenant class represent a JFrame the displays field and buttons for adding a tenant*/
 package roomease.rents;
 
 import database.EmployeeLogs;
@@ -18,6 +17,10 @@ import util.Room;
 import util.Tenant;
 import util.WindowCloseHandler;
 
+/**
+ * The AddTenant class represent a JFrame the displays field and buttons for
+ * adding a tenant
+ */
 public class AddTenant extends javax.swing.JFrame {
 
     /**

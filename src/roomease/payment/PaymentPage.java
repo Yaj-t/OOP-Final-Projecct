@@ -1,4 +1,3 @@
-/**The PaymentPage class represents a JFrame that shows the payments made and other additional functinos*/
 package roomease.payment;
 
 import database.Payments;
@@ -8,6 +7,10 @@ import roomease.homepage.EmployeeHome;
 import util.Payment;
 import util.WindowCloseHandler;
 
+/**
+ * The PaymentPage class represents a JFrame that shows the payments made and
+ * other additional functinos
+ */
 public class PaymentPage extends javax.swing.JFrame {
     /**Creates a  list of Payment for the class*/
     List <Payment> paymentsList;

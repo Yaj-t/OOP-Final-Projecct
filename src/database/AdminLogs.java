@@ -1,7 +1,5 @@
 
-/**
-The AdminLogs class provides methods to interact with the admin_action_log and admin_login_log tables in the database.
-*/
+
 
 package database;
 
@@ -11,7 +9,9 @@ import java.util.ArrayList;
 import java.util.List;
 import util.AdminActionLog;
 import util.AdminLoginLogs;
-
+/**
+The AdminLogs class provides methods to interact with the admin_action_log and admin_login_log tables in the database.
+*/
 public class AdminLogs {
     /**
      * Creates a new admin action log in the admin_action_log table.

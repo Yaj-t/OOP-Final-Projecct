@@ -1,12 +1,13 @@
-/**
-
-The AdminLoginLogs class is a subclass of LoginLogs that represents login logs made by an admin user.
-*/
 package util;
 
 import java.time.LocalDateTime;
 import enums.LogType;
 
+/**
+ *
+ * The AdminLoginLogs class is a subclass of LoginLogs that represents login
+ * logs made by an admin user.
+ */
 public class AdminLoginLogs extends LoginLogs{
 
     //Constructor

@@ -1,6 +1,3 @@
-/**
- * The ComplaintsPage class represents a JFrame window for adding complaints.
- */
 package roomease.complaints;
 
 import database.ComplaintsDAO;
@@ -19,6 +16,9 @@ import util.EmployeeActionLog;
 import util.Room;
 import util.WindowCloseHandler;
 
+/**
+ * The ComplaintsPage class represents a JFrame window for adding complaints.
+ */
 public class AddComplaint extends javax.swing.JFrame {
     List <Room> roomList;
     /**

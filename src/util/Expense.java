@@ -1,15 +1,17 @@
-/**
 
-The Expense class represents an expense made by a user.
-
-It contains information such as the ID of the expense, the user who made the expense,
-
-the amount spent, the description of the expense, and the date it was made.
-*/
 package util;
 
 import java.time.LocalDate;
 
+/**
+ *
+ * The Expense class represents an expense made by a user.
+ *
+ * It contains information such as the ID of the expense, the user who made the
+ * expense,
+ *
+ * the amount spent, the description of the expense, and the date it was made.
+ */
 public class Expense {
     private int id;
     private int user_id;

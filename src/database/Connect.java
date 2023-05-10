@@ -1,7 +1,4 @@
-/**
- * The Connect class is responsible for establishing a connection to the database
- * and closing it when the application terminates.
- */
+
 
 package database;
 
@@ -9,7 +6,10 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-
+/**
+ * The Connect class is responsible for establishing a connection to the
+ * database and closing it when the application terminates.
+ */
 public class Connect {
     static Connection connection = null;
 

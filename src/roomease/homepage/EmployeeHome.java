@@ -1,5 +1,4 @@
-  /**The EmployeeHome class represents a JFrame window that displays the homepage of the Employees*/
-package roomease.homepage;
+ package roomease.homepage;
 
 import roomease.rents.RoomCheck;
 import roomease.expenses.ExpensesPage;
@@ -23,6 +22,10 @@ import util.Rental;
 import util.Tenant;
 import util.WindowCloseHandler;
 
+ /**
+ * The EmployeeHome class represents a JFrame window that displays the homepage
+ * of the Employees
+ */
 public class EmployeeHome extends javax.swing.JFrame {
     List <Rental> rentalsList;
     /**
