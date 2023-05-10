@@ -34,7 +34,6 @@ public class LoginPage extends javax.swing.JFrame {
     public LoginPage() {
         initComponents();
         setResizable(false);
-        WindowCloseHandler.addWindowClosingListener(this);
     }
 
     /**
