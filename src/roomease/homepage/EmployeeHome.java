@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
+  /**The EmployeeHome class represents a JFrame window that displays the homepage of the Employees*/
 package roomease.homepage;
 
 import roomease.rents.RoomCheck;
@@ -10,21 +7,14 @@ import roomease.payment.PaymentPage;
 import roomease.complaints.ComplaintsPage;
 import enums.LogType;
 import java.time.LocalDateTime;
-
 import database.EmployeeLogs;
 import database.RentalDAO;
 import database.RoomDAO;
 import database.TenantDAO;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import roomease.LoginPage;
 import user.Session;
@@ -33,10 +23,6 @@ import util.Rental;
 import util.Tenant;
 import util.WindowCloseHandler;
 
-/**
- *
- * @author Predator
- */
 public class EmployeeHome extends javax.swing.JFrame {
     List <Rental> rentalsList;
     /**
@@ -45,6 +31,7 @@ public class EmployeeHome extends javax.swing.JFrame {
     public EmployeeHome() {
         System.out.println("EmployeeHome");
         initComponents();
+        /**Fills the table with data from the database*/
         try {
             rentalsList = RentalDAO.getActiveRentals();
             System.out.println("here");
@@ -63,6 +50,8 @@ public class EmployeeHome extends javax.swing.JFrame {
         DefaultTableModel model = (DefaultTableModel) tenantsTable.getModel();
         model.setRowCount(0);
         Tenant tenant;
+        
+        /**Fills the table with data from the database*/
         try {
             List <Rental> rentals = RentalDAO.getActiveRentals();
             for (Rental rental : rentals) {
@@ -293,7 +282,10 @@ public class EmployeeHome extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
+/** Represent the Logout button when clicked will insert an employee log into the database. 
+ * It disposes the current frame and creates a new LoginPage
+ * @param evt 
+ */
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
 
         try {
@@ -309,12 +301,12 @@ public class EmployeeHome extends javax.swing.JFrame {
             Logger.getLogger(EmployeeHome.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jButton3ActionPerformed
-
+  /**Disposes the current frame and creates a new ExpensesPage then sets it to visible*/
     private void expensesButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_expensesButtonActionPerformed
         dispose();
         new ExpensesPage().setVisible(true);
     }//GEN-LAST:event_expensesButtonActionPerformed
-
+  /**Disposes the current frame and creates a new RoomCheck  then sets it to visible*/
     private void bookingsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bookingsButtonActionPerformed
         try {
             dispose();
@@ -323,14 +315,14 @@ public class EmployeeHome extends javax.swing.JFrame {
             Logger.getLogger(EmployeeHome.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_bookingsButtonActionPerformed
-
+  /**Disposes the current frame and creates a new ComplaintsPage then sets it to visible*/
     private void complaintsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_complaintsActionPerformed
 
         new ComplaintsPage().setVisible(true);
         dispose();
                 
     }//GEN-LAST:event_complaintsActionPerformed
-
+  /**Disposes the current frame and creates a new PaymentPage then sets it to visible*/
     private void PaymentPerform(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PaymentPerform
         
         dispose();

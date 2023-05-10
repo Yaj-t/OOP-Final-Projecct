@@ -1,4 +1,8 @@
+/**
+ * The AdminHome class represents a JFrame window that displays the homepage of the administrator.
+ */
 package roomease.homepage;
+
 import roomease.users.UsersPage;
 import roomease.rooms.RoomsPage;
 import user.Session;
@@ -14,16 +18,12 @@ import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
 import util.EmployeeLoginLogs;
 import util.WindowCloseHandler;
-
 import java.time.LocalDateTime;
 import roomease.LoginPage;
 import roomease.logs.ActionLogs;
 import util.AdminActionLog;
 import util.EmployeeActionLog;
-/**
- *
- * @author T-jay
- */
+
 public class AdminHome extends javax.swing.JFrame {
     List <EmployeeLoginLogs> employeeLogsList;
     List <AdminLoginLogs> adminLogsList;
@@ -34,7 +34,7 @@ public class AdminHome extends javax.swing.JFrame {
         System.out.println("AdminHome");
         initComponents();
         setResizable(false);
-       
+       /** fills the employeeLogs table with data from the database*/
         try {
              employeeLogsList = EmployeeLogs.getAllEmployeeLoginLogs();
             DefaultTableModel tableModel = (DefaultTableModel) employeeLogs.getModel();
@@ -47,6 +47,7 @@ public class AdminHome extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(EmployeeLoginLogs.class.getName()).log(Level.SEVERE, null, ex);
         }
+        /** fills the adminLogs table with data from the database*/
         
         try {
             adminLogsList = AdminLogs.getAllAdminLoginLogs();
@@ -339,13 +340,13 @@ public class AdminHome extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
+    /**Disposes the current frame and creates a new RoomsPage then sets it to visible*/
     private void RoomsButton(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RoomsButton
 
         dispose();
         new RoomsPage().setVisible(true);
     }//GEN-LAST:event_RoomsButton
-
+    /**Disposes the current frame, creates an admin log, and creates a new LoginPage then sets it to visible*/
     private void LogOutButton(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LogOutButton
 
         try {
@@ -358,13 +359,14 @@ public class AdminHome extends javax.swing.JFrame {
             Logger.getLogger(AdminHome.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_LogOutButton
-
+/**Disposes the current frame and creates a new UsersPage then sets it to visible*/
     private void UsersButton(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UsersButton
 
         dispose();
         new UsersPage().setVisible(true);
     }//GEN-LAST:event_UsersButton
 
+    /**Disposes the current frame and creates a new ActionLogs then sets it to visible*/
     private void EmployeeActionLogs(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EmployeeActionLogs
 
         EmployeeActionLog employeeActionLog = null;
@@ -374,7 +376,7 @@ public class AdminHome extends javax.swing.JFrame {
         actionLogs.setVisible(true);
 
     }//GEN-LAST:event_EmployeeActionLogs
-
+      /**Disposes the current frame and creates a new ActionLogs then sets it to visible*/
     private void AdminActionLogs(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AdminActionLogs
         
         AdminActionLog AdminActionLogs = null;
