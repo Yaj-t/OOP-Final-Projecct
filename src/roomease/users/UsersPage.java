@@ -1,32 +1,20 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
+/**The UsersPage Class represents a JFrame that show Tables and buttons for CRUD operations on users*/
 package roomease.users;
 
-import roomease.users.EditUser;
-import roomease.users.AddUser;
 import database.AdminLogs;
 import database.UserDAO;
 import java.sql.SQLException;
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import roomease.homepage.AdminHome;
-
 import user.Session;
 import user.User;
 import util.AdminActionLog;
 import util.WindowCloseHandler;
 
-
-/**
- *
- * @author Predator
- */
 public class UsersPage extends javax.swing.JFrame {
     List <User> userList;
     /**
@@ -35,12 +23,14 @@ public class UsersPage extends javax.swing.JFrame {
     public UsersPage() {
         System.out.println("UsersPage");
         initComponents();
+        
         try {
             userList = UserDAO.getAllUsers();
         } catch (SQLException ex) {
             Logger.getLogger(UsersPage.class.getName()).log(Level.SEVERE, null, ex);
         }
         DefaultTableModel tableModel = (DefaultTableModel)usersTable.getModel();
+        /**fills table with data from database*/
         for (User user : userList) {
             System.out.println(user.getUserID()+" "+ user.getType()+ user.getUsername()+ user.getName());
             Object[] rowData = {user.getUserID(), user.getType(), user.getUsername(), user.getName()};
@@ -186,13 +176,13 @@ public class UsersPage extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
+/**disposes current frame and creates new AdminHome*/
     private void goBackButtomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_goBackButtomActionPerformed
         // TODO add your handling code here:
         dispose();
         new AdminHome().setVisible(true);
     }//GEN-LAST:event_goBackButtomActionPerformed
-
+/**disposes current frame, check if there is a row selected, and creates new EditUser*/
     private void editActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editActionPerformed
         int selectedRow = usersTable.getSelectedRow();
         if(selectedRow !=-1){
@@ -209,14 +199,14 @@ public class UsersPage extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Please select a row to edit.");
         }
     }//GEN-LAST:event_editActionPerformed
-
+/**disposes current frame and creates newAddUser*/
     private void addActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addActionPerformed
         //TODO add your handling code here:
         dispose();
         AddUser addUser = new AddUser();
         addUser.setVisible(true);
     }//GEN-LAST:event_addActionPerformed
-
+   /**disposes current frame, check if there is a row selected, and deletes the row*/
     private void deleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteActionPerformed
         // TODO add your handling code here:
         int row = usersTable.getSelectedRow(); // get the selected row

@@ -1,25 +1,16 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
+/**The AddUser Class represents a JFrame that shows fields and buttons for adding a user*/
 package roomease.users;
 
 import database.AdminLogs;
 import database.UserDAO;
 import enums.UserType;
 import javax.swing.JOptionPane;
-
 import user.Session;
 import user.User;
 import java.sql.*;
-import java.time.LocalDateTime;
 import util.AdminActionLog;
 import util.WindowCloseHandler;
 
-/**
- *
- * @author Predator
- */
 public class AddUser extends javax.swing.JFrame {
 
     /**
@@ -192,7 +183,7 @@ public class AddUser extends javax.swing.JFrame {
     private void nameFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nameFieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_nameFieldActionPerformed
-
+    /**validates fields and inserts them to database*/
     private void submitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitActionPerformed
         // TODO add your handling code here:
         String username = usernameField.getText();
@@ -236,7 +227,7 @@ public class AddUser extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Error adding user: " + ex.getMessage());
         }
     }//GEN-LAST:event_submitActionPerformed
-
+/**disposes current frame and creates new UsersPage*/
     private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
         // TODO add your handling code here:
         dispose();

@@ -1,29 +1,19 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
+/**The EditUser Class represents a JFrame that shows fields and buttons for editing a user*/
 package roomease.users;
 
 import database.AdminLogs;
 import database.UserDAO;
 import enums.UserType;
 import javax.swing.JOptionPane;
-
 import user.Session;
 import user.User;
 import util.AdminActionLog;
-import util.AdminLoginLogs;
 import util.WindowCloseHandler;
-
 import java.sql.*;
-import java.time.LocalDateTime;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- *
- * @author Predator
- */
+
 public class EditUser extends javax.swing.JFrame {
     private User user;
 
@@ -217,7 +207,7 @@ public class EditUser extends javax.swing.JFrame {
     private void nameFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nameFieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_nameFieldActionPerformed
-
+/**validates fields and inserts changes to databse*/
     private void submitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitActionPerformed
         
         // check if user is valid and if username doesn't already exist
@@ -261,7 +251,7 @@ public class EditUser extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Error updating user: " + ex.getMessage());
         }
     }//GEN-LAST:event_submitActionPerformed
-
+/**closes current frame and creates new UsersPage*/
     private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
         // TODO add your handling code here:
         dispose();
