@@ -1,17 +1,12 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
+/**
+ * The ComplaintsPage class represents a JFrame window that displays unresolved complaints.
  */
 package roomease.complaints;
 
-import roomease.complaints.EditComplaint;
-import roomease.complaints.AddComplaint;
 import database.ComplaintsDAO;
 import database.EmployeeLogs;
 import database.RoomDAO;
-import database.UserDAO;
 import java.sql.SQLException;
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
