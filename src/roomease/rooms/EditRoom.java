@@ -1,10 +1,6 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JDialog.java to edit this template
- */
+/**The EditRoomt class represent a JFrame the displays field and buttons editing rooms*/
 package roomease.rooms;
 
-import roomease.rooms.RoomsPage;
 import database.AdminLogs;
 import database.RoomDAO;
 import javax.swing.JOptionPane;
@@ -16,10 +12,6 @@ import java.util.logging.Logger;
 import user.Session;
 import util.AdminActionLog;
 
-/**
- *
- * @author Predator
- */
 public class EditRoom extends javax.swing.JFrame {
     private Room room;
 
@@ -175,7 +167,7 @@ public class EditRoom extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
+/**Checks the entered values and inserts changes into DB*/
     private void submitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitActionPerformed
         room.setPrice(Float.parseFloat(priceField.getText()));
         room.setDescription(descriptionField.getText());
@@ -193,7 +185,7 @@ public class EditRoom extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Error updating room: " + ex.getMessage());
         }
     }//GEN-LAST:event_submitActionPerformed
-
+/**Disposes current frame and creates new RoomsPage*/
     private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
         // TODO add your handling code here:
         dispose();

@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
+/**The AddRoom class represent a JFrame the displays field and buttons for adding a room*/
 package roomease.rooms;
 
 import database.AdminLogs;
@@ -9,18 +6,12 @@ import database.RoomDAO;
 import javax.swing.JOptionPane;
 import util.Room;
 import util.WindowCloseHandler;
-
 import java.sql.*;
-import java.time.LocalDateTime;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import user.Session;
 import util.AdminActionLog;
 
-/**
- *
- * @author Predator
- */
 public class AddRoom extends javax.swing.JFrame {
 
     /**
@@ -174,7 +165,7 @@ public class AddRoom extends javax.swing.JFrame {
     private void priceNumberFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_priceNumberFieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_priceNumberFieldActionPerformed
-
+/*Checks if the values in the fields are valid then inserts a room into the database*/
     private void submitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitActionPerformed
         //Check if the fields are empty and validate the data
         String roomNumber = roomNumberField.getText();
@@ -218,7 +209,7 @@ public class AddRoom extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Error adding Room: " + ex.getMessage());
         }
     }//GEN-LAST:event_submitActionPerformed
-
+/**Disposes current frame and creates new RoomsPage*/ 
     private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
         // TODO add your handling code here:
         dispose();

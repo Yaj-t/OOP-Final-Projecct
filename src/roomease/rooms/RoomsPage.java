@@ -1,16 +1,10 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
+/**The RoomsPage represents a JFrame that displays all the rooms and some buttons for CRUD operations*/
 package roomease.rooms;
 
-import roomease.rooms.AddRoom;
 import database.AdminLogs;
 import database.RoomDAO;
 import user.Session;
-
 import java.sql.SQLException;
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -18,15 +12,11 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import roomease.homepage.AdminHome;
 import roomease.users.UsersPage;
-
 import util.AdminActionLog;
 import util.Room;
 import util.WindowCloseHandler;
 
-/**
- *
- * @author Predator
- */
+
 public class RoomsPage extends javax.swing.JFrame {
     List <Room> roomList;
     /**
@@ -193,7 +183,7 @@ public class RoomsPage extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
+/** check is there is a selected row then notify the user then deletes teh room*/
     private void deleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteActionPerformed
         // TODO add your handling code here:
         int row = roomsTable.getSelectedRow(); // get the selected row
@@ -225,7 +215,7 @@ public class RoomsPage extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Please select a row to delete.");
         }
     }//GEN-LAST:event_deleteActionPerformed
-
+/**disposes current frame and creates new AddRoom*/
     private void addActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addActionPerformed
         //TODO add your handling code here:
         dispose();
@@ -249,7 +239,7 @@ public class RoomsPage extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Please select a row to edit.");
         }
     }//GEN-LAST:event_editActionPerformed
-
+/**disposes current frame and creates new AdminHome*/
     private void goBackButtomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_goBackButtomActionPerformed
         // TODO add your handling code here:
         dispose();
