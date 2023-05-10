@@ -101,7 +101,7 @@ public class AddPayments extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(247, 236, 89));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel1.setText("Complaint description");
+        jLabel1.setText("Payment Description");
 
         jScrollPane4.setViewportView(descriptionField);
 
