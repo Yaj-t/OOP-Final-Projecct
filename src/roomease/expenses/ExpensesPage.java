@@ -101,6 +101,7 @@ public class ExpensesPage extends javax.swing.JFrame {
         expensesTable.setShowGrid(true);
         expensesTable.getTableHeader().setReorderingAllowed(false);
         jScrollPane2.setViewportView(expensesTable);
+        expensesTable.setAutoCreateRowSorter(true);
 
         add.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
         add.setText("ADD");

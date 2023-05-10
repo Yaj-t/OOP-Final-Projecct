@@ -113,6 +113,7 @@ public class ComplaintsPage extends javax.swing.JFrame {
             complaintsTable.getColumnModel().getColumn(1).setPreferredWidth(70);
             complaintsTable.getColumnModel().getColumn(1).setMaxWidth(100);
         }
+        complaintsTable.setAutoCreateRowSorter(true);
 
         delete.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
         delete.setText("DELETE");
