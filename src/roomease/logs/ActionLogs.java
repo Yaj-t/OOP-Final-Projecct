@@ -4,28 +4,15 @@
  */
 package roomease.logs;
 
-import roomease.complaints.*;
 import roomease.homepage.AdminHome;
 import database.AdminLogs;
-import database.ComplaintsDAO;
 import database.EmployeeLogs;
-import database.RoomDAO;
-import user.Admin;
-import user.Session;
-
 import java.sql.SQLException;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-import javax.swing.Action;
-import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-
 import util.AdminActionLog;
-import util.Complaint;
 import util.EmployeeActionLog;
 import util.Room;
 import util.WindowCloseHandler;

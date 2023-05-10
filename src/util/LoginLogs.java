@@ -1,4 +1,10 @@
+/**
+
+The LoginLogs class represents login logs of users.
+It contains information such as log ID, user ID, log type, and log time.
+*/
 package util;
+
 import java.time.LocalDateTime;
 import enums.LogType;
 
@@ -10,10 +16,19 @@ public class LoginLogs {
     private LogType type;
     private LocalDateTime logTime;
 
-    //Constructor
+/**
+ * Default constructor for the LoginLogs class.
+ */
     public LoginLogs() {
     }
 
+/**
+ * Constructor for the LoginLogs class.
+ * @param logId the log ID
+ * @param user_id the user ID
+ * @param type the log type
+ * @param logTime the log time
+ */
     public LoginLogs(int logId, int user_id, LogType type, LocalDateTime logTime) {
         this.logId = logId;
         this.user_id = user_id;
@@ -21,6 +36,11 @@ public class LoginLogs {
         this.logTime = logTime;
     }
 
+/**
+ * Constructor for the LoginLogs class.
+ * @param user_id the user ID
+ * @param type the log type
+ */
     public LoginLogs(int user_id, LogType type) {
         this.logId = 0;
         this.user_id = user_id;
