@@ -227,14 +227,7 @@ public class EmployeeHome extends javax.swing.JFrame {
         if (tenantsTable.getColumnModel().getColumnCount() > 0) {
             tenantsTable.getColumnModel().getColumn(0).setPreferredWidth(30);
         }
-        // Add a mouse listener to the table header to handle sorting
-        tenantsTable.getTableHeader().addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                int column = rentalsTable.columnAtPoint(e.getPoint());
-                sortData(tenantsTable, column);
-            }
-        });
+        tenantsTable.setAutoCreateRowSorter(true);
 
         jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 50, 308, 250));
 
@@ -270,17 +263,12 @@ public class EmployeeHome extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(rentalsTable);
         if (rentalsTable.getColumnModel().getColumnCount() > 0) {
+            rentalsTable.getColumnModel().getColumn(0).setPreferredWidth(70);
+            rentalsTable.getColumnModel().getColumn(0).setMaxWidth(70);
             rentalsTable.getColumnModel().getColumn(2).setPreferredWidth(100);
             rentalsTable.getColumnModel().getColumn(3).setPreferredWidth(100);
         }
-        // Add a mouse listener to the table header to handle sorting
-        rentalsTable.getTableHeader().addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                int column = rentalsTable.columnAtPoint(e.getPoint());
-                sortData(rentalsTable, column);
-            }
-        });
+        rentalsTable.setAutoCreateRowSorter(true);
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 49, 308, 253));
 
@@ -376,53 +364,5 @@ public class EmployeeHome extends javax.swing.JFrame {
     private javax.swing.JPanel sidePanel;
     private javax.swing.JTable tenantsTable;
     // End of variables declaration//GEN-END:variables
-    
-    
-    private void sortData(JTable table, int column) {
-        DefaultTableModel model = (DefaultTableModel) table.getModel();
-        Object[] rowData = new Object[model.getColumnCount()];
-
-        // Get the current data from the table
-        List<Object[]> data = new ArrayList<>();
-        for (int i = 0; i < model.getRowCount(); i++) {
-            for (int j = 0; j < model.getColumnCount(); j++) {
-                rowData[j] = model.getValueAt(i, j);
-            }
-            data.add(rowData.clone());
-        }
-
-        // Sort the data based on the selected column
-        Collections.sort(data, new Comparator<Object[]>() {
-            @Override
-            public int compare(Object[] o1, Object[] o2) {
-                Object obj1 = o1[column];
-                Object obj2 = o2[column];
-                if (obj1 == null && obj2 == null) {
-                    return 0;
-                }
-                if (obj1 == null) {
-                    return -1;
-                }
-                if (obj2 == null) {
-                    return 1;
-                }
-                if (obj1 instanceof Comparable) {
-                    return ((Comparable) obj1).compareTo(obj2);
-                } else {
-                    return obj1.toString().compareTo(obj2.toString());
-                }
-            }
-        });
-
-        // Clear the table
-        model.setRowCount(0);
-
-        // Add the sorted data back to the table
-        for (Object[] row : data) {
-            model.addRow(row);
-        }
-    }
-   
-
 
 }

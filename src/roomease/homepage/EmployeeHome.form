@@ -211,7 +211,7 @@
                     <Column editable="false" title="Email" type="java.lang.String"/>
                   </Table>
                 </Property>
-                <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor" postCode="// Add a mouse listener to the table header to handle sorting&#xa;        tenantsTable.getTableHeader().addMouseListener(new MouseAdapter() {&#xa;            @Override&#xa;public void mouseClicked(MouseEvent e) {&#xa;                int column = rentalsTable.columnAtPoint(e.getPoint());&#xa;                sortData(tenantsTable, column);&#xa;            }&#xa;        });">
+                <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor" postCode="tenantsTable.setAutoCreateRowSorter(true);">
                   <TableColumnModel selectionModel="0">
                     <Column maxWidth="-1" minWidth="-1" prefWidth="30" resizable="true">
                       <Title/>
@@ -292,9 +292,9 @@
                     <Column editable="false" title="Amount" type="java.lang.Double"/>
                   </Table>
                 </Property>
-                <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor" postCode="// Add a mouse listener to the table header to handle sorting&#xa;        rentalsTable.getTableHeader().addMouseListener(new MouseAdapter() {&#xa;            @Override&#xa;            public void mouseClicked(MouseEvent e) {&#xa;                int column = rentalsTable.columnAtPoint(e.getPoint());&#xa;                sortData(rentalsTable, column);&#xa;            }&#xa;        });">
+                <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor" postCode="rentalsTable.setAutoCreateRowSorter(true);">
                   <TableColumnModel selectionModel="0">
-                    <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                    <Column maxWidth="70" minWidth="-1" prefWidth="70" resizable="true">
                       <Title/>
                       <Editor/>
                       <Renderer/>
