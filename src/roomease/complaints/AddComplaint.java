@@ -199,6 +199,13 @@ public class AddComplaint extends javax.swing.JFrame {
         new ComplaintsPage().setVisible(true);
     }//GEN-LAST:event_goBackButtomActionPerformed
 
+/**
+
+Handles the action of adding a complaint for a selected room from the roomsTable.
+Validates the description field and adds the complaint to the database.
+Displays appropriate messages and logs the action in the employee logs.
+@param evt the ActionEvent that triggered the action
+*/
     private void addActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addActionPerformed
         //TODO add your handling code here:
         int selectedRow = roomsTable.getSelectedRow();

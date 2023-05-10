@@ -205,7 +205,16 @@ public class ComplaintsPage extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
+    
+/**
 
+Deletes a selected complaint from the complaints table.
+If a complaint is selected, a confirmation dialog is displayed to confirm deletion with the user.
+If the user confirms deletion, the complaint is deleted from the database, and a success message is displayed.
+An employee action log is also created to record the deletion of the complaint.
+If no row is selected, an error message is displayed.
+@param evt the ActionEvent triggered by clicking the delete button
+*/
     private void deleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteActionPerformed
         // TODO add your handling code here:
         int row = complaintsTable.getSelectedRow(); // get the selected row
@@ -236,6 +245,12 @@ public class ComplaintsPage extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_deleteActionPerformed
 
+/**
+
+This method handles the action when the "Add" button is clicked.
+It disposes the current window and opens a new window to add a new complaint.
+@param evt The ActionEvent triggered by the "Add" button click
+*/
     private void addActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addActionPerformed
         //TODO add your handling code here:
         dispose();
