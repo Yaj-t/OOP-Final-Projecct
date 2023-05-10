@@ -26,6 +26,7 @@ import util.EmployeeActionLog;
 import util.Payment;
 import util.Rental;
 import util.Room;
+import util.WindowCloseHandler;
 
 /**
  *
@@ -54,7 +55,7 @@ public class AddPayments extends javax.swing.JFrame {
         }
 
         setResizable(false);
-
+        WindowCloseHandler.addWindowClosingListener(this);
     }
 
     /**

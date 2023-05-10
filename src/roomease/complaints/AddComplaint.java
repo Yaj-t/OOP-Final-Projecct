@@ -20,6 +20,7 @@ import javax.swing.table.DefaultTableModel;
 import util.Complaint;
 import util.EmployeeActionLog;
 import util.Room;
+import util.WindowCloseHandler;
 
 /**
  *
@@ -50,7 +51,7 @@ public class AddComplaint extends javax.swing.JFrame {
         
         setResizable(false);
         
-      
+        WindowCloseHandler.addWindowClosingListener(this);
     }
 
     /**

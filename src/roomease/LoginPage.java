@@ -10,6 +10,7 @@ import user.Session;
 import user.User;
 import util.AdminLoginLogs;
 import util.EmployeeLoginLogs;
+import util.WindowCloseHandler;
 import database.AdminLogs;
 import database.EmployeeLogs;
 import database.UserDAO;
@@ -33,6 +34,7 @@ public class LoginPage extends javax.swing.JFrame {
     public LoginPage() {
         initComponents();
         setResizable(false);
+        WindowCloseHandler.addWindowClosingListener(this);
     }
 
     /**

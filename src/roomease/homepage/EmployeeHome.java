@@ -31,6 +31,7 @@ import user.Session;
 import util.EmployeeLoginLogs;
 import util.Rental;
 import util.Tenant;
+import util.WindowCloseHandler;
 
 /**
  *
@@ -73,6 +74,8 @@ public class EmployeeHome extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(EmployeeHome.class.getName()).log(Level.SEVERE, null, ex);
         }
+
+        WindowCloseHandler.addWindowClosingListener(this);
    
     }
 

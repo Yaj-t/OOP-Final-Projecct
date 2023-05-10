@@ -15,6 +15,8 @@ import java.time.ZoneId;
 import java.util.Date;
 import javax.swing.JOptionPane;
 import util.Expense;
+import util.WindowCloseHandler;
+
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.logging.Level;
@@ -44,12 +46,14 @@ public class EditComplaint extends javax.swing.JFrame {
     public EditComplaint() {
         System.out.println("EditComplaint");
         initComponents();
+        WindowCloseHandler.addWindowClosingListener(this);
     }
 
     public EditComplaint(Complaint complaint) {
         System.out.println("EditComplaint");
         this.complaint = complaint;
         initComponents();
+        WindowCloseHandler.addWindowClosingListener(this);
     }
     
     

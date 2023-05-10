@@ -23,6 +23,7 @@ import user.Session;
 import util.Complaint;
 import util.EmployeeActionLog;
 import util.Room;
+import util.WindowCloseHandler;
 
 /**
  *
@@ -53,7 +54,7 @@ public class ComplaintsPage extends javax.swing.JFrame {
         
         setResizable(false);
         
-      
+        WindowCloseHandler.addWindowClosingListener(this);
     }
 
     /**

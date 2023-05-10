@@ -13,6 +13,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
 import util.EmployeeLoginLogs;
+import util.WindowCloseHandler;
+
 import java.time.LocalDateTime;
 import roomease.LoginPage;
 import roomease.logs.ActionLogs;
@@ -58,6 +60,8 @@ public class AdminHome extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(AdminLoginLogs.class.getName()).log(Level.SEVERE, null, ex);
         }
+
+        WindowCloseHandler.addWindowClosingListener(this);
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -95,7 +99,7 @@ public class AdminHome extends javax.swing.JFrame {
             .addGap(0, 100, Short.MAX_VALUE)
         );
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE); 
         setBackground(new java.awt.Color(204, 204, 255));
 
         sidePanle.setBackground(new java.awt.Color(142, 74, 73));

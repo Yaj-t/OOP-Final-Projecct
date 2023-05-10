@@ -28,6 +28,7 @@ import util.AdminActionLog;
 import util.Complaint;
 import util.EmployeeActionLog;
 import util.Room;
+import util.WindowCloseHandler;
 
 /**
  *
@@ -76,6 +77,7 @@ public class ActionLogs extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(Room.class.getName()).log(Level.SEVERE, null, ex);
         }
+        WindowCloseHandler.addWindowClosingListener(this);
     }
 
     public ActionLogs(EmployeeActionLog use)
@@ -95,6 +97,7 @@ public class ActionLogs extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(Room.class.getName()).log(Level.SEVERE, null, ex);
         }
+        WindowCloseHandler.addWindowClosingListener(this);
     }
 
     /**

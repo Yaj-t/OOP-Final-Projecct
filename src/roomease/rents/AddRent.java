@@ -17,6 +17,7 @@ import javax.swing.table.DefaultTableModel;
 import roomease.homepage.EmployeeHome;
 import util.Booking;
 import util.Room;
+import util.WindowCloseHandler;
 
 /**
  *
@@ -45,7 +46,7 @@ public class AddRent extends javax.swing.JFrame {
         }
 
         setResizable(false);
-        
+        WindowCloseHandler.addWindowClosingListener(this);
     }
 
     /**

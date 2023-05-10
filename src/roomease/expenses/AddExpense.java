@@ -14,6 +14,8 @@ import javax.swing.JOptionPane;
 
 import util.EmployeeActionLog;
 import util.Expense;
+import util.WindowCloseHandler;
+
 import java.sql.SQLException;
 import user.Session;
 import user.User;
@@ -31,6 +33,7 @@ public class AddExpense extends javax.swing.JFrame {
     public AddExpense() {
         System.out.println("AddExpense");
         initComponents();
+        WindowCloseHandler.addWindowClosingListener(this);
     }
 
     /**
