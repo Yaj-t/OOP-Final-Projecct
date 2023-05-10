@@ -85,7 +85,7 @@ public class AddComplaint extends javax.swing.JFrame {
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.Integer.class, java.lang.Double.class, java.lang.String.class
+                java.lang.Integer.class, java.lang.Integer.class, java.lang.Double.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
                 false, false, false, false
@@ -103,6 +103,7 @@ public class AddComplaint extends javax.swing.JFrame {
         roomsTable.setShowGrid(true);
         roomsTable.getTableHeader().setReorderingAllowed(false);
         jScrollPane2.setViewportView(roomsTable);
+        roomsTable.setAutoCreateRowSorter(true);
 
         add.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
         add.setText("ADD");

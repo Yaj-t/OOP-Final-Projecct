@@ -144,6 +144,14 @@ public class ActionLogs extends javax.swing.JFrame {
         ActionTable.setShowGrid(true);
         ActionTable.getTableHeader().setReorderingAllowed(false);
         jScrollPane2.setViewportView(ActionTable);
+        if (ActionTable.getColumnModel().getColumnCount() > 0) {
+            ActionTable.getColumnModel().getColumn(0).setPreferredWidth(60);
+            ActionTable.getColumnModel().getColumn(0).setMaxWidth(60);
+            ActionTable.getColumnModel().getColumn(1).setPreferredWidth(50);
+            ActionTable.getColumnModel().getColumn(1).setMaxWidth(50);
+            ActionTable.getColumnModel().getColumn(3).setPreferredWidth(150);
+            ActionTable.getColumnModel().getColumn(3).setMaxWidth(150);
+        }
 
         goBackButtom.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
         goBackButtom.setText("Go back");
@@ -169,18 +177,18 @@ public class ActionLogs extends javax.swing.JFrame {
             .addGroup(backgroundLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(504, Short.MAX_VALUE))
             .addGroup(backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(backgroundLayout.createSequentialGroup()
                     .addContainerGap()
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 546, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(158, Short.MAX_VALUE)))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 546, Short.MAX_VALUE)
+                    .addGap(158, 158, 158)))
         );
         backgroundLayout.setVerticalGroup(
             backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, backgroundLayout.createSequentialGroup()
                 .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 36, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 319, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 324, Short.MAX_VALUE)
                 .addComponent(goBackButtom)
                 .addGap(30, 30, 30))
             .addGroup(backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

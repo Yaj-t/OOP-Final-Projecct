@@ -7,6 +7,7 @@ import database.AdminLogs;
 import database.EmployeeLogs;
 import database.UserDAO;
 import enums.LogType;
+import java.awt.event.MouseEvent;
 import java.sql.SQLException;   
 import java.util.List;
 import java.util.logging.Level;
@@ -58,6 +59,8 @@ public class AdminHome extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(AdminLoginLogs.class.getName()).log(Level.SEVERE, null, ex);
         }
+        adminLogs.setAutoCreateRowSorter(true);
+        employeeLogs.setAutoCreateRowSorter(true);
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -255,6 +258,7 @@ public class AdminHome extends javax.swing.JFrame {
         }
 
         EmployeeActionLogs.setText("Employee Action Logs");
+        EmployeeActionLogs.setFocusPainted(false);
         EmployeeActionLogs.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 EmployeeActionLogs(evt);
@@ -262,6 +266,7 @@ public class AdminHome extends javax.swing.JFrame {
         });
 
         AdminActionLog.setText("Admin Action Logs");
+        AdminActionLog.setFocusPainted(false);
         AdminActionLog.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 AdminActionLogs(evt);
@@ -273,10 +278,10 @@ public class AdminHome extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap(285, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(AdminActionLog, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(EmployeeActionLogs, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addContainerGap(289, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(EmployeeActionLogs, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(AdminActionLog, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel2Layout.createSequentialGroup()
@@ -326,7 +331,7 @@ public class AdminHome extends javax.swing.JFrame {
             .addComponent(sidePanle, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 2, Short.MAX_VALUE))
+                .addGap(0, 4, Short.MAX_VALUE))
         );
 
         pack();
@@ -377,7 +382,7 @@ public class AdminHome extends javax.swing.JFrame {
         actionLogs.setVisible(true);
 
     }//GEN-LAST:event_AdminActionLogs
-
+    
     /**
      * @param args the command line arguments
      */

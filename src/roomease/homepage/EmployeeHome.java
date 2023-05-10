@@ -106,6 +106,7 @@ public class EmployeeHome extends javax.swing.JFrame {
 
         bookingsButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         bookingsButton.setText("Renting");
+        bookingsButton.setFocusPainted(false);
         bookingsButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bookingsButtonActionPerformed(evt);
@@ -114,6 +115,7 @@ public class EmployeeHome extends javax.swing.JFrame {
 
         expensesButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         expensesButton.setText("Expenses");
+        expensesButton.setFocusPainted(false);
         expensesButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 expensesButtonActionPerformed(evt);
@@ -122,6 +124,7 @@ public class EmployeeHome extends javax.swing.JFrame {
 
         jButton3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jButton3.setText("Logout");
+        jButton3.setFocusPainted(false);
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton3ActionPerformed(evt);
@@ -136,6 +139,7 @@ public class EmployeeHome extends javax.swing.JFrame {
 
         complaints.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         complaints.setText("Complaints");
+        complaints.setFocusPainted(false);
         complaints.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 complaintsActionPerformed(evt);
@@ -144,6 +148,7 @@ public class EmployeeHome extends javax.swing.JFrame {
 
         PaymentBut.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         PaymentBut.setText("Payments");
+        PaymentBut.setFocusPainted(false);
         PaymentBut.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 PaymentPerform(evt);
@@ -180,7 +185,7 @@ public class EmployeeHome extends javax.swing.JFrame {
                 .addComponent(PaymentBut)
                 .addGap(63, 63, 63)
                 .addComponent(jButton3)
-                .addContainerGap(54, Short.MAX_VALUE))
+                .addContainerGap(59, Short.MAX_VALUE))
         );
 
         jPanel1.setBackground(new java.awt.Color(8, 99, 117));

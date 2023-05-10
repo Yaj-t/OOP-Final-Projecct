@@ -55,7 +55,7 @@
           <Component id="sidePanle" max="32767" attributes="0"/>
           <Group type="102" attributes="0">
               <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="0" pref="2" max="32767" attributes="0"/>
+              <EmptySpace min="0" pref="4" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -206,10 +206,10 @@
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
-                  <EmptySpace pref="285" max="32767" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="AdminActionLog" alignment="1" min="-2" max="-2" attributes="0"/>
-                      <Component id="EmployeeActionLogs" alignment="1" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace pref="289" max="32767" attributes="0"/>
+                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                      <Component id="EmployeeActionLogs" max="32767" attributes="0"/>
+                      <Component id="AdminActionLog" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -381,6 +381,7 @@
         <Component class="javax.swing.JButton" name="EmployeeActionLogs">
           <Properties>
             <Property name="text" type="java.lang.String" value="Employee Action Logs"/>
+            <Property name="focusPainted" type="boolean" value="false"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="EmployeeActionLogs"/>
@@ -389,6 +390,7 @@
         <Component class="javax.swing.JButton" name="AdminActionLog">
           <Properties>
             <Property name="text" type="java.lang.String" value="Admin Action Logs"/>
+            <Property name="focusPainted" type="boolean" value="false"/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="AdminActionLogs"/>
