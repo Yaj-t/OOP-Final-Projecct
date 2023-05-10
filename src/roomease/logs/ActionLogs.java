@@ -1,10 +1,8 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
+/**
+ * The ActionLogs class represents a JFrame window that displays all actions of either ADMIN or employee.
  */
 package roomease.logs;
 
-import roomease.homepage.AdminHome;
 import database.AdminLogs;
 import database.EmployeeLogs;
 import java.sql.SQLException;
@@ -12,15 +10,13 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
+import roomease.homepage.AdminHome;
 import util.AdminActionLog;
 import util.EmployeeActionLog;
 import util.Room;
 import util.WindowCloseHandler;
 
-/**
- *
- * @author Predator
- */
+
 public class ActionLogs extends javax.swing.JFrame {
     List <AdminActionLog> adminList;
     List <EmployeeActionLog> employeeList;
@@ -31,6 +27,7 @@ public class ActionLogs extends javax.swing.JFrame {
     public ActionLogs() {
         System.out.println("ActionLogs");
         initComponents();
+        /**fills the table with data from database*/
         try{
             adminList = AdminLogs.getAllAdminActionLogs();
             DefaultTableModel tableModel = (DefaultTableModel) ActionTable.getModel();
@@ -51,6 +48,7 @@ public class ActionLogs extends javax.swing.JFrame {
     {
         System.out.println("ActionLogs Admin");
         initComponents();
+          /**fills the table with data from database*/
         try{
             adminList = AdminLogs.getAllAdminActionLogs();
             DefaultTableModel tableModel = (DefaultTableModel) ActionTable.getModel();
@@ -71,6 +69,7 @@ public class ActionLogs extends javax.swing.JFrame {
     {
         System.out.println("ActionLogs Employee");
         initComponents();
+          /**fills the table with data from database*/
         try{
             employeeList = EmployeeLogs.getAllEmployeeActionLogs();
             DefaultTableModel tableModel = (DefaultTableModel) ActionTable.getModel();
@@ -208,7 +207,7 @@ public class ActionLogs extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
+    /** Disposes current frame and creates a new AdminHome then sets it to visible*/
     private void goBackButtomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_goBackButtomActionPerformed
         // TODO add your handling code here:
         dispose();
