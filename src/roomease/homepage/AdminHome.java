@@ -7,7 +7,6 @@ import database.AdminLogs;
 import database.EmployeeLogs;
 import database.UserDAO;
 import enums.LogType;
-import java.awt.event.MouseEvent;
 import java.sql.SQLException;   
 import java.util.List;
 import java.util.logging.Level;
