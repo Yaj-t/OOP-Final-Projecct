@@ -1,13 +1,11 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Enum.java to edit this template
- */
+/**
+
+An enumeration representing the gender of a person.
+The two possible values are Male and Female.
+
+*/
 package enums;
 
-/**
- *
- * @author Predator
- */
 public enum Gender {
     Male,
     Female;
