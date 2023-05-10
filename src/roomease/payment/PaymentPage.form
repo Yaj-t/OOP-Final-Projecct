@@ -134,7 +134,7 @@
                     <Column editable="false" title="Description" type="java.lang.String"/>
                   </Table>
                 </Property>
-                <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
+                <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor" postCode="paymentsTable.setAutoCreateRowSorter(true);">
                   <TableColumnModel selectionModel="0">
                     <Column maxWidth="100" minWidth="40" prefWidth="40" resizable="true">
                       <Title/>

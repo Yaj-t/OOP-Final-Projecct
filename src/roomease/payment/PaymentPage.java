@@ -116,6 +116,7 @@ public class PaymentPage extends javax.swing.JFrame {
             paymentsTable.getColumnModel().getColumn(1).setPreferredWidth(70);
             paymentsTable.getColumnModel().getColumn(1).setMaxWidth(100);
         }
+        paymentsTable.setAutoCreateRowSorter(true);
 
         add.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
         add.setText("ADD");

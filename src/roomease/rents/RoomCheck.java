@@ -105,7 +105,7 @@ public class RoomCheck extends javax.swing.JFrame {
                 java.lang.Integer.class, java.lang.Double.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, true
+                false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -120,6 +120,13 @@ public class RoomCheck extends javax.swing.JFrame {
         roomsTable.setShowGrid(true);
         roomsTable.getTableHeader().setReorderingAllowed(false);
         jScrollPane2.setViewportView(roomsTable);
+        if (roomsTable.getColumnModel().getColumnCount() > 0) {
+            roomsTable.getColumnModel().getColumn(0).setPreferredWidth(70);
+            roomsTable.getColumnModel().getColumn(0).setMaxWidth(70);
+            roomsTable.getColumnModel().getColumn(1).setPreferredWidth(100);
+            roomsTable.getColumnModel().getColumn(1).setMaxWidth(100);
+        }
+        roomsTable.setAutoCreateRowSorter(true);
 
         add1.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
         add1.setText("Go Back");
@@ -352,12 +359,7 @@ public class RoomCheck extends javax.swing.JFrame {
             room = RoomDAO.getRoomByNumber(roomString);
         } catch (SQLException ex) {
             java.util.logging.Logger.getLogger(RoomCheck.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        System.out.println("Room ID: " + room.getId());
-        System.out.println("Room Number: " + room.getRoomNumber());
-        System.out.println("Room price: " + room.getPrice());
-        System.out.println("Room description: " + room.getDescription());
-        
+        }  
         JOptionPane.showMessageDialog(null, "Room Avalable");
         //Pop up window to confirm the room is available and ask if they want to book it
         //If yes, then add the booking to the database
