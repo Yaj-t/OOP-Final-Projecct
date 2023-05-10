@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 09, 2023 at 08:13 PM
+-- Generation Time: May 10, 2023 at 08:36 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -210,7 +210,8 @@ INSERT INTO `employee_login_log` (`log_id`, `employee_id`, `log_type`, `log_time
 (61, 3, 'LOGIN', '2023-05-09 22:57:03'),
 (62, 2, 'LOGIN', '2023-05-10 00:11:11'),
 (63, 2, 'LOGIN', '2023-05-10 01:33:44'),
-(64, 2, 'LOGIN', '2023-05-10 01:51:48');
+(64, 2, 'LOGIN', '2023-05-10 01:51:48'),
+(65, 2, 'LOGIN', '2023-05-10 02:25:04');
 
 -- --------------------------------------------------------
 
@@ -283,7 +284,8 @@ CREATE TABLE `rentals` (
 
 INSERT INTO `rentals` (`rental_id`, `tenant_id`, `room_id`, `check_in_date`, `check_out_date`, `total_amount`) VALUES
 (3, 3, 3, '2023-05-09 00:00:00', '2023-05-13 00:00:00', '200.00'),
-(4, 4, 3, '2023-05-18 00:00:00', '2023-05-27 00:00:00', '450.00');
+(4, 4, 3, '2023-05-18 00:00:00', '2023-05-27 00:00:00', '450.00'),
+(5, 5, 11, '2023-05-10 00:00:00', '2023-05-31 00:00:00', '2100.00');
 
 -- --------------------------------------------------------
 
@@ -341,7 +343,8 @@ INSERT INTO `tenant` (`tenant_id`, `first_name`, `last_name`, `phone_number`, `e
 (1, 'tjay', 'abunales', 'tj@gmail.com', '09957'),
 (2, 'dasfds', 'asdf', 'asdfa', 'sdafd'),
 (3, 'tjay', 'abunales', 'tj@gmail.com', 'tj'),
-(4, 'carl', 'victor', 'carl@gmail.com', '099');
+(4, 'carl', 'victor', 'carl@gmail.com', '099'),
+(5, 'teej', 'teej', 'teej', '12321');
 
 -- --------------------------------------------------------
 
@@ -481,7 +484,7 @@ ALTER TABLE `employee_action_log`
 -- AUTO_INCREMENT for table `employee_login_log`
 --
 ALTER TABLE `employee_login_log`
-  MODIFY `log_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=65;
+  MODIFY `log_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=66;
 
 --
 -- AUTO_INCREMENT for table `expenses`
@@ -499,7 +502,7 @@ ALTER TABLE `payments`
 -- AUTO_INCREMENT for table `rentals`
 --
 ALTER TABLE `rentals`
-  MODIFY `rental_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `rental_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `rooms`
@@ -511,7 +514,7 @@ ALTER TABLE `rooms`
 -- AUTO_INCREMENT for table `tenant`
 --
 ALTER TABLE `tenant`
-  MODIFY `tenant_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `tenant_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `users`
