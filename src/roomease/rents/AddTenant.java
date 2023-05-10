@@ -239,11 +239,12 @@ public class AddTenant extends javax.swing.JFrame {
                     double totalPrice = days * room.getPrice();
                     
                     //Create a new rental object
-                    Rental rental = new Rental(0, tenantID, room.getId(), startDate, endDate, totalPrice);
+                    int userID = Session.getCurrentUserId();
+                    Rental rental = new Rental(tenantID, userID, room.getId(), startDate, endDate, totalPrice);
 
                     //Add Action to the log
                     String action = "Added a new rental";
-                    EmployeeActionLog employeeActionLog = new EmployeeActionLog(Session.getCurrentUserId(), action);
+                    EmployeeActionLog employeeActionLog = new EmployeeActionLog(userID, action);
 
                     //Add the action to the database
                     EmployeeLogs.createEmployeeActionLog(employeeActionLog);
