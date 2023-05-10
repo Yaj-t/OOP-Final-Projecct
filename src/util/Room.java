@@ -2,6 +2,8 @@
 
 The Room class represents a room with its attributes such as ID, room number, price, and description.
 */
+package util;
+
 public class Room {
     private int id; // The unique identifier of the room.
     private String roomNumber; // The room number.
