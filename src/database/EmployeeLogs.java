@@ -1,3 +1,7 @@
+/**
+ *
+ * Provides methods to create and retrieve employee action logs and employee login logs from the database.
+ */
 package database;
 
 import enums.LogType;
@@ -15,7 +19,13 @@ public class EmployeeLogs {
     public EmployeeLogs() {
     }
 
-    // Create Employee Action Log
+    /**
+     * Creates an employee action log in the database.
+     *
+     * @param employeeActionLog The EmployeeActionLog object containing
+     * information about the employee's action.
+     * @throws SQLException if an error occurs while accessing the database.
+     */
     public static void createEmployeeActionLog(EmployeeActionLog employeeActionLog) throws SQLException {
         String sql = "INSERT INTO employee_action_log (employee_id, action_description, action_time) VALUES (?, ?, ?)";
         connection = Connect.connectToDatabase();
@@ -28,7 +38,13 @@ public class EmployeeLogs {
         Connect.closeConnection();
     }
 
-    // Create Employee Login Log
+    /**
+     * Creates an employee login log in the database.
+     *
+     * @param employeeLoginLogs The EmployeeLoginLogs object containing
+     * information about the employee's login.
+     * @throws SQLException if an error occurs while accessing the database.
+     */
     public static void createEmployeeLoginLog(EmployeeLoginLogs employeeLoginLogs) throws SQLException {
         String sql = "INSERT INTO employee_login_log (employee_id, log_type, log_time) VALUES (?, ?, ?)";
         connection = Connect.connectToDatabase();
@@ -41,7 +57,13 @@ public class EmployeeLogs {
         Connect.closeConnection();
     }
 
-    // Get All Employee Action Logs
+    /**
+     * Retrieves a list of all employee action logs from the database.
+     *
+     * @return A List of EmployeeActionLog objects containing information about
+     * each employee action log.
+     * @throws SQLException if an error occurs while accessing the database.
+     */
     public static List<EmployeeActionLog> getAllEmployeeActionLogs() throws SQLException {
         List<EmployeeActionLog> employeeActionLogs = new ArrayList<>();
         connection = Connect.connectToDatabase();
@@ -63,7 +85,13 @@ public class EmployeeLogs {
         return employeeActionLogs;
     }
 
-    // Get All Employee Login Logs
+    /**
+     * Retrieves a list of all employee login logs from the database.
+     *
+     * @return A List of EmployeeLoginLogs objects containing information about
+     * each employee login log.
+     * @throws SQLException if an error occurs while accessing the database.
+     */
     public static List<EmployeeLoginLogs> getAllEmployeeLoginLogs() throws SQLException {
         List<EmployeeLoginLogs> employeeLoginLogs = new ArrayList<>();
         connection = Connect.connectToDatabase();
