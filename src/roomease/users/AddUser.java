@@ -14,6 +14,7 @@ import user.User;
 import java.sql.*;
 import java.time.LocalDateTime;
 import util.AdminActionLog;
+import util.WindowCloseHandler;
 
 /**
  *
@@ -27,6 +28,7 @@ public class AddUser extends javax.swing.JFrame {
     public AddUser() {
         System.out.println("AddUser constructor");
         initComponents();
+        WindowCloseHandler.addWindowClosingListener(this);
     }
 
     /**

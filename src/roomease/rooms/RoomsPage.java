@@ -21,6 +21,7 @@ import roomease.users.UsersPage;
 
 import util.AdminActionLog;
 import util.Room;
+import util.WindowCloseHandler;
 
 /**
  *
@@ -50,7 +51,7 @@ public class RoomsPage extends javax.swing.JFrame {
 
         
         setResizable(false);
-        
+        WindowCloseHandler.addWindowClosingListener(this);
       
     }
 

@@ -26,6 +26,7 @@ import util.Complaint;
 import util.EmployeeActionLog;
 import util.Payment;
 import util.Room;
+import util.WindowCloseHandler;
 
 /**
  *
@@ -50,7 +51,7 @@ public class PaymentPage extends javax.swing.JFrame {
 
         
         setResizable(false);
-        
+        WindowCloseHandler.addWindowClosingListener(this);
       
     }
 

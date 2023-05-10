@@ -19,6 +19,7 @@ import roomease.homepage.EmployeeHome;
 import user.Session;
 import util.EmployeeActionLog;
 import util.Expense;
+import util.WindowCloseHandler;
 
 /**
  *
@@ -46,7 +47,7 @@ public class ExpensesPage extends javax.swing.JFrame {
             Logger.getLogger(Expense.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        
+        WindowCloseHandler.addWindowClosingListener(this);
         setResizable(false);
         
       

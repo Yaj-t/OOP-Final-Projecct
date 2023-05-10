@@ -13,6 +13,7 @@ import user.Session;
 import user.User;
 import util.AdminActionLog;
 import util.AdminLoginLogs;
+import util.WindowCloseHandler;
 
 import java.sql.*;
 import java.time.LocalDateTime;
@@ -44,10 +45,12 @@ public class EditUser extends javax.swing.JFrame {
     public EditUser(User user) {
         this.user = user;
         initComponents();
+        WindowCloseHandler.addWindowClosingListener(this);
     }
     
     public EditUser() {
         initComponents();
+        WindowCloseHandler.addWindowClosingListener(this);
     }
 
     /**

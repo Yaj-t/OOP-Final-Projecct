@@ -10,6 +10,8 @@ import database.RoomDAO;
 import enums.RoomStatus;
 import javax.swing.JOptionPane;
 import util.Room;
+import util.WindowCloseHandler;
+
 import java.sql.*;
 import java.time.LocalDateTime;
 import java.util.logging.Level;
@@ -38,11 +40,13 @@ public class EditRoom extends javax.swing.JFrame {
         System.out.println("EditRoom constructor");
         this.room = room;
         initComponents();
+        WindowCloseHandler.addWindowClosingListener(this);
     }
     
     public EditRoom() {
         System.out.println("EditRoom constructor");
         initComponents();
+        WindowCloseHandler.addWindowClosingListener(this);
     }
 
     /**

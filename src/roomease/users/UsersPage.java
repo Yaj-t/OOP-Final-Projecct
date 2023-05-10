@@ -20,6 +20,7 @@ import roomease.homepage.AdminHome;
 import user.Session;
 import user.User;
 import util.AdminActionLog;
+import util.WindowCloseHandler;
 
 
 /**
@@ -46,7 +47,7 @@ public class UsersPage extends javax.swing.JFrame {
             tableModel.addRow(rowData);
         }
         usersTable.setModel(tableModel);
-        
+        WindowCloseHandler.addWindowClosingListener(this);
     }
 
     /**

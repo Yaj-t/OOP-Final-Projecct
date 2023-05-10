@@ -14,6 +14,8 @@ import java.time.ZoneId;
 import java.util.Date;
 import javax.swing.JOptionPane;
 import util.Expense;
+import util.WindowCloseHandler;
+
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -40,12 +42,14 @@ public class EditExpense extends javax.swing.JFrame {
     public EditExpense() {
         System.out.println("EditExpense");
         initComponents();
+        WindowCloseHandler.addWindowClosingListener(this);
     }
 
     public EditExpense(Expense expense) {
         System.out.println("EditExpense");
         this.expense = expense;
         initComponents();
+        WindowCloseHandler.addWindowClosingListener(this);
     }
     
     

@@ -8,6 +8,8 @@ import database.AdminLogs;
 import database.RoomDAO;
 import javax.swing.JOptionPane;
 import util.Room;
+import util.WindowCloseHandler;
+
 import java.sql.*;
 import java.time.LocalDateTime;
 import java.util.logging.Level;
@@ -27,6 +29,7 @@ public class AddRoom extends javax.swing.JFrame {
     public AddRoom() {
         System.out.println("AddRoom constructor");
         initComponents();
+        WindowCloseHandler.addWindowClosingListener(this);
     }
 
     /**

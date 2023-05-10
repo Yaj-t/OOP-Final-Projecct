@@ -24,6 +24,7 @@ import util.EmployeeActionLog;
 import util.Rental;
 import util.Room;
 import util.Tenant;
+import util.WindowCloseHandler;
 
 /**
  *
@@ -37,6 +38,7 @@ public class AddTenant extends javax.swing.JFrame {
     public AddTenant() {
         System.out.println("AddTenant");
         initComponents();
+        WindowCloseHandler.addWindowClosingListener(this);
     }
 
     Room room;
@@ -48,6 +50,7 @@ public class AddTenant extends javax.swing.JFrame {
         this.room = Room;
         this.startDate = startDate;
         this.endDate = endDate;
+        WindowCloseHandler.addWindowClosingListener(this);
     }
 
     /**
