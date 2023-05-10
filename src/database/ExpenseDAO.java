@@ -1,4 +1,10 @@
+/**
+ *
+ * This class represents a data access object (DAO) for the Expense model, which provides methods for
+ * CRUD operations (Create, Read, Update, Delete) on expenses in the database.
+ */
 package database;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -15,6 +21,13 @@ public class ExpenseDAO {
         // Initialize database connection
     }
     
+    /**
+     *
+     * Adds a new expense to the database.
+     *
+     * @param expense The Expense object to be added to the database.
+     * @throws SQLException if an error occurs while accessing the database.
+     */
     public static void addExpense(Expense expense) throws SQLException {
         connection = Connect.connectToDatabase();
         String sql = "INSERT INTO expenses (amount, expense_date, description, user_id) VALUES (?, ?, ?, ?)";
@@ -27,6 +40,13 @@ public class ExpenseDAO {
         Connect.closeConnection();
     }
     
+    /**
+     *
+     * Updates an existing expense in the database.
+     *
+     * @param expense The Expense object to be updated in the database.
+     * @throws SQLException if an error occurs while accessing the database.
+     */
     public static void updateExpense(Expense expense) throws SQLException {
         connection = Connect.connectToDatabase();
         String sql = "UPDATE expenses SET amount = ?, expense_date = ?, description = ? WHERE expense_id = ?";
@@ -39,6 +59,13 @@ public class ExpenseDAO {
         Connect.closeConnection();
     }
     
+    /**
+     *
+     * Deletes an expense from the database by its ID.
+     *
+     * @param expenseId The ID of the expense to be deleted from the database.
+     * @throws SQLException if an error occurs while accessing the database.
+     */
     public static void deleteExpense(int expenseId) throws SQLException {
         connection = Connect.connectToDatabase();
         String sql = "DELETE FROM expenses WHERE expense_id = ?";
@@ -48,6 +75,14 @@ public class ExpenseDAO {
         Connect.closeConnection();
     }
     
+    /**
+     *
+     * Retrieves all expenses from the database.
+     *
+     * @return A List of Expense objects representing all expenses in the
+     * database.
+     * @throws SQLException if an error occurs while accessing the database.
+     */
     public static  List<Expense> getAllExpenses() throws SQLException {
         connection = Connect.connectToDatabase();
         System.out.println("here");
@@ -68,6 +103,15 @@ public class ExpenseDAO {
         return expenses;
     }
     
+    /**
+     *
+     * Retrieves an expense from the database by its ID.
+     *
+     * @param expenseId The ID of the expense to retrieve from the database.
+     * @return The Expense object with the specified ID, or null if no such
+     * expense exists in the database.
+     * @throws SQLException if an error occurs while accessing the database.
+     */
     public static Expense getExpenseById(int expenseId) throws SQLException {
         connection = Connect.connectToDatabase();
         String sql = "SELECT * FROM expenses WHERE expense_id = ?";
