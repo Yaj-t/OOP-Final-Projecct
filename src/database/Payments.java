@@ -1,3 +1,7 @@
+/**
+ *
+ * This class handles database operations related to payments.
+ */
 package database;
 
 import java.sql.*;
@@ -8,7 +12,12 @@ import util.Payment;
 
 public class Payments {
 
-    // Get all payments
+    /**
+     * Gets all payments from the database.
+     *
+     * @return a list of Payment objects representing all payments in the
+     * database
+     */
     public static List<Payment> getAllPayments() {
         List<Payment> payments = new ArrayList<>();
         try (Connection connection = Connect.connectToDatabase();
@@ -34,7 +43,13 @@ public class Payments {
         return payments;
     } 
 
-    // Get all payments by rental id
+    /**
+     * Gets all payments from the database associated with a specific rental.
+     *
+     * @param rentalId the ID of the rental to get payments for
+     * @return a list of Payment objects representing all payments for the
+     * specified rental
+     */
     public static List<Payment> getAllPaymentsByRentalId(int rentalId) {
         List<Payment> payments = new ArrayList<>();
         try (Connection connection = Connect.connectToDatabase();
@@ -61,7 +76,13 @@ public class Payments {
         return payments;
     }
 
-    // Get all payments by employee id
+    /**
+     * Gets all payments from the database associated with a specific employee.
+     *
+     * @param employeeId the ID of the employee to get payments for
+     * @return a list of Payment objects representing all payments made by the
+     * specified employee
+     */
     public static List<Payment> getAllPaymentsByEmployeeId(int employeeId) {
         List<Payment> payments = new ArrayList<>();
         try (Connection connection = Connect.connectToDatabase();
@@ -88,7 +109,11 @@ public class Payments {
         return payments;
     }
 
-    // Add payment
+    /**
+     * Adds a payment to the database.
+     *
+     * @param payment the Payment object to add to the database
+     */
     public static void addPayment(Payment payment) {
         String sql = "INSERT INTO payments (rental_id, employee_id, amount, payment_date, description) VALUES (?, ?, ?, ?, ?)";
 
@@ -107,7 +132,12 @@ public class Payments {
         }
     }
 
-    // Check if Rental has been paid
+    /**
+     * Checks if a rental has been paid.
+     *
+     * @param rentalId the ID of the rental to check
+     * @return true if the rental has been paid, false otherwise
+     */
     public static boolean isRentalPaid(int rentalId) {
         boolean isPaid = false;
         try (Connection connection = Connect.connectToDatabase();
@@ -125,7 +155,5 @@ public class Payments {
         }
         return isPaid;
     }
-
-    
 
 }
