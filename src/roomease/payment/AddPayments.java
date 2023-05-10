@@ -1,21 +1,14 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
+/**The AddPayments class represent a JFrame that displays fields and buttons for adding payments*/
 package roomease.payment;
 
 import roomease.complaints.*;
 import roomease.homepage.EmployeeHome;
-import database.ComplaintsDAO;
 import database.EmployeeLogs;
 import database.Payments;
 import database.RentalDAO;
 import database.RoomDAO;
 import user.Session;
-
 import java.sql.SQLException;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -25,23 +18,17 @@ import util.Complaint;
 import util.EmployeeActionLog;
 import util.Payment;
 import util.Rental;
-import util.Room;
 import util.WindowCloseHandler;
 
-/**
- *
- * @author Kaiser
- */
 public class AddPayments extends javax.swing.JFrame {
-
+    /**Creates a Rental List for class*/
     List<Rental> rentalList;
 
     public AddPayments() {
         System.out.println("Add Payments");
         initComponents();
-
+        /**Fills the table with data from the database*/
         try {
-
             rentalList = RentalDAO.getUnPainRentals();
             DefaultTableModel tableModel = (DefaultTableModel) rentalsTable.getModel();
             for (Rental rental : rentalList) {
@@ -217,12 +204,24 @@ public class AddPayments extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
+  /**Disposes current frame and creates a PaymentPage then sets it it visible*/
     private void goBackButtomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_goBackButtomActionPerformed
         // TODO add your handling code here:
         dispose();
         new PaymentPage().setVisible(true);
     }//GEN-LAST:event_goBackButtomActionPerformed
+
+    /**
+     *
+     * Adds a payment to the database for a selected rental. Validates the input
+     * fields, checks if the amount entered is greater than or equal to the
+     * amount due, and prompts the user for confirmation before adding the
+     * payment. Adjusts the amount due for the rental and adds an entry to the
+     * employee logs. Allows the user to add another payment or go back to the
+     * employee page.
+     *
+     * @param evt the action event triggered by clicking the "Add" button
+     */
 
     private void addActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addActionPerformed
         // TODO add your handling code here:

@@ -1,46 +1,21 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
+/**The PaymentPage class represents a JFrame that shows the payments made and other additional functinos*/
 package roomease.payment;
 
-import roomease.complaints.*;
-import roomease.complaints.EditComplaint;
-import roomease.complaints.AddComplaint;
-import database.ComplaintsDAO;
-import database.EmployeeLogs;
 import database.Payments;
-import database.RoomDAO;
-import database.UserDAO;
-import java.sql.SQLException;
-import java.time.LocalDateTime;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import roomease.homepage.EmployeeHome;
-import roomease.users.UsersPage;
-import user.Session;
-import util.Complaint;
-import util.EmployeeActionLog;
 import util.Payment;
-import util.Room;
 import util.WindowCloseHandler;
 
-/**
- *
- * @author Kaiser
- */
 public class PaymentPage extends javax.swing.JFrame {
+    /**Creates a  list of Payment for the class*/
     List <Payment> paymentsList;
-    
-  
-    
+
     public PaymentPage() {
         System.out.println("Payment Page");
         initComponents();
-
+        /**Fills the table with data from database*/
         paymentsList = Payments.getAllPayments();
         DefaultTableModel tableModel = (DefaultTableModel) paymentsTable.getModel();
         for (Payment payment : paymentsList) {
@@ -197,13 +172,13 @@ public class PaymentPage extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
+  /**Disposes current frame and creates an AddPayments then sets it it visible*/
     private void addActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addActionPerformed
         dispose();
         new AddPayments().setVisible(true);
         
     }//GEN-LAST:event_addActionPerformed
-
+  /**Disposes current frame and creates an EmployeeHomme then sets it it visible*/
     private void goBackButtomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_goBackButtomActionPerformed
         dispose();
         new EmployeeHome().setVisible(true);
