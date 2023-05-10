@@ -1,13 +1,11 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
+/**
+ * The EditExpense class represents a JFrame window for Editing expenses.
  */
 package roomease.expenses;
 
 import database.EmployeeLogs;
 import database.ExpenseDAO;
 import user.Session;
-
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -15,18 +13,13 @@ import java.util.Date;
 import javax.swing.JOptionPane;
 import util.Expense;
 import util.WindowCloseHandler;
-
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import util.EmployeeActionLog;
 
-
-/**
- *
- * @author Predator
- */
 public class EditExpense extends javax.swing.JFrame {
+    /** creates an Expense field for the Class*/
     private Expense expense;
 
     public Expense getExpense() {
@@ -185,6 +178,16 @@ public class EditExpense extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+
+This method is called when the "submit" button is clicked. It updates the complaint with the new status, description, and date.
+
+If the update is successful, a message is displayed indicating that the complaint was updated successfully, an employee action log is created, and the current window is closed and a new ComplaintsPage window is opened.
+
+If there is an error with updating the complaint, an error message is displayed.
+
+@param evt the ActionEvent object representing the "submit" button being clicked
+*/
     private void submitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitActionPerformed
         // TODO add your handling code here:
         Date selectedDate = jDateChooser.getDate();
@@ -221,6 +224,7 @@ public class EditExpense extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_submitActionPerformed
 
+    /**Disposes current page and creates a new ExpensesPage then sets it to visisble*/
     private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
         // TODO add your handling code here:
         dispose();

@@ -1,11 +1,8 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
+/**
+ * The ExpensesPage class represents a JFrame window that displays the expenses.
  */
 package roomease.expenses;
 
-import roomease.expenses.EditExpense;
-import roomease.expenses.AddExpense;
 import database.EmployeeLogs;
 import database.ExpenseDAO;
 import database.UserDAO;
@@ -21,19 +18,15 @@ import util.EmployeeActionLog;
 import util.Expense;
 import util.WindowCloseHandler;
 
-/**
- *
- * @author Predator
- */
 public class ExpensesPage extends javax.swing.JFrame {
     List <Expense>  expenseList;
     /**
      * Creates new form Rooms
      */
-    
     public ExpensesPage() {
         System.out.println("ExpensesPage");
         initComponents();
+        /**Fills the expenses table with data from database*/
         try {
             
             expenseList = ExpenseDAO.getAllExpenses();
@@ -193,7 +186,15 @@ public class ExpensesPage extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
+/**
+     *
+     * Handles the action performed when the delete button is clicked. If a row
+     * is selected, the user is prompted to confirm the deletion of the expense.
+     * If confirmed, the expense is deleted from the database and the expenses
+     * page is refreshed. If no row is selected, an error message is displayed.
+     *
+     * @param evt the event that triggered the action
+     */
     private void deleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteActionPerformed
         // TODO add your handling code here:
         int row = expensesTable.getSelectedRow(); // get the selected row
@@ -219,13 +220,24 @@ public class ExpensesPage extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Please select a row to delete.");
         }
     }//GEN-LAST:event_deleteActionPerformed
-
+/**Handles the action performed when the add button is clicked.
+ * It disposes the current page and creates a new addExpense then sets it to visible
+ * @param evt 
+ */
     private void addActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addActionPerformed
         //TODO add your handling code here:
         dispose();
         new AddExpense().setVisible(true);
     }//GEN-LAST:event_addActionPerformed
-
+    /**
+     *
+     * Handles the action when the edit button is clicked. If a row is selected,
+     * it retrieves the expense object for that row and opens the EditExpense
+     * GUI for editing. If no row is selected, it displays an error message
+     * prompting the user to select a row to be edited.
+     *
+     * @param evt the action event
+     */
     private void editActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editActionPerformed
         int selectedRow = expensesTable.getSelectedRow();
         if(selectedRow !=-1){
@@ -243,7 +255,7 @@ public class ExpensesPage extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Please select a row to be edited.");
         }
     }//GEN-LAST:event_editActionPerformed
-
+/**Disposes the current frame and creates a new EmployeeHome then sets it to visible*/
     private void goBackButtomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_goBackButtomActionPerformed
         // TODO add your handling code here:
         dispose();

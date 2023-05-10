@@ -1,6 +1,5 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
+/**
+ * The AddExpense class represents a JFrame window for adding expenses.
  */
 package roomease.expenses;
 
@@ -11,20 +10,12 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
 import javax.swing.JOptionPane;
-
 import util.EmployeeActionLog;
 import util.Expense;
 import util.WindowCloseHandler;
-
 import java.sql.SQLException;
 import user.Session;
-import user.User;
 
-
-/**
- *
- * @author Predator
- */
 public class AddExpense extends javax.swing.JFrame {
 
     /**
@@ -180,6 +171,16 @@ public class AddExpense extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    /**
+     *
+     * This method is called when the "Submit" button is clicked on the Add
+     * Expense page. It retrieves the values from the input fields and creates a
+     * new Expense object with the provided information. It then adds the new
+     * Expense to the database and logs the action. If any of the fields are
+     * empty or invalid, an error message is displayed.
+     *
+     * @param evt the action event that triggered this method
+     */
     private void submitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitActionPerformed
         // TODO add your handling code here:
       
@@ -220,7 +221,7 @@ public class AddExpense extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Error adding Expense: " + ex.getMessage());
         }
     }//GEN-LAST:event_submitActionPerformed
-
+/**Disposes current frame and creates new ExpensesPage then sets it to visible */
     private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
         // TODO add your handling code here:
         dispose();
