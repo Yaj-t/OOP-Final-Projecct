@@ -60,7 +60,7 @@ public class LoginPage extends javax.swing.JFrame {
 
         jLabel3.setBackground(new java.awt.Color(180, 149, 148));
         jLabel3.setFont(new java.awt.Font("SansSerif", 1, 36)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(180, 149, 148));
+        jLabel3.setForeground(new java.awt.Color(247, 236, 89));
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setText("ROOMEASE");
 
@@ -157,7 +157,7 @@ public class LoginPage extends javax.swing.JFrame {
             .addGroup(backgroundLayout.createSequentialGroup()
                 .addGap(126, 126, 126)
                 .addComponent(loginBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(124, Short.MAX_VALUE))
+                .addContainerGap(128, Short.MAX_VALUE))
         );
         backgroundLayout.setVerticalGroup(
             backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
