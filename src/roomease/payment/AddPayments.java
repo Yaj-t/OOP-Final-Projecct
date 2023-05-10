@@ -122,7 +122,7 @@ public class AddPayments extends javax.swing.JFrame {
                 java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class, java.lang.Double.class
             };
             boolean[] canEdit = new boolean [] {
-                true, false, false, false, false, false
+                false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -134,6 +134,7 @@ public class AddPayments extends javax.swing.JFrame {
             }
         });
         jScrollPane5.setViewportView(rentalsTable);
+        rentalsTable.setAutoCreateRowSorter(true);
 
         amountField.setForeground(new java.awt.Color(8, 99, 117));
         amountField.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
