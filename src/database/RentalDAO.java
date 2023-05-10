@@ -1,22 +1,27 @@
+/**
+ * A class that provides methods to interact with the rentals table in the database.
+ */
 package database;
 
 import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.swing.plaf.nimbus.State;
-
 import util.Rental;
 
 public class RentalDAO {
     
     private static Connection connection;
 
-    // Static function to add a new rental to the database
+    /**
+     * Adds a new rental to the database.
+     *
+     * @param rental the Rental object to add to the database.
+     * @return true if the rental was added successfully, false otherwise.
+     * @throws SQLException if there was an error executing the SQL statement.
+     */
 public static boolean addRental(Rental rental) throws SQLException {
     connection = Connect.connectToDatabase();
-
     try {
         // Prepare the SQL statement with placeholders for the values
         String sql = "INSERT INTO rentals (tenant_id, user_id, room_id, check_in_date, check_out_date, total_amount) VALUES (?, ?, ?, ?, ?, ?)";
@@ -45,7 +50,13 @@ public static boolean addRental(Rental rental) throws SQLException {
 }
 
 
-    // Static function to update a rental in the database
+    /**
+     * Updates an existing rental in the database.
+     *
+     * @param rental the Rental object to update in the database.
+     * @return true if the rental was updated successfully, false otherwise.
+     * @throws SQLException if there was an error executing the SQL statement.
+     */
     public static boolean updateRental(Rental rental) throws SQLException {
         connection = Connect.connectToDatabase();
 
@@ -76,7 +87,13 @@ public static boolean addRental(Rental rental) throws SQLException {
         return false;
     }
 
-    // Static function to delete a rental from the database
+    /**
+     * Deletes an existing rental from the database.
+     *
+     * @param rental_id the ID of the rental to delete from the database.
+     * @return true if the rental was deleted successfully, false otherwise.
+     * @throws SQLException if there was an error executing the SQL statement.
+     */
     public static boolean deleteRental(int rental_id) throws SQLException {
         connection = Connect.connectToDatabase();
 
@@ -102,7 +119,13 @@ public static boolean addRental(Rental rental) throws SQLException {
         return false;
     }
 
-    // Static function to get a rental from the database
+    /**
+     * Retrieves a rental from the database.
+     *
+     * @param rental_id the ID of the rental to retrieve from the database.
+     * @return the Rental object if it exists in the database, null otherwise.
+     * @throws SQLException if there was an error executing the SQL statement.
+     */
     public static Rental getRental(int rental_id) throws SQLException {
         connection = Connect.connectToDatabase();
 
@@ -134,7 +157,12 @@ public static boolean addRental(Rental rental) throws SQLException {
         return null;
     }
 
-    // Static function to get all rentals from the database
+    /**
+     * Retrieves all rentals from the database.
+     *
+     * @return a list of all Rental objects in the database.
+     * @throws SQLException if there was an error executing the SQL statement.
+     */
     public static List<Rental> getAllRentals() throws SQLException{
         connection = Connect.connectToDatabase();
         List<Rental> rentals = new ArrayList<>();
@@ -165,7 +193,15 @@ public static boolean addRental(Rental rental) throws SQLException {
         return rentals;
     }
 
-    // Static function to get all rentals from the database for a specific tenant
+    /**
+     *
+     * Retrieves all rentals from the database for a specific tenant.
+     *
+     * @param tenant_id the ID of the tenant to retrieve rentals for
+     * @return a list of Rental objects representing the rentals for the given
+     * tenant
+     * @throws SQLException if an error occurs while accessing the database
+     */
     public static List<Rental> getRentalsByTenantsId(int tenant_id) throws SQLException {
         connection = Connect.connectToDatabase();
         List<Rental> rentals = new ArrayList<>();
@@ -199,7 +235,13 @@ public static boolean addRental(Rental rental) throws SQLException {
         return rentals;
     }
 
-    // Static function to get all rentals from the database for a specific room
+    /**
+    * Retrieves all rentals for a given room ID from the database.
+    *
+    * @param roomId the ID of the room for which to retrieve rentals
+    * @return a List of Rental objects representing the rentals associated with the given room ID
+    * @throws SQLException if there is an error accessing the database
+    */
     public static List<Rental> getRentalsByRoomId(int roomId) throws SQLException{
         connection = Connect.connectToDatabase();
         List<Rental> rentals = new ArrayList<>();
@@ -233,7 +275,13 @@ public static boolean addRental(Rental rental) throws SQLException {
         return rentals;
     }
 
-    // Static function to get all rentals where the check out date is far in the future of the current date
+    /**
+    * Retrieves all active rentals, i.e. rentals where the check out date is in the future
+    *   compared to the current date.
+    *
+    * @return a List of Rental objects representing the active rentals
+    * @throws SQLException if there is an error accessing the database
+    */
    public static List<Rental> getActiveRentals() throws SQLException {
     List<Rental> rentals = new ArrayList<>();
     //Current date
@@ -269,7 +317,13 @@ public static boolean addRental(Rental rental) throws SQLException {
 }
 
 
-    // Static function to get all rentals where the check out date is in the past of the current date
+    /**
+    * Retrieves all past rentals, i.e. rentals where the check out date is in the past compared
+    * to the current date.
+    *
+    * @return a List of Rental objects representing the past rentals
+    * @throws SQLException if there is an error accessing the database
+    */
     public static List<Rental> getPastRentals() throws SQLException {
         connection = Connect.connectToDatabase();
         List<Rental> rentals = new ArrayList<>();
@@ -305,7 +359,14 @@ public static boolean addRental(Rental rental) throws SQLException {
         return rentals;
     }
 
-    // Get all rentals that are not fully paid
+    /**
+    * Updates the total amount owed for a rental by subtracting the specified amount paid from the
+     * rental's total amount.
+     *
+     * @param rentalId the ID of the rental to be updated
+     * @param amountPaid the amount paid towards the rental
+     * @throws SQLException if there is an error accessing the database
+     */
 
     public static List<Rental> getUnPainRentals() throws SQLException {
         connection = Connect.connectToDatabase();
@@ -339,7 +400,16 @@ public static boolean addRental(Rental rental) throws SQLException {
     }
 
 
-    // For payments, recieve the rental id and the amount paid
+    /**
+
+    Updates the total amount due for a rental by subtracting the specified amount paid
+
+    @param rentalId The ID of the rental to update
+
+    @param amountPaid The amount paid towards the rental
+
+    @throws SQLException If an error occurs while accessing the database
+    */
     public static void payRental(int rentalId, double amountPaid) throws SQLException {
         connection = Connect.connectToDatabase();
         try {
@@ -360,7 +430,16 @@ public static boolean addRental(Rental rental) throws SQLException {
         }
     }
 
-    // For payments, recieve the rental id and give the total amount due   
+    /**
+
+Retrieves the total amount due for a rental
+
+@param rentalId The ID of the rental to retrieve the amount for
+
+@return The total amount due for the rental
+
+@throws SQLException If an error occurs while accessing the database
+*/ 
     public static double getRentalAmount(int rentalId) throws SQLException {
         connection = Connect.connectToDatabase();
         double totalAmount = 0;
@@ -386,7 +465,4 @@ public static boolean addRental(Rental rental) throws SQLException {
         }
         return totalAmount;
     }
-
-
-    
 }
