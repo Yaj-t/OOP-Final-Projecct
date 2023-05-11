@@ -1,15 +1,12 @@
- package roomease.homepage;
+package roomease.homepage;
 
-import roomease.rents.RoomCheck;
+import roomease.rents.*;
 import roomease.expenses.ExpensesPage;
 import roomease.payment.PaymentPage;
 import roomease.complaints.ComplaintsPage;
 import enums.LogType;
 import java.time.LocalDateTime;
-import database.EmployeeLogs;
-import database.RentalDAO;
-import database.RoomDAO;
-import database.TenantDAO;
+import database.*;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.logging.Level;
@@ -23,24 +20,28 @@ import util.Rental;
 import util.Tenant;
 import util.WindowCloseHandler;
 
- /**
+/**
  * The EmployeeHome class represents a JFrame window that displays the homepage
  * of the Employees
  */
 public class EmployeeHome extends javax.swing.JFrame {
-    List <Rental> rentalsList;
+
+    List<Rental> rentalsList;
+
     /**
      * Creates new form EmployeeHome
      */
     public EmployeeHome() {
         System.out.println("EmployeeHome");
         initComponents();
-        /**Fills the table with data from the database*/
+        /**
+         * Fills the table with data from the database
+         */
         try {
             rentalsList = RentalDAO.getActiveRentals();
             System.out.println("here");
             tableModel = (DefaultTableModel) rentalsTable.getModel();
-            
+
             for (Rental rental : rentalsList) {
                 Object[] rowData = {rental.getTenant_id(), RoomDAO.getRoomByID(rental.getRoom_id()).getRoomNumber(), rental.getCheck_in_date(), rental.getCheck_out_date(), rental.getTotal_amount()};
                 tableModel.addRow(rowData);
@@ -50,26 +51,28 @@ public class EmployeeHome extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(Rental.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         DefaultTableModel model = (DefaultTableModel) tenantsTable.getModel();
         model.setRowCount(0);
         Tenant tenant;
-        
-        /**Fills the table with data from the database*/
+
+        /**
+         * Fills the table with data from the database
+         */
         try {
-            List <Rental> rentals = RentalDAO.getActiveRentals();
+            List<Rental> rentals = RentalDAO.getActiveRentals();
             for (Rental rental : rentals) {
                 tenant = TenantDAO.getTenantById(rental.getTenant_id());
                 Object[] rowData = {tenant.getId(), tenant.getFirstName(), tenant.getLastName(), tenant.getPhoneNumber(), tenant.getEmail()};
                 model.addRow(rowData);
             }
-            
+
         } catch (SQLException ex) {
             Logger.getLogger(EmployeeHome.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         WindowCloseHandler.addWindowClosingListener(this);
-   
+
     }
 
     /**
@@ -315,10 +318,12 @@ public class EmployeeHome extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-/** Represent the Logout button when clicked will insert an employee log into the database. 
- * It disposes the current frame and creates a new LoginPage
- * @param evt 
- */
+/**
+     * Represent the Logout button when clicked will insert an employee log into
+     * the database. It disposes the current frame and creates a new LoginPage
+     *
+     * @param evt
+     */
     private void LogOutAction(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LogOutAction
 
         try {
@@ -334,12 +339,16 @@ public class EmployeeHome extends javax.swing.JFrame {
             Logger.getLogger(EmployeeHome.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_LogOutAction
-  /**Disposes the current frame and creates a new ExpensesPage then sets it to visible*/
+    /**
+     * Disposes the current frame and creates a new ExpensesPage then sets it to visible
+     */
     private void expensesButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_expensesButtonActionPerformed
         dispose();
         new ExpensesPage().setVisible(true);
     }//GEN-LAST:event_expensesButtonActionPerformed
-  /**Disposes the current frame and creates a new RoomCheck  then sets it to visible*/
+    /**
+     * Disposes the current frame and creates a new RoomCheck then sets it to visible
+     */
     private void bookingsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bookingsButtonActionPerformed
         try {
             dispose();
@@ -348,34 +357,40 @@ public class EmployeeHome extends javax.swing.JFrame {
             Logger.getLogger(EmployeeHome.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_bookingsButtonActionPerformed
-  /**Disposes the current frame and creates a new ComplaintsPage then sets it to visible*/
+    /**
+     * Disposes the current frame and creates a new ComplaintsPage then sets it
+     * to visible
+     */
     private void complaintsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_complaintsActionPerformed
 
         new ComplaintsPage().setVisible(true);
         dispose();
-                
+
     }//GEN-LAST:event_complaintsActionPerformed
-  /**Disposes the current frame and creates a new PaymentPage then sets it to visible*/
+    /**
+     * Disposes the current frame and creates a new PaymentPage then sets it to visible
+     */
     private void PaymentPerform(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PaymentPerform
-        
+
         dispose();
         new PaymentPage().setVisible(true);
     }//GEN-LAST:event_PaymentPerform
 
     private void RentalPage(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RentalPage
-        
+
         dispose();
         new RentalsPage().setVisible(true);
-        
+
 
     }//GEN-LAST:event_RentalPage
 
     private void TenantPage(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TenantPage
-        // TODO add your handling code here:
+
+        dispose();
+        new TenantPage().setVisible(true);
+
     }//GEN-LAST:event_TenantPage
-    
-    
-    
+
     /**
      * @param args the command line arguments
      */

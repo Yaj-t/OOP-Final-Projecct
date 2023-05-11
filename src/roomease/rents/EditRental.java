@@ -1,5 +1,6 @@
 package roomease.rents;
 
+import database.AdminLogs;
 import database.EmployeeLogs;
 import database.RentalDAO;
 import database.RoomDAO;
@@ -12,6 +13,8 @@ import java.time.ZoneId;
 import java.time.temporal.ChronoUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import util.AdminActionLog;
 import util.EmployeeActionLog;
 import util.Rental;
 import util.Room;
@@ -273,6 +276,8 @@ public class EditRental extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(null, "Rental Not Updated");
                     break;
             }
+            AdminActionLog adminActionLog = new AdminActionLog(Session.getCurrentUserId(), "Edited Rental with ID: " + rental.getRoom_id());
+            AdminLogs.createAdminActionLog(adminActionLog);
             dispose();
             new RentalsPage().setVisible(true);
         } catch (SQLException ex) {
