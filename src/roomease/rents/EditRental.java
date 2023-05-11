@@ -7,6 +7,7 @@ import util.WindowCloseHandler;
 import java.sql.*;
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.time.temporal.ChronoUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import util.EmployeeActionLog;
@@ -247,7 +248,22 @@ public class EditRental extends javax.swing.JFrame {
         //Update the rental
         rental.setCheck_in_date(checkInLocalDate);
         rental.setCheck_out_date(checkOutLocalDate);
-        rental.setTotal_amount(amount);
+        //Check if user forgot has the same amount to the rental amount
+        if (amount != rental.getTotal_amount()) {
+            //If not, update the amount
+            rental.setTotal_amount(amount);
+        }else{
+            //If yes, calculate the amount
+            //calculate the days of the rental
+            long days = ChronoUnit.DAYS.between(checkInLocalDate, checkOutLocalDate);
+            int daysInt = Math.toIntExact(days);
+
+            System.out.println("Number of days: " + daysInt);
+            
+            //calculate the total price of the rental
+            double totalPrice = days * rental.getRoom().getPrice();
+        }
+       
 
         try {
             //Update the rental in the database

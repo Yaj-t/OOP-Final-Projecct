@@ -306,4 +306,25 @@ public class RoomDAO {
         return false;
     }
 
+    /**
+     * Returns the room price for the given rental id
+     * @param rentalID The rental id to be checked
+     * @return The room price for the given rental id
+     *
+     */
+    public static double getRoomPrice(int rentalID) throws SQLException {
+        connection = Connect.connectToDatabase();
+        String sql = "SELECT room_price FROM rooms WHERE room_id = (SELECT room_id FROM rentals WHERE rental_id = ?)";
+
+        try (PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setInt(1, rentalID);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                if (resultSet.next()) {
+                    return resultSet.getDouble("room_price");
+                }
+            }
+        } finally {
+            Connect.closeConnection();
+        }
+        return 0;
 }
