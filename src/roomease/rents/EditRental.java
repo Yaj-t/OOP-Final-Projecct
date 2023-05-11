@@ -2,6 +2,8 @@ package roomease.rents;
 
 import database.EmployeeLogs;
 import database.RentalDAO;
+import database.RoomDAO;
+
 import javax.swing.JOptionPane;
 import util.WindowCloseHandler;
 import java.sql.*;
@@ -12,6 +14,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import util.EmployeeActionLog;
 import util.Rental;
+import util.Room;
 import util.Session;
 
 /**
@@ -165,7 +168,8 @@ public class EditRental extends javax.swing.JFrame {
 
         CheckInDate.setDate(Date.from(rental.getCheck_in_date().atStartOfDay(ZoneId.systemDefault()).toInstant()));
         CheckOutDate.setDate(Date.from(rental.getCheck_out_date().atStartOfDay(ZoneId.systemDefault()).toInstant()));
-        amountField.setValue(rental.getTotal_amount());
+        amountField.setText(String.valueOf(rental.getTotal_amount()));
+        //amountField.setValue(rental.getTotal_amount());
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -195,8 +199,11 @@ public class EditRental extends javax.swing.JFrame {
         LocalDate checkOutLocalDate = checkOutDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         LocalDate currDate = LocalDate.now();
 
-        //Get the Amount
-        double amount = (double) amountField.getValue();
+       // Get the amount
+        double amount = Double.parseDouble(amountField.getText());
+
+
+
 
         //Verify that the check in date is not before the current date
         if (checkInDate.before(Date.valueOf(currDate))) {
@@ -222,63 +229,56 @@ public class EditRental extends javax.swing.JFrame {
             return;
         }
 
-        try {
-            //Check RentalDAO.check_outcheck()
-            if (RentalDAO.check_outCheck(checkOutLocalDate, rental.getRental_id())) {
-                JOptionPane.showMessageDialog(null, "Room is already booked for the Check Out Date");
-                //Set the check out date to the CheckOutDateSQL
-                CheckOutDate.setDate(checkOutDateSQL);
-                return;
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(EditRental.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        try {
-            if (RentalDAO.check_inCheck(checkInLocalDate, rental.getRental_id())) {
-                JOptionPane.showMessageDialog(null, "Room is already booked for the Check In Date");
-                //Set the check in date to the CheckInDateSQL
-                CheckInDate.setDate(checkInDateSQL);
-                return;
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(EditRental.class.getName()).log(Level.SEVERE, null, ex);
-        }
 
         //Update the rental
         rental.setCheck_in_date(checkInLocalDate);
         rental.setCheck_out_date(checkOutLocalDate);
         //Check if user forgot has the same amount to the rental amount
         if (amount != rental.getTotal_amount()) {
-            //If not, update the amount
             rental.setTotal_amount(amount);
         }else{
-            //If yes, calculate the amount
-            //calculate the days of the rental
             long days = ChronoUnit.DAYS.between(checkInLocalDate, checkOutLocalDate);
             int daysInt = Math.toIntExact(days);
-
-            System.out.println("Number of days: " + daysInt);
+            System.out.println(amount);
             
-            //calculate the total price of the rental
-            double totalPrice = days * rental.getRoom().getPrice();
+            try {
+                //calculate the total price of the rental
+                Room room = RoomDAO.getRoomByID(rental.getRoom_id());
+                double price = room.getPrice();
+                double totalPrice = (daysInt+1) * price;
+                System.out.println("Total Price: " + totalPrice);
+                rental.setTotal_amount(totalPrice);
+            } catch (SQLException ex) {
+                Logger.getLogger(EditRental.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
        
 
         try {
-            //Update the rental in the database
-            if (RentalDAO.updateRental(rental)) {
-                JOptionPane.showMessageDialog(null, "Rental Updated Successfully");
-                EmployeeActionLog empLog = new EmployeeActionLog(Session.getCurrentUserId(), "Updated Rental " + rental.getRental_id());
-                EmployeeLogs.createEmployeeActionLog(empLog);
-                dispose();
-                new RentalsPage().setVisible(true);
-            } else {
-                JOptionPane.showMessageDialog(null, "Error Updating Rental");
+            switch(RentalDAO.updateRental(rental))
+            {
+                case 0:
+                    JOptionPane.showMessageDialog(null, "Rental Updated");
+                    break;
+                case 1:
+                    JOptionPane.showMessageDialog(null, "Rental Not Updated");
+                    break;
+                case 2:
+                    JOptionPane.showMessageDialog(null, "Rental Not Updated, Room is not available for the selected dates");
+                    break;
+                case 3:
+                    JOptionPane.showMessageDialog(null, "Rental Not Updated, Room is not available for the selected dates");
+                    break;
+                default:
+                    JOptionPane.showMessageDialog(null, "Rental Not Updated");
+                    break;
             }
+            dispose();
+            new RentalsPage().setVisible(true);
         } catch (SQLException ex) {
             Logger.getLogger(EditRental.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
 
 
     }//GEN-LAST:event_submitActionPerformed

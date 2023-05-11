@@ -177,7 +177,6 @@ public class EditPayments extends javax.swing.JFrame {
 
                 EmployeeLogs.createEmployeeActionLog(empActLog);
             } catch (SQLException e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
             dispose();

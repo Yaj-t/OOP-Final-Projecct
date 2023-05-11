@@ -52,43 +52,6 @@ public static boolean addRental(Rental rental) throws SQLException {
 
 
     /**
-     * Updates an existing rental in the database.
-     *
-     * @param rental the Rental object to update in the database.
-     * @return true if the rental was updated successfully, false otherwise.
-     * @throws SQLException if there was an error executing the SQL statement.
-     */
-    public static boolean updateRental(Rental rental) throws SQLException {
-        connection = Connect.connectToDatabase();
-
-        try { 
-            // Prepare the SQL statement with placeholders for the values
-            String sql = "UPDATE rentals SET tenant_id = ?, room_id = ?, check_in_date = ?, check_out_date = ?, total_amount = ? WHERE rental_id = ?";
-            PreparedStatement statement = connection.prepareStatement(sql);
-
-            // Set the values of the placeholders
-            statement.setInt(1, rental.getTenant_id());
-            statement.setInt(2, rental.getRoom_id());
-            statement.setDate(3, Date.valueOf(rental.getCheck_in_date()));
-            statement.setDate(4, Date.valueOf(rental.getCheck_out_date()));
-            statement.setDouble(5, rental.getTotal_amount());
-            statement.setInt(6, rental.getRental_id());
-
-            // Execute the SQL statement
-            int rowsUpdated = statement.executeUpdate();
-            if (rowsUpdated > 0) {
-                System.out.println("An existing rental was updated successfully!");
-                return true;
-            }
-        }catch (SQLException e) {
-            e.printStackTrace();
-        }finally {
-            Connect.closeConnection();
-        }
-        return false;
-    }
-
-    /**
      * Deletes an existing rental from the database.
      *
      * @param rental_id the ID of the rental to delete from the database.
@@ -479,53 +442,46 @@ Retrieves the total amount due for a rental
      * @throws SQLException If an error occurs while accessing the database
      */
 
-    public static int CheckRental(Rental rental) throws SQLException {
-        connection = Connect.connectToDatabase();
-        int status = 0;
-        try {
-            // Prepare the SQL statement with placeholders for the values
-            String sql = "SELECT * FROM rentals WHERE room_id = ? AND rental_id != ?";
-            PreparedStatement statement = connection.prepareStatement(sql);
-
-            // Set the values of the placeholders
+     public static int updateRental(Rental rental) throws SQLException {
+        try (Connection connection = Connect.connectToDatabase();
+             PreparedStatement statement = connection.prepareStatement("SELECT * FROM rentals WHERE room_id = ? AND rental_id != ?");
+        ) {
             statement.setInt(1, rental.getRoom_id());
             statement.setInt(2, rental.getRental_id());
-
-            // Execute the SQL statement
             ResultSet result = statement.executeQuery();
-
-            // Loop through the results and check if the room is available
+    
+            LocalDate newCheckInDate = rental.getCheck_in_date();
+            LocalDate newCheckOutDate = rental.getCheck_out_date();
+    
             while (result.next()) {
                 LocalDate checkInDate = result.getDate("check_in_date").toLocalDate();
                 LocalDate checkOutDate = result.getDate("check_out_date").toLocalDate();
-                if (rental.getCheck_in_date().isAfter(checkInDate) && rental.getCheck_in_date().isBefore(checkOutDate)) {
-                    status = 1;
-                } else if (rental.getCheck_out_date().isAfter(checkInDate) && rental.getCheck_out_date().isBefore(checkOutDate)) {
-                    status = 2;
-                } else if (rental.getCheck_in_date().isBefore(checkInDate) && rental.getCheck_out_date().isAfter(checkOutDate)) {
-                    status = 3;
+    
+                if (newCheckInDate.isAfter(checkInDate) && newCheckInDate.isBefore(checkOutDate)) {
+                    return 1; // Check-in date overlap
+                } else if (newCheckOutDate.isAfter(checkInDate) && newCheckOutDate.isBefore(checkOutDate)) {
+                    return 2; // Check-out date overlap
+                } else if (newCheckInDate.isBefore(checkInDate) && newCheckOutDate.isAfter(checkOutDate)) {
+                    return 3; // Both check-in and check-out date overlap
                 }
             }
-
-            // If the room is available, update the rental
-            if (status == 0) {
-                sql = "UPDATE rentals SET tenant_id = ?, room_id = ?, check_in_date = ?, check_out_date = ?, total_amount = ? WHERE rental_id = ?";
-                statement = connection.prepareStatement(sql);
-                statement.setInt(1, rental.getTenant_id());
-                statement.setInt(2, rental.getRoom_id());
-                statement.setDate(3, Date.valueOf(rental.getCheck_in_date()));
-                statement.setDate(4, Date.valueOf(rental.getCheck_out_date()));
-                statement.setDouble(5, rental.getTotal_amount());
-                statement.setInt(6, rental.getRental_id());
-                statement.executeUpdate();
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
+    
+            // If no overlaps found, update the rental
+            String updateQuery = "UPDATE rentals SET tenant_id = ?, room_id = ?, check_in_date = ?, check_out_date = ?, total_amount = ? WHERE rental_id = ?";
+            PreparedStatement updateStatement = connection.prepareStatement(updateQuery);
+            updateStatement.setInt(1, rental.getTenant_id());
+            updateStatement.setInt(2, rental.getRoom_id());
+            updateStatement.setDate(3, Date.valueOf(newCheckInDate));
+            updateStatement.setDate(4, Date.valueOf(newCheckOutDate));
+            updateStatement.setDouble(5, rental.getTotal_amount());
+            updateStatement.setInt(6, rental.getRental_id());
+            updateStatement.executeUpdate();
+    
+            return 0; // Room is available and rental updated
+        }finally {
             Connect.closeConnection();
         }
-        return status;
-
-    }
+    } 
+    
 
 }

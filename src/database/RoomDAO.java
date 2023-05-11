@@ -14,11 +14,10 @@ import util.Room;
  * to perform CRUD operations on the rooms table, including adding, updating and
  * deleting rooms.
  */
-
 public class RoomDAO {
 
     private static Connection connection;
-    
+
     /**
      * Constructor to create a new RoomDAO object. If the connection to the
      * database is null, it tries to connect to the database by calling the
@@ -34,15 +33,14 @@ public class RoomDAO {
         }
         Connect.closeConnection();
     }
-    
-        /**
+
+    /**
      * Inserts a new room into the rooms table.
      *
      * @param room a Room object containing the room_number, room_price, and
      * description of the new room.
      * @throws SQLException
      */
-
     public static void addRoom(Room room) throws SQLException {
         String sql = "INSERT INTO rooms (room_number, room_price, description) VALUES (?, ?, ?)";
         connection = Connect.connectToDatabase();
@@ -54,7 +52,7 @@ public class RoomDAO {
         }
         Connect.closeConnection();
     }
-    
+
     /**
      * Returns a list of all rooms in the rooms table.
      *
@@ -131,7 +129,7 @@ public class RoomDAO {
         Connect.closeConnection();
         return availableRooms;
     }
-    
+
     /**
      *
      * Returns a Room object with the given room ID.
@@ -232,7 +230,7 @@ public class RoomDAO {
         }
         Connect.closeConnection();
     }
-    
+
     /**
      *
      * Deletes a room from the database with the given room ID.
@@ -243,8 +241,6 @@ public class RoomDAO {
     public static void deleteRoombyID(int roomID) throws SQLException {
         connection = Connect.connectToDatabase();
         String sql = "DELETE FROM rooms WHERE room_id = ?";
-
-        
 
         try (PreparedStatement statement = connection.prepareStatement(sql)) {
             statement.setInt(1, roomID);
@@ -306,25 +302,4 @@ public class RoomDAO {
         return false;
     }
 
-    /**
-     * Returns the room price for the given rental id
-     * @param rentalID The rental id to be checked
-     * @return The room price for the given rental id
-     *
-     */
-    public static double getRoomPrice(int rentalID) throws SQLException {
-        connection = Connect.connectToDatabase();
-        String sql = "SELECT room_price FROM rooms WHERE room_id = (SELECT room_id FROM rentals WHERE rental_id = ?)";
-
-        try (PreparedStatement statement = connection.prepareStatement(sql)) {
-            statement.setInt(1, rentalID);
-            try (ResultSet resultSet = statement.executeQuery()) {
-                if (resultSet.next()) {
-                    return resultSet.getDouble("room_price");
-                }
-            }
-        } finally {
-            Connect.closeConnection();
-        }
-        return 0;
 }
