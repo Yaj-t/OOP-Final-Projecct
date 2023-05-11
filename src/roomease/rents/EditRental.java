@@ -106,16 +106,12 @@ public class EditRental extends javax.swing.JFrame {
         jLabel5.setText("Check Out:");
 
         CheckInDate.setDateFormatString("yyyy-MM-dd");
-        //Set the check in date to the check in date of the rental
-        CheckInDate.setDate(checkInDateSQL);
 
         CheckOutDate.setDateFormatString("yyyy-MM-dd");
-        //Set the check out date to the check out date of the rental
-        CheckOutDate.setDate(checkOutDateSQL);
 
         amountField.setForeground(new java.awt.Color(8, 99, 117));
         amountField.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
-        amountField.setText(String.valueOf(rental.getTotal_amount()));
+        amountField.setText("0.00");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -167,6 +163,9 @@ public class EditRental extends javax.swing.JFrame {
                     .addComponent(submit)
                     .addContainerGap(26, Short.MAX_VALUE)))
         );
+
+        CheckInDate.setDate(Date.from(rental.getCheck_in_date().atStartOfDay(ZoneId.systemDefault()).toInstant()));
+        CheckOutDate.setDate(Date.from(rental.getCheck_out_date().atStartOfDay(ZoneId.systemDefault()).toInstant()));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

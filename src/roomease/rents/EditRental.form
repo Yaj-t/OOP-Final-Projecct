@@ -183,6 +183,7 @@
             <Property name="dateFormatString" type="java.lang.String" value="yyyy-MM-dd"/>
           </Properties>
           <AuxValues>
+            <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="CheckInDate.setDate(Date.from(rental.getCheck_in_date().atStartOfDay(ZoneId.systemDefault()).toInstant()));"/>
             <AuxValue name="JavaCodeGenerator_SerializeTo" type="java.lang.String" value="NewJFrame_CheckInDate"/>
           </AuxValues>
         </Component>
@@ -190,6 +191,9 @@
           <Properties>
             <Property name="dateFormatString" type="java.lang.String" value="yyyy-MM-dd"/>
           </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_AddingCodePost" type="java.lang.String" value="CheckOutDate.setDate(Date.from(rental.getCheck_out_date().atStartOfDay(ZoneId.systemDefault()).toInstant()));"/>
+          </AuxValues>
         </Component>
         <Component class="javax.swing.JFormattedTextField" name="amountField">
           <Properties>
