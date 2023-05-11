@@ -224,15 +224,15 @@ the user type (admin or employee).
                 Session.currentUser = user;
                 if (userType == UserType.ADMIN) {
                     // Open main application window for admin
-                    AdminHome home = new AdminHome();
                     AdminLoginLogs loginLogs = new AdminLoginLogs(0, user.getUserID(), LogType.LOGIN, LocalDateTime.now());
                     AdminLogs.createAdminLoginLog(loginLogs);
+                    AdminHome home = new AdminHome();
                     home.setVisible(true);
                 } else if (userType == UserType.EMPLOYEE) {
                     // Open main application window for employee
-                    EmployeeHome home = new EmployeeHome();
                     EmployeeLoginLogs loginLogs = new EmployeeLoginLogs(0, user.getUserID(), LogType.LOGIN, LocalDateTime.now());
                     EmployeeLogs.createEmployeeLoginLog(loginLogs);
+                     EmployeeHome home = new EmployeeHome();
                     home.setVisible(true);
                 } else {
                     throw new IllegalArgumentException("Invalid user type: " + userType);
