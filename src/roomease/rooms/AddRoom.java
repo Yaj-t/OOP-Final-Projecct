@@ -13,7 +13,7 @@ import util.Session;
 import util.AdminActionLog;
 
 /**
- * The AddRoom class represent a JFrame the displays field and buttons for
+ * The AddRoom class represent a JFrame that displays field and buttons for
  * adding a room
  */
 public class AddRoom extends javax.swing.JFrame {

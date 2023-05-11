@@ -11,7 +11,7 @@ import java.util.logging.Logger;
 import util.Session;
 import util.AdminActionLog;
 
-/**The EditRoomt class represent a JFrame the displays field and buttons editing rooms*/
+/**The EditRoomt class represents a JFrame that displays field and buttons editing rooms*/
 public class EditRoom extends javax.swing.JFrame {
     private Room room;
 
