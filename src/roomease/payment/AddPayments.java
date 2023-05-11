@@ -3,7 +3,7 @@ package roomease.payment;
 import roomease.complaints.*;
 import roomease.homepage.EmployeeHome;
 import database.EmployeeLogs;
-import database.Payments;
+import database.PaymentDAO;
 import database.RentalDAO;
 import database.RoomDAO;
 import util.Session;
@@ -19,20 +19,28 @@ import util.Payment;
 import util.Rental;
 import util.WindowCloseHandler;
 
-/**The AddPayments class represents a JFrame that displays fields and buttons for adding payments*/
+/**
+ * The AddPayments class represents a JFrame that displays fields and buttons
+ * for adding payments
+ */
 public class AddPayments extends javax.swing.JFrame {
-    /**Creates a Rental List for class*/
+
+    /**
+     * Creates a Rental List for class
+     */
     List<Rental> rentalList;
 
     public AddPayments() {
         System.out.println("Add Payments");
         initComponents();
-        /**Fills the table with data from the database*/
+        /**
+         * Fills the table with data from the database
+         */
         try {
             rentalList = RentalDAO.getUnPainRentals();
             DefaultTableModel tableModel = (DefaultTableModel) rentalsTable.getModel();
             for (Rental rental : rentalList) {
-                Object[] rowData = { rental.getRental_id() ,rental.getTenant_id(), RoomDAO.getRoomByID(rental.getRoom_id()).getRoomNumber(), rental.getCheck_in_date(), rental.getCheck_out_date(), rental.getTotal_amount()};
+                Object[] rowData = {rental.getRental_id(), rental.getTenant_id(), RoomDAO.getRoomByID(rental.getRoom_id()).getRoomNumber(), rental.getCheck_in_date(), rental.getCheck_out_date(), rental.getTotal_amount()};
                 tableModel.addRow(rowData);
             }
             rentalsTable.setModel(tableModel);
@@ -204,7 +212,9 @@ public class AddPayments extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-  /**Disposes current frame and creates a PaymentPage then sets it it visible*/
+  /**
+     * Disposes current frame and creates a PaymentPage then sets it it visible
+     */
     private void goBackButtomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_goBackButtomActionPerformed
         // TODO add your handling code here:
         dispose();
@@ -246,14 +256,12 @@ public class AddPayments extends javax.swing.JFrame {
             int rentalID = (int) rentalsTable.getValueAt(selectedRow, 0);
             System.out.println(rentalID);
 
-
             // Get Rental Amount from the table
             double amountDue = (double) rentalsTable.getValueAt(selectedRow, 5);
             System.out.println(amountDue);
-            
 
-            if (Double.parseDouble(amountField.getText()) >= amountDue) { 
-                
+            if (Double.parseDouble(amountField.getText()) >= amountDue) {
+
                 if (Double.parseDouble(amountField.getText()) > amountDue) {
                     JOptionPane.showMessageDialog(null, "The amount entered is greater than the amount due.");
                     return;
@@ -271,8 +279,8 @@ public class AddPayments extends javax.swing.JFrame {
 
             try {
                 // Create Payment
-                Payment payment = new Payment( rentalID, Session.getCurrentUserId(), Double.parseDouble(amountField.getText()), descriptionField.getText());
-                Payments.addPayment(payment);
+                Payment payment = new Payment(rentalID, Session.getCurrentUserId(), Double.parseDouble(amountField.getText()), descriptionField.getText());
+                PaymentDAO.addPayment(payment);
                 JOptionPane.showMessageDialog(this, "Payment added successfully!");
 
                 // Adjust amount due

@@ -10,7 +10,7 @@ import util.Payment;
  *
  * This class handles database operations related to payments.
  */
-public class Payments {
+public class PaymentDAO {
 
     /**
      * Gets all payments from the database.
@@ -133,6 +133,49 @@ public class Payments {
     }
 
     /**
+     * Deletes a payment from the database.
+     *
+     * @param paymentId the ID of the payment to delete
+     */
+    public static void deletePayment(int paymentId) {
+        String sql = "DELETE FROM payments WHERE payment_id = ?";
+
+        try (Connection connection = Connect.connectToDatabase();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setInt(1, paymentId);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println("Error deleting payment: " + e.getMessage());
+        }finally {
+        	Connect.closeConnection();
+        }
+    }
+
+    /**
+     * Updates a payment in the database.
+     * @param payment
+    */
+    public static void updatePayment(Payment payment) {
+        String sql = "UPDATE payments SET rental_id = ?, employee_id = ?, amount = ?, payment_date = ?, description = ? WHERE payment_id = ?";
+
+        try (Connection connection = Connect.connectToDatabase();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setInt(1, payment.getRental_id());
+            statement.setInt(2, payment.getEmployee_id());
+            statement.setDouble(3, payment.getAmount());
+            statement.setDate(4, Date.valueOf(payment.getPayment_date()));
+            statement.setString(5, payment.getDescription());
+            statement.setInt(6, payment.getPayment_id());
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println("Error updating payment: " + e.getMessage());
+        }finally {
+        	Connect.closeConnection();
+        }
+    }
+
+
+    /**
      * Checks if a rental has been paid.
      *
      * @param rentalId the ID of the rental to check
@@ -154,6 +197,36 @@ public class Payments {
         	Connect.closeConnection();
         }
         return isPaid;
+    }
+
+    /**
+     * Gets Payment from payment_id
+     * @param paymentId
+     * @return Payment
+     */
+     public static Payment getPaymetnByID(int paymentId) {
+        Payment payment = null;
+        try (Connection connection = Connect.connectToDatabase();
+             PreparedStatement statement = connection.prepareStatement("SELECT * FROM payments WHERE payment_id = ?")) {
+            statement.setInt(1, paymentId);
+            ResultSet resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                payment = new Payment(
+                        resultSet.getInt("payment_id"),
+                        resultSet.getInt("rental_id"),
+                        resultSet.getInt("employee_id"),
+                        resultSet.getDouble("amount"),
+                        resultSet.getDate("payment_date").toLocalDate(),
+                        resultSet.getString("description")
+                );
+            }
+        } catch (SQLException e) {
+            System.out.println("Error getting payment by id: " + e.getMessage());
+        }finally {
+        	Connect.closeConnection();
+        }
+        return payment;
     }
 
 }

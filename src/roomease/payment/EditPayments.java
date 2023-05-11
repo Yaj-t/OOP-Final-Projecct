@@ -1,46 +1,27 @@
-package roomease.rooms;
+package roomease.payment;
 
-import database.AdminLogs;
-import database.RoomDAO;
+import database.EmployeeLogs;
+import database.PaymentDAO;
+
+import java.sql.SQLException;
+
 import javax.swing.JOptionPane;
-import util.Room;
 import util.WindowCloseHandler;
-import java.sql.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import util.EmployeeActionLog;
+import util.Payment;
 import util.Session;
-import util.AdminActionLog;
 
-/**
- * The EditRoomt class represents a JFrame that displays field and buttons
- * editing rooms
- */
-public class EditRoom extends javax.swing.JFrame {
+public class EditPayments extends javax.swing.JFrame {
 
-    private Room room;
-
-    public Room getRoom() {
-        return room;
-    }
-
-    public void setRoom(Room room) {
-        this.room = room;
-    }
+    private final Payment payment;
 
     /**
      * Creates new form EditRoom
      *
-     * @param room
+     * @param id
      */
-    public EditRoom(Room room) {
-        System.out.println("EditRoom constructor");
-        this.room = room;
-        initComponents();
-        WindowCloseHandler.addWindowClosingListener(this);
-    }
-
-    public EditRoom() {
-        System.out.println("EditRoom constructor");
+    public EditPayments(int id) {
+        payment = PaymentDAO.getPaymetnByID(id);
         initComponents();
         WindowCloseHandler.addWindowClosingListener(this);
     }
@@ -62,7 +43,7 @@ public class EditRoom extends javax.swing.JFrame {
         descriptionField = new javax.swing.JTextArea();
         descriptionLabel = new javax.swing.JLabel();
         backButton = new javax.swing.JButton();
-        priceField = new javax.swing.JTextField();
+        amountField = new javax.swing.JFormattedTextField();
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -93,7 +74,7 @@ public class EditRoom extends javax.swing.JFrame {
 
         descriptionField.setColumns(20);
         descriptionField.setRows(5);
-        descriptionField.setText(room.getDescription());
+        descriptionField.setText(payment.getDescription());
         jScrollPane1.setViewportView(descriptionField);
 
         descriptionLabel.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
@@ -108,19 +89,18 @@ public class EditRoom extends javax.swing.JFrame {
             }
         });
 
-        priceField.setFont(new java.awt.Font("SansSerif", 0, 16)); // NOI18N
-        priceField.setText(Double.toString(room.getPrice()));
-        priceField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                priceFieldActionPerformed(evt);
-            }
-        });
+        amountField.setForeground(new java.awt.Color(8, 99, 117));
+        amountField.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
+        amountField.setText(String.valueOf(payment.getAmount()));
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 372, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(135, 135, 135)
+                .addComponent(amountField)
+                .addGap(106, 106, 106))
             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel2Layout.createSequentialGroup()
                     .addContainerGap()
@@ -129,9 +109,7 @@ public class EditRoom extends javax.swing.JFrame {
                             .addGap(66, 66, 66)
                             .addComponent(priceLabel)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(priceField, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(submit)))
+                            .addComponent(submit))
                         .addGroup(jPanel2Layout.createSequentialGroup()
                             .addGap(8, 8, 8)
                             .addComponent(descriptionLabel)
@@ -142,16 +120,17 @@ public class EditRoom extends javax.swing.JFrame {
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 241, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(38, 38, 38)
+                .addComponent(amountField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(181, Short.MAX_VALUE))
             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel2Layout.createSequentialGroup()
                     .addContainerGap()
                     .addComponent(backButton)
                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(priceLabel)
-                        .addComponent(priceField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGap(14, 14, 14)
+                    .addComponent(priceLabel)
+                    .addGap(16, 16, 16)
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(descriptionLabel)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -178,21 +157,33 @@ public class EditRoom extends javax.swing.JFrame {
      * Checks the entered values and inserts changes into DB
      */
     private void submitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitActionPerformed
-        room.setPrice(Float.parseFloat(priceField.getText()));
-        room.setDescription(descriptionField.getText());
-        try {
-            RoomDAO.updateRoom(room);
-            JOptionPane.showMessageDialog(this, "Room updated successfully!");
+        //Get all value of fields
 
-            // Create log message
-            AdminActionLog log = new AdminActionLog(Session.getCurrentUserId(), "Updated room " + '"' + room.getId() + '"');
-            AdminLogs.createAdminActionLog(log);
+        String description = descriptionField.getText();
+        double amount = Double.parseDouble(amountField.getText());
 
+        //Check if all fields are filled
+        if (description.equals("") || amount == 0) {
+            JOptionPane.showMessageDialog(null, "Please fill all fields!");
+        } else {
+            //Insert changes into DB
+            payment.setDescription(description);
+            payment.setAmount(amount);
+            try {
+                PaymentDAO.updatePayment(payment);
+                JOptionPane.showMessageDialog(null, "Payment updated successfully!");
+
+                EmployeeActionLog empActLog = new EmployeeActionLog(Session.getCurrentUserId(), "Updated payment with id: " + payment.getPayment_id());
+
+                EmployeeLogs.createEmployeeActionLog(empActLog);
+            } catch (SQLException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
             dispose();
-            new RoomsPage().setVisible(true);
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(this, "Error updating room: " + ex.getMessage());
+            new PaymentPage().setVisible(true);
         }
+
     }//GEN-LAST:event_submitActionPerformed
     /**
      * Disposes current frame and creates new RoomsPage
@@ -200,44 +191,18 @@ public class EditRoom extends javax.swing.JFrame {
     private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
         // TODO add your handling code here:
         dispose();
-        new RoomsPage().setVisible(true);
+        new PaymentPage().setVisible(true);
     }//GEN-LAST:event_backButtonActionPerformed
 
-    private void priceFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_priceFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_priceFieldActionPerformed
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Create and display the dialog */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                try {
-                    EditRoom dialog = new EditRoom(RoomDAO.getRoomByNumber("1"));
-                    dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                        @Override
-                        public void windowClosing(java.awt.event.WindowEvent e) {
-                            System.exit(0);
-                        }
-                    });
-                    dialog.setVisible(true);
-                } catch (SQLException ex) {
-                    Logger.getLogger(EditRoom.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JFormattedTextField amountField;
     private javax.swing.JButton backButton;
     private javax.swing.JTextArea descriptionField;
     private javax.swing.JLabel descriptionLabel;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField priceField;
     private javax.swing.JLabel priceLabel;
     private javax.swing.JButton submit;
     // End of variables declaration//GEN-END:variables

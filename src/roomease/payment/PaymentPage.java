@@ -1,10 +1,17 @@
 package roomease.payment;
 
-import database.Payments;
+import database.EmployeeLogs;
+import database.PaymentDAO;
+import java.sql.SQLException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import roomease.homepage.EmployeeHome;
+import util.EmployeeActionLog;
 import util.Payment;
+import util.Session;
 import util.WindowCloseHandler;
 
 /**
@@ -12,14 +19,19 @@ import util.WindowCloseHandler;
  * other additional functions.
  */
 public class PaymentPage extends javax.swing.JFrame {
-    /**Creates a  list of Payment for the class*/
-    List <Payment> paymentsList;
+
+    /**
+     * Creates a list of Payment for the class
+     */
+    List<Payment> paymentsList;
 
     public PaymentPage() {
         System.out.println("Payment Page");
         initComponents();
-        /**Fills the table with data from database*/
-        paymentsList = Payments.getAllPayments();
+        /**
+         * Fills the table with data from database
+         */
+        paymentsList = PaymentDAO.getAllPayments();
         DefaultTableModel tableModel = (DefaultTableModel) paymentsTable.getModel();
         for (Payment payment : paymentsList) {
             Object[] rowData = {payment.getPayment_id(), payment.getRental_id(), payment.getEmployee_id(), payment.getAmount(), payment.getPayment_date(), payment.getDescription()};
@@ -27,10 +39,9 @@ public class PaymentPage extends javax.swing.JFrame {
         }
         paymentsTable.setModel(tableModel);
 
-        
         setResizable(false);
         WindowCloseHandler.addWindowClosingListener(this);
-      
+
     }
 
     /**
@@ -50,6 +61,8 @@ public class PaymentPage extends javax.swing.JFrame {
         add = new javax.swing.JButton();
         goBackButtom = new javax.swing.JButton();
         jLabel8 = new javax.swing.JLabel();
+        edit = new javax.swing.JButton();
+        delete = new javax.swing.JButton();
 
         jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(247, 236, 89));
@@ -118,6 +131,22 @@ public class PaymentPage extends javax.swing.JFrame {
         jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel8.setText("Payments");
 
+        edit.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
+        edit.setText("EDIT");
+        edit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                editActionPerformed(evt);
+            }
+        });
+
+        delete.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
+        delete.setText("DELETE");
+        delete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout backgroundLayout = new javax.swing.GroupLayout(background);
         background.setLayout(backgroundLayout);
         backgroundLayout.setHorizontalGroup(
@@ -132,26 +161,32 @@ public class PaymentPage extends javax.swing.JFrame {
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(add, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(goBackButtom, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(goBackButtom, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(edit, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(delete, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap())
             .addGroup(backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(backgroundLayout.createSequentialGroup()
                     .addContainerGap()
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 557, Short.MAX_VALUE)
-                    .addGap(122, 122, 122)))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 560, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(119, Short.MAX_VALUE)))
         );
         backgroundLayout.setVerticalGroup(
             backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, backgroundLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel8)
-                .addGap(143, 143, 143)
+                .addGap(104, 104, 104)
                 .addComponent(add)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(edit)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(delete)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 108, Short.MAX_VALUE)
                 .addComponent(goBackButtom)
-                .addContainerGap(155, Short.MAX_VALUE))
+                .addGap(30, 30, 30))
             .addGroup(backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(backgroundLayout.createSequentialGroup()
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, backgroundLayout.createSequentialGroup()
                     .addGap(43, 43, 43)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 350, Short.MAX_VALUE)
                     .addContainerGap()))
@@ -175,17 +210,57 @@ public class PaymentPage extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-  /**Disposes current frame and creates an AddPayments then sets it it visible*/
+  /**
+     * Disposes current frame and creates an AddPayments then sets it it visible
+     */
     private void addActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addActionPerformed
         dispose();
         new AddPayments().setVisible(true);
-        
+
     }//GEN-LAST:event_addActionPerformed
-  /**Disposes current frame and creates an EmployeeHomme then sets it it visible*/
+    /**
+     * Disposes current frame and creates an EmployeeHomme then sets it it
+     * visible
+     */
     private void goBackButtomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_goBackButtomActionPerformed
         dispose();
         new EmployeeHome().setVisible(true);
     }//GEN-LAST:event_goBackButtomActionPerformed
+
+    private void editActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_editActionPerformed
+        int row = paymentsTable.getSelectedRow(); //get selected row
+        if (row != -1) {
+            int id = (int) paymentsTable.getValueAt(row, 0); //get id from selected row
+            dispose();
+            new EditPayments(id).setVisible(true); //create edit payments frame
+        } else {
+            JOptionPane.showMessageDialog(null, "Please select a row to edit.");
+        }
+    }//GEN-LAST:event_editActionPerformed
+
+    private void deleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteActionPerformed
+
+        int row = paymentsTable.getSelectedRow(); //get selected row
+        if (row != -1) {
+            int id = (int) paymentsTable.getValueAt(row, 0); //get id from selected row
+            try {
+                PaymentDAO.deletePayment(id); //delete payment
+                JOptionPane.showMessageDialog(null, "Payment deleted successfully.");
+                EmployeeActionLog log = new EmployeeActionLog(Session.getCurrentUserId(), "Deleted payment id: " + id);
+                EmployeeLogs.createEmployeeActionLog(log);
+
+                dispose();
+                new PaymentPage().setVisible(true);
+            } catch (SQLException ex) {
+                Logger.getLogger(PaymentPage.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        } else {
+            JOptionPane.showMessageDialog(null, "Please select a row to delete.");
+
+        }
+
+    }//GEN-LAST:event_deleteActionPerformed
 
     /**
      * @param args the command line arguments
@@ -198,12 +273,13 @@ public class PaymentPage extends javax.swing.JFrame {
             }
         });
     }
-    
-    
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton add;
     private javax.swing.JPanel background;
+    private javax.swing.JButton delete;
+    private javax.swing.JButton edit;
     private javax.swing.JButton goBackButtom;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;

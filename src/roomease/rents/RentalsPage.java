@@ -1,4 +1,3 @@
-
 package roomease.rents;
 
 import database.EmployeeLogs;
@@ -22,16 +21,15 @@ import util.WindowCloseHandler;
  * buttons for CRUD operations
  */
 public class RentalsPage extends javax.swing.JFrame {
-    List <Rental> rentalsList;
+
+    List<Rental> rentalsList;
 
     /**
-     * Creates new form 
+     * Creates new form
      */
-    
     public RentalsPage() {
         System.out.println("RentalsPage");
         initComponents();
-
 
         try {
             rentalsList = RentalDAO.getAllRentals();
@@ -46,10 +44,9 @@ public class RentalsPage extends javax.swing.JFrame {
             Logger.getLogger(Room.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        
         setResizable(false);
         WindowCloseHandler.addWindowClosingListener(this);
-      
+
     }
 
     /**
@@ -176,9 +173,12 @@ public class RentalsPage extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-/** check is there is a selected row then notify the user then deletes the rental and tenant*/
+/**
+     * check is there is a selected row then notify the user then deletes the
+     * rental and tenant
+     */
     private void deleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteActionPerformed
-        
+
         int row = rentalsTable.getSelectedRow(); //get selected row
         if (row != -1) {
             int id = (int) rentalsTable.getValueAt(row, 0); //get id from selected row
@@ -188,10 +188,10 @@ public class RentalsPage extends javax.swing.JFrame {
                 int tenantID = (int) rentalsTable.getValueAt(row, 0);
                 TenantDAO.deleteTenantById(tenantID);
                 JOptionPane.showMessageDialog(null, "Rental deleted successfully.");
-                
-                EmployeeActionLog log = new EmployeeActionLog( Session.getCurrentUserId(),  "Deleted rental id: " + id);
+
+                EmployeeActionLog log = new EmployeeActionLog(Session.getCurrentUserId(), "Deleted rental id: " + id);
                 EmployeeLogs.createEmployeeActionLog(log);
-                EmployeeLogs.createEmployeeActionLog(log = new EmployeeActionLog( Session.getCurrentUserId(),  "Deleted tenant id: " + tenantID));
+                EmployeeLogs.createEmployeeActionLog(log = new EmployeeActionLog(Session.getCurrentUserId(), "Deleted tenant id: " + tenantID));
                 dispose();
                 new RentalsPage().setVisible(true);
             } catch (SQLException ex) {
@@ -217,7 +217,9 @@ public class RentalsPage extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Please select a row to edit.");
         }
     }//GEN-LAST:event_editActionPerformed
-/**disposes current frame and creates new AdminHome*/
+    /**
+     * disposes current frame and creates new AdminHome
+     */
     private void goBackButtomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_goBackButtomActionPerformed
         dispose();
         new EmployeeHome().setVisible(true);
@@ -234,8 +236,7 @@ public class RentalsPage extends javax.swing.JFrame {
             }
         });
     }
-    
-    
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton delete;

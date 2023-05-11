@@ -13,8 +13,12 @@ import util.EmployeeActionLog;
 import util.Rental;
 import util.Session;
 
-/**The EditRental class represent a JFrame the displays field and buttons editing Rental*/
+/**
+ * The EditRental class represent a JFrame the displays field and buttons
+ * editing Rental
+ */
 public class EditRental extends javax.swing.JFrame {
+
     private final Rental rental;
     //Make 2 local date variables to store the check in and check out dates
     private final Date checkOutDateSQL;
@@ -22,6 +26,7 @@ public class EditRental extends javax.swing.JFrame {
 
     /**
      * Creates new form EditRental
+     *
      * @param rental
      */
     public EditRental(Rental rental) {
@@ -36,7 +41,6 @@ public class EditRental extends javax.swing.JFrame {
         checkInDateSQL = Date.valueOf(checkInDate);
         checkOutDateSQL = Date.valueOf(checkOutDate);
     }
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -102,12 +106,16 @@ public class EditRental extends javax.swing.JFrame {
         jLabel5.setText("Check Out:");
 
         CheckInDate.setDateFormatString("yyyy-MM-dd");
+        //Set the check in date to the check in date of the rental
+        CheckInDate.setDate(checkInDateSQL);
 
         CheckOutDate.setDateFormatString("yyyy-MM-dd");
+        //Set the check out date to the check out date of the rental
+        CheckOutDate.setDate(checkOutDateSQL);
 
         amountField.setForeground(new java.awt.Color(8, 99, 117));
         amountField.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
-        amountField.setText("0.00");
+        amountField.setText(String.valueOf(rental.getTotal_amount()));
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -174,7 +182,9 @@ public class EditRental extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-/**Checks the entered values and inserts changes into DB*/
+/**
+     * Checks the entered values and inserts changes into DB
+     */
     private void submitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitActionPerformed
 
         //Get the check in and check out dates
@@ -235,7 +245,6 @@ public class EditRental extends javax.swing.JFrame {
             Logger.getLogger(EditRental.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-
         //Update the rental
         rental.setCheck_in_date(checkInLocalDate);
         rental.setCheck_out_date(checkOutLocalDate);
@@ -259,13 +268,14 @@ public class EditRental extends javax.swing.JFrame {
 
     }//GEN-LAST:event_submitActionPerformed
 
-/**Disposes current frame and creates new RentalsPage*/
+    /**
+     * Disposes current frame and creates new RentalsPage
+     */
     private void BackRental(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BackRental
         dispose();
         new RentalsPage().setVisible(true);
     }//GEN-LAST:event_BackRental
 
-  
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.toedter.calendar.JDateChooser CheckInDate;
