@@ -464,4 +464,74 @@ Retrieves the total amount due for a rental
         }
         return totalAmount;
     }
+
+
+
+    /**
+     * Checks if the specified check in date is valid for the specified rental. A check in date is
+     * valid if it is after the rental's check out date.
+     * @param checkInDate The check in date to check
+     * @param rentalId The ID of the rental to check
+     * @return true if the check in date is valid, false otherwise
+     * @throws SQLException If an error occurs while accessing the database
+     */
+
+    public static boolean check_inCheck(LocalDate checkInDate, int rentalId) throws SQLException {
+        connection = Connect.connectToDatabase();
+        boolean isValid = false;
+        try {
+            // Prepare the SQL statement with placeholders for the values
+            String sql = "SELECT check_in_date FROM rentals WHERE rental_id = ?";
+            PreparedStatement statement = connection.prepareStatement(sql);
+
+            // Set the values of the placeholders
+            statement.setInt(1, rentalId);
+
+            // Execute the SQL statement
+            ResultSet result = statement.executeQuery();
+
+            // Loop through the results and add them to the list
+            while (result.next()) {
+                LocalDate checkInDateFromDB = result.getDate("check_in_date").toLocalDate();
+                if (checkInDateFromDB.isAfter(checkInDate)) {
+                    isValid = true;
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            Connect.closeConnection();
+        }
+        return isValid;
+    }
+
+    /**
+     * Checks if the specified check out date is valid for the specified rental. A check out date is
+     * valid if it is after the rental's check in date.
+     * @param checkOutDate The check out date to check
+     * @param rentalId The ID of the rental to check
+     * @return true if the check out date is valid, false otherwise
+     * @throws SQLException If an error occurs while accessing the database
+     */
+
+    public static void check_outCheck(LocalDate checkOutDate, int rental_id) throws SQLException {
+        connection = Connect.connectToDatabase();
+        try {
+            // Prepare the SQL statement with placeholders for the values
+            String sql = "UPDATE rentals SET check_out_date = ? WHERE rental_id = ?";
+            PreparedStatement statement = connection.prepareStatement(sql);
+
+            // Set the values of the placeholders
+            statement.setDate(1, Date.valueOf(checkOutDate));
+            statement.setInt(2, rental_id);
+
+            // Execute the SQL statement
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            Connect.closeConnection();
+        }
+    }
+
 }
