@@ -24,6 +24,7 @@ public class EditRoom extends javax.swing.JFrame {
     }
     /**
      * Creates new form EditRoom
+     * @param room
      */
     public EditRoom(Room room) {
         System.out.println("EditRoom constructor");

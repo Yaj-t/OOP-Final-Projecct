@@ -100,7 +100,7 @@ public static boolean addRental(Rental rental) throws SQLException {
 
         try { 
             // Prepare the SQL statement with placeholders for the values
-            String sql = "DELETE FROM rentasl WHERE rental_id = ?";
+            String sql = "DELETE FROM rentals WHERE rental_id = ?";
             PreparedStatement statement = connection.prepareStatement(sql);
 
             // Set the values of the placeholders
@@ -513,25 +513,33 @@ Retrieves the total amount due for a rental
      * @return true if the check out date is valid, false otherwise
      * @throws SQLException If an error occurs while accessing the database
      */
-
-    public static void check_outCheck(LocalDate checkOutDate, int rental_id) throws SQLException {
+    public static boolean check_outCheck(LocalDate checkOutDate, int rental_id) throws SQLException {
         connection = Connect.connectToDatabase();
+        boolean isValid = false;
         try {
             // Prepare the SQL statement with placeholders for the values
-            String sql = "UPDATE rentals SET check_out_date = ? WHERE rental_id = ?";
+            String sql = "SELECT check_out_date FROM rentals WHERE rental_id = ?";
             PreparedStatement statement = connection.prepareStatement(sql);
 
             // Set the values of the placeholders
-            statement.setDate(1, Date.valueOf(checkOutDate));
-            statement.setInt(2, rental_id);
+            statement.setInt(1, rental_id);
 
             // Execute the SQL statement
-            statement.executeUpdate();
+            ResultSet result = statement.executeQuery();
+
+            // Loop through the results and add them to the list
+            while (result.next()) {
+                LocalDate checkOutDateFromDB = result.getDate("check_out_date").toLocalDate();
+                if (checkOutDateFromDB.isBefore(checkOutDate)) {
+                    isValid = true;
+                }
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
             Connect.closeConnection();
         }
+        return isValid;
     }
 
 }

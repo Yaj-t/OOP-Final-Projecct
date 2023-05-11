@@ -16,6 +16,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
 import roomease.LoginPage;
+import roomease.rents.RentalsPage;
 import user.Session;
 import util.EmployeeLoginLogs;
 import util.Rental;
@@ -83,10 +84,12 @@ public class EmployeeHome extends javax.swing.JFrame {
         sidePanel = new javax.swing.JPanel();
         bookingsButton = new javax.swing.JButton();
         expensesButton = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        LogOutButton = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         complaints = new javax.swing.JButton();
         PaymentBut = new javax.swing.JButton();
+        RentalEdit = new javax.swing.JButton();
+        TenantButton = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -100,7 +103,7 @@ public class EmployeeHome extends javax.swing.JFrame {
         sidePanel.setBackground(new java.awt.Color(142, 74, 73));
 
         bookingsButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        bookingsButton.setText("Renting");
+        bookingsButton.setText("New Rental");
         bookingsButton.setFocusPainted(false);
         bookingsButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -117,12 +120,12 @@ public class EmployeeHome extends javax.swing.JFrame {
             }
         });
 
-        jButton3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jButton3.setText("Logout");
-        jButton3.setFocusPainted(false);
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        LogOutButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        LogOutButton.setText("Logout");
+        LogOutButton.setFocusPainted(false);
+        LogOutButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                LogOutAction(evt);
             }
         });
 
@@ -150,6 +153,24 @@ public class EmployeeHome extends javax.swing.JFrame {
             }
         });
 
+        RentalEdit.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        RentalEdit.setText("Rental Edit");
+        RentalEdit.setFocusPainted(false);
+        RentalEdit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RentalPage(evt);
+            }
+        });
+
+        TenantButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        TenantButton.setText("Tenant Edit");
+        TenantButton.setFocusPainted(false);
+        TenantButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TenantPage(evt);
+            }
+        });
+
         javax.swing.GroupLayout sidePanelLayout = new javax.swing.GroupLayout(sidePanel);
         sidePanel.setLayout(sidePanelLayout);
         sidePanelLayout.setHorizontalGroup(
@@ -157,13 +178,18 @@ public class EmployeeHome extends javax.swing.JFrame {
             .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(sidePanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(sidePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(complaints, javax.swing.GroupLayout.DEFAULT_SIZE, 113, Short.MAX_VALUE)
-                    .addComponent(jButton3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(expensesButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(bookingsButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(PaymentBut, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(sidePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(sidePanelLayout.createSequentialGroup()
+                        .addGroup(sidePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(complaints, javax.swing.GroupLayout.DEFAULT_SIZE, 113, Short.MAX_VALUE)
+                            .addComponent(LogOutButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(expensesButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(bookingsButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(PaymentBut, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(RentalEdit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(TenantButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         sidePanelLayout.setVerticalGroup(
             sidePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -172,15 +198,19 @@ public class EmployeeHome extends javax.swing.JFrame {
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(5, 5, 5)
                 .addComponent(bookingsButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(expensesButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(complaints)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(PaymentBut)
-                .addGap(63, 63, 63)
-                .addComponent(jButton3)
-                .addContainerGap(59, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(RentalEdit)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(TenantButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(LogOutButton)
+                .addContainerGap())
         );
 
         jPanel1.setBackground(new java.awt.Color(8, 99, 117));
@@ -279,7 +309,7 @@ public class EmployeeHome extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(sidePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 317, Short.MAX_VALUE)
         );
 
         pack();
@@ -289,7 +319,7 @@ public class EmployeeHome extends javax.swing.JFrame {
  * It disposes the current frame and creates a new LoginPage
  * @param evt 
  */
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void LogOutAction(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LogOutAction
 
         try {
             //create a new employee login log
@@ -303,7 +333,7 @@ public class EmployeeHome extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(EmployeeHome.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_LogOutAction
   /**Disposes the current frame and creates a new ExpensesPage then sets it to visible*/
     private void expensesButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_expensesButtonActionPerformed
         dispose();
@@ -331,6 +361,18 @@ public class EmployeeHome extends javax.swing.JFrame {
         dispose();
         new PaymentPage().setVisible(true);
     }//GEN-LAST:event_PaymentPerform
+
+    private void RentalPage(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RentalPage
+        
+        dispose();
+        new RentalsPage().setVisible(true);
+        
+
+    }//GEN-LAST:event_RentalPage
+
+    private void TenantPage(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TenantPage
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TenantPage
     
     
     
@@ -347,11 +389,13 @@ public class EmployeeHome extends javax.swing.JFrame {
     }
     private DefaultTableModel tableModel;
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton LogOutButton;
     private javax.swing.JButton PaymentBut;
+    private javax.swing.JButton RentalEdit;
+    private javax.swing.JButton TenantButton;
     private javax.swing.JButton bookingsButton;
     private javax.swing.JButton complaints;
     private javax.swing.JButton expensesButton;
-    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
