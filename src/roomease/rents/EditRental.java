@@ -195,7 +195,7 @@ public class EditRental extends javax.swing.JFrame {
         LocalDate currDate = LocalDate.now();
 
         //Get the Amount
-        double amount = Double.parseDouble(amountField.getText());
+        double amount = (double) amountField.getValue();
 
         //Verify that the check in date is not before the current date
         if (checkInDate.before(Date.valueOf(currDate))) {
