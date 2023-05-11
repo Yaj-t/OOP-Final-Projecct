@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"database"},{"l":"enums"},{"l":"roomease"},{"l":"roomease.complaints"},{"l":"roomease.expenses"},{"l":"roomease.homepage"},{"l":"roomease.logs"},{"l":"roomease.payment"},{"l":"roomease.rents"},{"l":"roomease.rooms"},{"l":"roomease.users"},{"l":"user"},{"l":"util"}];updateSearchResults();
