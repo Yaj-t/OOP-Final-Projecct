@@ -5,7 +5,7 @@ import enums.LogType;
 
 /**
  *
- * The LoginLogs class represents login logs of users. It contains information
+ * The LoginLogs class represents the login logs of users. It contains information
  * such as log ID, user ID, log type, and log time.
  */
 public class LoginLogs {

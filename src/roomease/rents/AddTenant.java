@@ -18,7 +18,7 @@ import util.Tenant;
 import util.WindowCloseHandler;
 
 /**
- * The AddTenant class represent a JFrame the displays field and buttons for
+ * The AddTenant class represent a JFrame that displays field and buttons for
  * adding a tenant
  */
 public class AddTenant extends javax.swing.JFrame {

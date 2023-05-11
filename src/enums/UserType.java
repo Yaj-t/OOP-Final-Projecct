@@ -1,6 +1,6 @@
 package enums;
 /**
-Enum class representing the different types of users that can exist in the system.
+An Enum class representing the different types of users that can exist in the system.
 Currently, there are two types of users: Admin and Employee.
 */
 public enum UserType {

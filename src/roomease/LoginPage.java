@@ -19,7 +19,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
-/**LoginPage represents a JFrame that display a login page*/
+/**LoginPage represents a JFrame that displays a login page*/
 public class LoginPage extends javax.swing.JFrame {
 
     /**

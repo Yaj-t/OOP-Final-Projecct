@@ -9,7 +9,7 @@ import util.WindowCloseHandler;
 
 /**
  * The PaymentPage class represents a JFrame that shows the payments made and
- * other additional functinos
+ * other additional functions.
  */
 public class PaymentPage extends javax.swing.JFrame {
     /**Creates a  list of Payment for the class*/
