@@ -465,79 +465,67 @@ Retrieves the total amount due for a rental
         return totalAmount;
     }
 
-
-
     /**
-     * Checks if the specified check in date is valid for the specified rental. A check in date is
-     * valid if it is after the rental's check out date.
-     * @param checkInDate The check in date to check
-     * @param rentalId The ID of the rental to check
-     * @return true if the check in date is valid, false otherwise
+     * Recieves the edited rental and checks if the room is available for the specified dates.
+     * If the room is available, the rental is updated with the new details.
+     * If the room is not available, the rental is not updated. It will return numbers
+     * to indicate the status of the update. 0 means the room is available and the rental
+     * can be updated. 1 means the room is not available because check in date overlaps
+     * with another rental. 2 means the room is not available because check out date overlaps
+     * with another rental. 3 means the room is not available because the check in date and
+     * check out date overlaps with another rental.
+     * @param rental The edited rental
+     * @return An integer indicating the status of the update
      * @throws SQLException If an error occurs while accessing the database
      */
 
-    public static boolean check_inCheck(LocalDate checkInDate, int rentalId) throws SQLException {
+    public static int updateRental(Rental rental) throws SQLException {
         connection = Connect.connectToDatabase();
-        boolean isValid = false;
+        int status = 0;
         try {
             // Prepare the SQL statement with placeholders for the values
-            String sql = "SELECT check_in_date FROM rentals WHERE rental_id = ?";
+            String sql = "SELECT * FROM rentals WHERE room_id = ? AND rental_id != ?";
             PreparedStatement statement = connection.prepareStatement(sql);
 
             // Set the values of the placeholders
-            statement.setInt(1, rentalId);
+            statement.setInt(1, rental.getRoom_id());
+            statement.setInt(2, rental.getRental_id());
 
             // Execute the SQL statement
             ResultSet result = statement.executeQuery();
 
-            // Loop through the results and add them to the list
+            // Loop through the results and check if the room is available
             while (result.next()) {
-                LocalDate checkInDateFromDB = result.getDate("check_in_date").toLocalDate();
-                if (checkInDateFromDB.isAfter(checkInDate)) {
-                    isValid = true;
+                LocalDate checkInDate = result.getDate("check_in_date").toLocalDate();
+                LocalDate checkOutDate = result.getDate("check_out_date").toLocalDate();
+                if (rental.getCheck_in_date().isAfter(checkInDate) && rental.getCheck_in_date().isBefore(checkOutDate)) {
+                    status = 1;
+                } else if (rental.getCheck_out_date().isAfter(checkInDate) && rental.getCheck_out_date().isBefore(checkOutDate)) {
+                    status = 2;
+                } else if (rental.getCheck_in_date().isBefore(checkInDate) && rental.getCheck_out_date().isAfter(checkOutDate)) {
+                    status = 3;
                 }
+            }
+
+            // If the room is available, update the rental
+            if (status == 0) {
+                sql = "UPDATE rentals SET tenant_id = ?, room_id = ?, check_in_date = ?, check_out_date = ?, total_amount = ? WHERE rental_id = ?";
+                statement = connection.prepareStatement(sql);
+                statement.setInt(1, rental.getTenant_id());
+                statement.setInt(2, rental.getRoom_id());
+                statement.setDate(3, Date.valueOf(rental.getCheck_in_date()));
+                statement.setDate(4, Date.valueOf(rental.getCheck_out_date()));
+                statement.setDouble(5, rental.getTotal_amount());
+                statement.setInt(6, rental.getRental_id());
+                statement.executeUpdate();
             }
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
             Connect.closeConnection();
         }
-        return isValid;
-    }
+        return status;
 
-    /**
-     * Checks if the specified check out date is valid for the specified rental.A check out date is
-    *valid if it is after the rental's check in date.
-     * @param checkOutDate The check out date to check
-     * @throws SQLException If an error occurs while accessing the database
-     */
-    public static boolean check_outCheck(LocalDate checkOutDate, int rental_id) throws SQLException {
-        connection = Connect.connectToDatabase();
-        boolean isValid = false;
-        try {
-            // Prepare the SQL statement with placeholders for the values
-            String sql = "SELECT check_out_date FROM rentals WHERE rental_id = ?";
-            PreparedStatement statement = connection.prepareStatement(sql);
-
-            // Set the values of the placeholders
-            statement.setInt(1, rental_id);
-
-            // Execute the SQL statement
-            ResultSet result = statement.executeQuery();
-
-            // Loop through the results and add them to the list
-            while (result.next()) {
-                LocalDate checkOutDateFromDB = result.getDate("check_out_date").toLocalDate();
-                if (checkOutDateFromDB.isBefore(checkOutDate)) {
-                    isValid = true;
-                }
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            Connect.closeConnection();
-        }
-        return isValid;
     }
 
 }
