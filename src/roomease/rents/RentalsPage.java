@@ -4,6 +4,7 @@ import database.EmployeeLogs;
 import database.RentalDAO;
 import database.TenantDAO;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -208,6 +209,11 @@ public class RentalsPage extends javax.swing.JFrame {
             int id = (int) rentalsTable.getValueAt(row, 0); //get id from selected row
             try {
                 Rental rental = RentalDAO.getRental(id);
+
+                if( rental.getCheck_in_date().isBefore(LocalDate.now()) ){
+                    JOptionPane.showMessageDialog(null, "Cannot edit rental that has already checked in.");
+                    return;
+                }
                 new EditRental(rental).setVisible(true);
                 dispose();
             } catch (SQLException ex) {
