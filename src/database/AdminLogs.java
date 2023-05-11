@@ -1,6 +1,3 @@
-
-
-
 package database;
 
 import enums.LogType;
