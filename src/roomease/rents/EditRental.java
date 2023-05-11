@@ -109,9 +109,7 @@ public class EditRental extends javax.swing.JFrame {
 
         CheckOutDate.setDateFormatString("yyyy-MM-dd");
 
-        amountField.setForeground(new java.awt.Color(8, 99, 117));
         amountField.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
-        amountField.setText("0.00");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -125,9 +123,9 @@ public class EditRental extends javax.swing.JFrame {
                     .addComponent(priceLabel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(amountField)
                     .addComponent(CheckInDate, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
-                    .addComponent(CheckOutDate, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(CheckOutDate, javax.swing.GroupLayout.DEFAULT_SIZE, 157, Short.MAX_VALUE)
+                    .addComponent(amountField))
                 .addGap(108, 108, 108))
             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel2Layout.createSequentialGroup()
@@ -144,8 +142,8 @@ public class EditRental extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(39, 39, 39)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(amountField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(priceLabel))
+                    .addComponent(priceLabel)
+                    .addComponent(amountField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3)
@@ -166,6 +164,7 @@ public class EditRental extends javax.swing.JFrame {
 
         CheckInDate.setDate(Date.from(rental.getCheck_in_date().atStartOfDay(ZoneId.systemDefault()).toInstant()));
         CheckOutDate.setDate(Date.from(rental.getCheck_out_date().atStartOfDay(ZoneId.systemDefault()).toInstant()));
+        amountField.setValue(rental.getTotal_amount());
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
