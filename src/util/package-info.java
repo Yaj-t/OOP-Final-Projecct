@@ -1,4 +1,2 @@
-/*
- * Provides DataModel Classes and other utility classes
- */
+/** Provides DataModel Classes and other utility classes*/
 package util;
