@@ -3,7 +3,7 @@ package roomease.rooms;
 
 import database.AdminLogs;
 import database.RoomDAO;
-import user.Session;
+import util.Session;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.logging.Level;

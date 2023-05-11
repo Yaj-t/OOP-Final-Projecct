@@ -16,7 +16,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
 import roomease.LoginPage;
-import user.Session;
+import util.Session;
 import util.EmployeeLoginLogs;
 import util.Rental;
 import util.Tenant;

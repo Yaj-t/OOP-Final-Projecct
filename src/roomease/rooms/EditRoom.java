@@ -8,7 +8,7 @@ import util.WindowCloseHandler;
 import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import user.Session;
+import util.Session;
 import util.AdminActionLog;
 
 /**The EditRoomt class represent a JFrame the displays field and buttons editing rooms*/

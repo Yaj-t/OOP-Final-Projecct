@@ -10,7 +10,7 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import roomease.homepage.EmployeeHome;
-import user.Session;
+import util.Session;
 import util.EmployeeActionLog;
 import util.Expense;
 import util.WindowCloseHandler;

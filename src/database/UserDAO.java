@@ -4,7 +4,7 @@ import enums.UserType;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import user.User;
+import util.User;
 
 /**
 

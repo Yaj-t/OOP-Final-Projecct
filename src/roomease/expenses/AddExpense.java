@@ -11,7 +11,7 @@ import util.EmployeeActionLog;
 import util.Expense;
 import util.WindowCloseHandler;
 import java.sql.SQLException;
-import user.Session;
+import util.Session;
 
 /**
  * The AddExpense class represents a JFrame window for adding expenses.

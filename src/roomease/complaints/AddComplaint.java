@@ -3,7 +3,7 @@ package roomease.complaints;
 import database.ComplaintsDAO;
 import database.EmployeeLogs;
 import database.RoomDAO;
-import user.Session;
+import util.Session;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.List;

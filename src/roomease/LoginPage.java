@@ -3,8 +3,8 @@ package roomease;
 
 import roomease.homepage.EmployeeHome;
 import roomease.homepage.AdminHome;
-import user.Session;
-import user.User;
+import util.Session;
+import util.User;
 import util.AdminLoginLogs;
 import util.EmployeeLoginLogs;
 import util.WindowCloseHandler;

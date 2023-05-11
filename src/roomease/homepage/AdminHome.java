@@ -2,7 +2,7 @@ package roomease.homepage;
 
 import roomease.users.UsersPage;
 import roomease.rooms.RoomsPage;
-import user.Session;
+import util.Session;
 import util.AdminLoginLogs;
 import database.AdminLogs;
 import database.EmployeeLogs;

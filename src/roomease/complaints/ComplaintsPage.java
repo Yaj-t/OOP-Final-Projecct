@@ -11,7 +11,7 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import roomease.homepage.EmployeeHome;
 import roomease.users.UsersPage;
-import user.Session;
+import util.Session;
 import util.Complaint;
 import util.EmployeeActionLog;
 import util.Room;

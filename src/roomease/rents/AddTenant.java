@@ -4,7 +4,7 @@ import database.EmployeeLogs;
 import database.RentalDAO;
 import database.TenantDAO;
 import javax.swing.JOptionPane;
-import user.Session;
+import util.Session;
 import java.sql.*;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;

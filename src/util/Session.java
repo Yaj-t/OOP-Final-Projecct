@@ -4,7 +4,7 @@ The Session class represents the session of a user who has logged into the syste
 It provides methods to set and get the current user, retrieve the ID of the current user,
 and log out the current user.
 */
-package user;
+package util;
 
 import database.UserDAO;
 
