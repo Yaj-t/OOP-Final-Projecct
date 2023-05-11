@@ -105,8 +105,6 @@ public class EditRental extends javax.swing.JFrame {
         jLabel5.setForeground(new java.awt.Color(247, 236, 89));
         jLabel5.setText("Check Out:");
 
-        CheckInDate.setDateFormatString("yyyy-MM-dd");
-
         CheckOutDate.setDateFormatString("yyyy-MM-dd");
 
         amountField.setForeground(new java.awt.Color(8, 99, 117));
@@ -187,8 +185,9 @@ public class EditRental extends javax.swing.JFrame {
     private void submitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitActionPerformed
 
         //Get the check in and check out dates
-        Date checkInDate = (Date) CheckInDate.getDate();
-        Date checkOutDate = (Date) CheckOutDate.getDate();
+        
+        java.util.Date checkInDate = CheckInDate.getDate();
+        java.util.Date checkOutDate = CheckOutDate.getDate();
 
         LocalDate checkInLocalDate = checkInDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         LocalDate checkOutLocalDate = checkOutDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();

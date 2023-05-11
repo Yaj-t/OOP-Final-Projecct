@@ -35,7 +35,7 @@ public class RentalsPage extends javax.swing.JFrame {
             rentalsList = RentalDAO.getAllRentals();
             DefaultTableModel tableModel = (DefaultTableModel) rentalsTable.getModel();
             for (Rental rental : rentalsList) {
-                Object[] rowData = {rental.getTenant_id(), rental.getRoom_id(), rental.getCheck_in_date(), rental.getCheck_in_date(), rental.getTotal_amount()};
+                Object[] rowData = {rental.getTenant_id(), rental.getRoom_id(), rental.getCheck_in_date(), rental.getCheck_out_date(), rental.getTotal_amount()};
                 tableModel.addRow(rowData);
             }
 
