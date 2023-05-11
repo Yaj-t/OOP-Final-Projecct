@@ -154,7 +154,7 @@ public class EmployeeHome extends javax.swing.JFrame {
         });
 
         RentalEdit.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        RentalEdit.setText("Rental Edit");
+        RentalEdit.setText("Rentals");
         RentalEdit.setFocusPainted(false);
         RentalEdit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -163,7 +163,7 @@ public class EmployeeHome extends javax.swing.JFrame {
         });
 
         TenantButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        TenantButton.setText("Tenant Edit");
+        TenantButton.setText("Tenants");
         TenantButton.setFocusPainted(false);
         TenantButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
