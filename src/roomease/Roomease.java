@@ -1,8 +1,7 @@
 
 /**
-
-The Roomease class is the entry point for the application. It contains the main method
-which creates and displays the login page of the application.
+*The Roomease class is the entry point for the application. It contains the main method
+*which creates and displays the login page of the application.
 */
 package roomease;
 
