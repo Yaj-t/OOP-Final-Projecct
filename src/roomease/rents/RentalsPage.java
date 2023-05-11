@@ -4,18 +4,17 @@ package roomease.rents;
 import database.EmployeeLogs;
 import database.RentalDAO;
 import database.TenantDAO;
-import user.Session;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import roomease.homepage.AdminHome;
 import roomease.homepage.EmployeeHome;
 import util.EmployeeActionLog;
 import util.Rental;
 import util.Room;
+import util.Session;
 import util.WindowCloseHandler;
 
 /**
