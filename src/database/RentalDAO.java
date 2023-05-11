@@ -479,7 +479,7 @@ Retrieves the total amount due for a rental
      * @throws SQLException If an error occurs while accessing the database
      */
 
-    public static int updateRental(Rental rental) throws SQLException {
+    public static int CheckRental(Rental rental) throws SQLException {
         connection = Connect.connectToDatabase();
         int status = 0;
         try {
