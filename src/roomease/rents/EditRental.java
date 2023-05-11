@@ -105,6 +105,8 @@ public class EditRental extends javax.swing.JFrame {
         jLabel5.setForeground(new java.awt.Color(247, 236, 89));
         jLabel5.setText("Check Out:");
 
+        CheckInDate.setDateFormatString("yyyy-MM-dd");
+
         CheckOutDate.setDateFormatString("yyyy-MM-dd");
 
         amountField.setForeground(new java.awt.Color(8, 99, 117));
