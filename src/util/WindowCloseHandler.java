@@ -8,7 +8,6 @@ import java.sql.SQLException;
 import javax.swing.JFrame;
 import database.AdminLogs;
 import database.EmployeeLogs;
-import user.Session;
 
 /**
  *

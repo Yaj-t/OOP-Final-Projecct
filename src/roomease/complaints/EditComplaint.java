@@ -2,7 +2,7 @@ package roomease.complaints;
 
 import database.ComplaintsDAO;
 import database.EmployeeLogs;
-import user.Session;
+import util.Session;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;

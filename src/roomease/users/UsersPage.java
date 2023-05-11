@@ -10,8 +10,8 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import roomease.homepage.AdminHome;
-import user.Session;
-import user.User;
+import util.Session;
+import util.User;
 import util.AdminActionLog;
 import util.WindowCloseHandler;
 

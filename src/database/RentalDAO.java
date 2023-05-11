@@ -506,11 +506,9 @@ Retrieves the total amount due for a rental
     }
 
     /**
-     * Checks if the specified check out date is valid for the specified rental. A check out date is
-     * valid if it is after the rental's check in date.
+     * Checks if the specified check out date is valid for the specified rental.A check out date is
+    *valid if it is after the rental's check in date.
      * @param checkOutDate The check out date to check
-     * @param rentalId The ID of the rental to check
-     * @return true if the check out date is valid, false otherwise
      * @throws SQLException If an error occurs while accessing the database
      */
     public static boolean check_outCheck(LocalDate checkOutDate, int rental_id) throws SQLException {

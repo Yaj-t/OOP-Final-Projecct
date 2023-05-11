@@ -2,7 +2,7 @@ package roomease.expenses;
 
 import database.EmployeeLogs;
 import database.ExpenseDAO;
-import user.Session;
+import util.Session;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.time.ZoneId;
