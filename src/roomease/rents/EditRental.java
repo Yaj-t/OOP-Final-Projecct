@@ -9,9 +9,9 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import user.Session;
 import util.EmployeeActionLog;
 import util.Rental;
+import util.Session;
 
 /**The EditRental class represent a JFrame the displays field and buttons editing Rental*/
 public class EditRental extends javax.swing.JFrame {
