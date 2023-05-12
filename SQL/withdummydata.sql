@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 12, 2023 at 03:29 AM
+-- Generation Time: May 12, 2023 at 08:39 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -150,21 +150,21 @@ CREATE TABLE `rooms` (
 --
 
 INSERT INTO `rooms` (`room_id`, `room_number`, `room_price`, `description`) VALUES
-(1, '101', '100.00', 'Standard room with one queen-size bed'),
-(2, '102', '100.00', 'Standard room with one queen-size bed'),
-(3, '103', '100.00', 'Standard room with one queen-size bed'),
-(4, '201', '150.00', 'Deluxe room with one king-size bed'),
-(5, '202', '150.00', 'Deluxe room with one king-size bed'),
-(6, '203', '150.00', 'Deluxe room with one king-size bed'),
-(7, '301', '200.00', 'Suite with one king-size bed and a living room'),
-(8, '302', '200.00', 'Suite with one king-size bed and a living room'),
-(9, '303', '200.00', 'Suite with one king-size bed and a living room'),
-(10, '401', '250.00', 'Presidential suite with one king-size bed, a living room, and a dining room'),
-(11, '402', '250.00', 'Presidential suite with one king-size bed, a living room, and a dining room'),
-(12, '403', '250.00', 'Presidential suite with one king-size bed, a living room, and a dining room'),
-(13, '501', '300.00', 'Penthouse with two bedrooms, two king-size beds, a living room, and a balcony'),
-(14, '502', '300.00', 'Penthouse with two bedrooms, two king-size beds, a living room, and a balcony'),
-(15, '503', '300.00', 'Penthouse with two bedrooms, two king-size beds, a living room, and a balcony');
+(1, '101', '50.00', 'Cozy single bed'),
+(2, '102', '75.00', 'Spacious double bed'),
+(3, '103', '60.00', 'Bright queen bed'),
+(4, '104', '80.00', 'Luxurious suite'),
+(5, '105', '70.00', 'Modern loft'),
+(6, '106', '55.00', 'Minimalist room'),
+(7, '107', '65.00', 'Elegant twin bed'),
+(8, '108', '90.00', 'Deluxe king bed'),
+(9, '109', '95.00', 'Grand penthouse'),
+(10, '110', '100.00', 'Sleek studio'),
+(11, '111', '85.00', 'Charming bungalow'),
+(12, '112', '45.00', 'Quaint guest room'),
+(13, '113', '80.00', 'Serene retreat'),
+(14, '114', '70.00', 'Rustic cabin'),
+(15, '115', '65.00', 'Tranquil hideaway');
 
 -- --------------------------------------------------------
 
@@ -297,7 +297,7 @@ ALTER TABLE `admin_action_log`
 -- AUTO_INCREMENT for table `admin_login_log`
 --
 ALTER TABLE `admin_login_log`
-  MODIFY `log_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `log_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `complaints`

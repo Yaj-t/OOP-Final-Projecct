@@ -3,27 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Predator/Documents/NetBeansProjects/OOP-Final-Projecct/src/roomease/complaints/AddComplaint.java</file>
-            <file>file:/C:/Users/Predator/Documents/NetBeansProjects/OOP-Final-Projecct/src/database/RentalDAO.java</file>
-            <file>file:/C:/Users/Predator/Documents/NetBeansProjects/OOP-Final-Projecct/src/util/LoginLogs.java</file>
-            <file>file:/C:/Users/Predator/Documents/NetBeansProjects/OOP-Final-Projecct/src/enums/UserType.java</file>
-            <file>file:/C:/Users/Predator/Documents/NetBeansProjects/OOP-Final-Projecct/src/enums/LogType.java</file>
-            <file>file:/C:/Users/Predator/Documents/NetBeansProjects/OOP-Final-Projecct/src/roomease/LoginPage.java</file>
-            <file>file:/C:/Users/Predator/Documents/NetBeansProjects/OOP-Final-Projecct/src/roomease/payment/PaymentPage.java</file>
-            <file>file:/C:/Users/Predator/Documents/NetBeansProjects/OOP-Final-Projecct/src/roomease/rooms/RoomsPage.java</file>
-            <file>file:/C:/Users/Predator/Documents/NetBeansProjects/OOP-Final-Projecct/src/util/package-info.java</file>
             <file>file:/C:/Users/Predator/Documents/NetBeansProjects/OOP-Final-Projecct/src/database/Connect.java</file>
-            <file>file:/C:/Users/Predator/Documents/NetBeansProjects/OOP-Final-Projecct/src/util/Complaint.java</file>
-            <file>file:/C:/Users/Predator/Documents/NetBeansProjects/OOP-Final-Projecct/src/roomease/rents/RoomCheck.java</file>
-            <file>file:/C:/Users/Predator/Documents/NetBeansProjects/OOP-Final-Projecct/src/enums/Gender.java</file>
-            <file>file:/C:/Users/Predator/Documents/NetBeansProjects/OOP-Final-Projecct/src/roomease/rents/AddTenant.java</file>
             <file>file:/C:/Users/Predator/Documents/NetBeansProjects/OOP-Final-Projecct/src/roomease/Roomease.java</file>
-            <file>file:/C:/Users/Predator/Documents/NetBeansProjects/OOP-Final-Projecct/src/roomease/rooms/AddRoom.java</file>
+            <file>file:/C:/Users/Predator/Documents/NetBeansProjects/OOP-Final-Projecct/src/roomease/LoginPage.java</file>
             <file>file:/C:/Users/Predator/Documents/NetBeansProjects/OOP-Final-Projecct/src/database/AdminLogs.java</file>
-            <file>file:/C:/Users/Predator/Documents/NetBeansProjects/OOP-Final-Projecct/src/roomease/rooms/EditRoom.java</file>
-            <file>file:/C:/Users/Predator/Documents/NetBeansProjects/OOP-Final-Projecct/src/util/Session.java</file>
-            <file>file:/C:/Users/Predator/Documents/NetBeansProjects/OOP-Final-Projecct/src/roomease/payment/AddPayments.java</file>
-            <file>file:/C:/Users/Predator/Documents/NetBeansProjects/OOP-Final-Projecct/src/roomease/users/UsersPage.java</file>
         </group>
     </open-files>
 </project-private>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 12, 2023 at 03:30 AM
+-- Generation Time: May 12, 2023 at 08:42 AM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -269,7 +269,7 @@ ALTER TABLE `admin_action_log`
 -- AUTO_INCREMENT for table `admin_login_log`
 --
 ALTER TABLE `admin_login_log`
-  MODIFY `log_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `log_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `complaints`
