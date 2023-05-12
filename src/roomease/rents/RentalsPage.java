@@ -1,6 +1,7 @@
 package roomease.rents;
 
 import database.EmployeeLogs;
+import database.PaymentDAO;
 import database.RentalDAO;
 import database.TenantDAO;
 import java.sql.SQLException;
@@ -183,20 +184,26 @@ public class RentalsPage extends javax.swing.JFrame {
         int row = rentalsTable.getSelectedRow(); //get selected row
         if (row != -1) {
             int id = (int) rentalsTable.getValueAt(row, 0); //get id from selected row
-            try {
-                RentalDAO.deleteRental(id); //delete rental
-                //Delete tenant
-                int tenantID = (int) rentalsTable.getValueAt(row, 0);
-                TenantDAO.deleteTenantById(tenantID);
-                JOptionPane.showMessageDialog(null, "Rental deleted successfully.");
+            //Ask user if they are sure they want to delete
+            int dialogResult = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete this rental?", "Warning", JOptionPane.YES_NO_OPTION);
+            if (dialogResult == JOptionPane.YES_OPTION) {
+                try {
+                    //Delete Payment
+                    PaymentDAO.deleteAllPaymentsByRentalId(id);
+                    RentalDAO.deleteRental(id); //delete rental
+                    //Delete tenant
+                    int tenantID = (int) rentalsTable.getValueAt(row, 0);
+                    TenantDAO.deleteTenantById(tenantID);
+                    JOptionPane.showMessageDialog(null, "Rental deleted successfully.");
 
-                EmployeeActionLog log = new EmployeeActionLog(Session.getCurrentUserId(), "Deleted rental id: " + id);
-                EmployeeLogs.createEmployeeActionLog(log);
-                EmployeeLogs.createEmployeeActionLog(log = new EmployeeActionLog(Session.getCurrentUserId(), "Deleted tenant id: " + tenantID));
-                dispose();
-                new RentalsPage().setVisible(true);
-            } catch (SQLException ex) {
-                Logger.getLogger(RentalsPage.class.getName()).log(Level.SEVERE, null, ex);
+                    EmployeeActionLog log = new EmployeeActionLog(Session.getCurrentUserId(), "Deleted rental id: " + id);
+                    EmployeeLogs.createEmployeeActionLog(log);
+                    EmployeeLogs.createEmployeeActionLog(log = new EmployeeActionLog(Session.getCurrentUserId(), "Deleted tenant id: " + tenantID));
+                    dispose();
+                    new RentalsPage().setVisible(true);
+                } catch (SQLException ex) {
+                    Logger.getLogger(RentalsPage.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         } else {
             JOptionPane.showMessageDialog(null, "Please select a row to delete.");
@@ -210,7 +217,7 @@ public class RentalsPage extends javax.swing.JFrame {
             try {
                 Rental rental = RentalDAO.getRental(id);
 
-                if( rental.getCheck_in_date().isBefore(LocalDate.now()) ){
+                if (rental.getCheck_in_date().isBefore(LocalDate.now())) {
                     JOptionPane.showMessageDialog(null, "Cannot edit rental that has already checked in.");
                     return;
                 }

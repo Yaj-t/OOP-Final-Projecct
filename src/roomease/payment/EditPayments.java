@@ -166,18 +166,28 @@ public class EditPayments extends javax.swing.JFrame {
         if (description.equals("") || amount == 0) {
             JOptionPane.showMessageDialog(null, "Please fill all fields!");
         } else {
-            //Insert changes into DB
-            payment.setDescription(description);
-            payment.setAmount(amount);
-            try {
-                PaymentDAO.updatePayment(payment);
-                JOptionPane.showMessageDialog(null, "Payment updated successfully!");
+            //Ask for confirmation
+            int confirmation = JOptionPane.showConfirmDialog(null, "Are you sure you want to update this payment?", "Confirmation", JOptionPane.YES_NO_OPTION);
+            if (confirmation != 0) {
+                //pop up message
+                JOptionPane.showMessageDialog(null, "Payment not updated!");
 
-                EmployeeActionLog empActLog = new EmployeeActionLog(Session.getCurrentUserId(), "Updated payment with id: " + payment.getPayment_id());
+            }else{
+                //Insert changes into DB
+                payment.setDescription(description);
+                payment.setAmount(amount);
+                try {
+                    PaymentDAO.updatePayment(payment);
+                    JOptionPane.showMessageDialog(null, "Payment updated successfully!");
 
-                EmployeeLogs.createEmployeeActionLog(empActLog);
-            } catch (SQLException e) {
-                e.printStackTrace();
+                    EmployeeActionLog empActLog = new EmployeeActionLog(Session.getCurrentUserId(), "Updated payment with id: " + payment.getPayment_id());
+
+                    EmployeeLogs.createEmployeeActionLog(empActLog);
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+                dispose();
+                new PaymentPage().setVisible(true);
             }
             dispose();
             new PaymentPage().setVisible(true);

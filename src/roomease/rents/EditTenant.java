@@ -4,10 +4,7 @@ import database.AdminLogs;
 import database.TenantDAO;
 import javax.swing.JOptionPane;
 import java.sql.*;
-import java.time.LocalDate;
-import roomease.homepage.EmployeeHome;
 import util.AdminActionLog;
-import util.Room;
 import util.Session;
 import util.Tenant;
 import util.WindowCloseHandler;
@@ -209,13 +206,22 @@ public class EditTenant extends javax.swing.JFrame {
             tenant.setEmail(email);
             tenant.setPhoneNumber(phoneNumber);
 
-            //update the tenant
-            try {
-                TenantDAO.updateTenant(tenant);
-                AdminActionLog log = new AdminActionLog(Session.getCurrentUserId(), "Edited Tenant: " + tenant.getFirstName() + " " + tenant.getLastName());
-                AdminLogs.createAdminActionLog(log);
-            } catch (SQLException e) {
-                e.printStackTrace();
+            //Ask if you are sure you want to edit the tenant
+            int dialogButton = JOptionPane.YES_NO_OPTION;
+            int dialogResult = JOptionPane.showConfirmDialog(null, "Are you sure you want to edit this tenant?", "Warning", dialogButton);
+            if (dialogResult == JOptionPane.YES_OPTION) {
+                //update the tenant
+                try {
+                    TenantDAO.updateTenant(tenant);
+                    AdminActionLog log = new AdminActionLog(Session.getCurrentUserId(), "Edited Tenant: " + tenant.getFirstName() + " " + tenant.getLastName());
+                    AdminLogs.createAdminActionLog(log);
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            } else {
+                //if no is selected then pop message and return to tenant page
+                JOptionPane.showMessageDialog(null, "Tenant not edited");
+
             }
 
             dispose();
@@ -229,6 +235,7 @@ public class EditTenant extends javax.swing.JFrame {
     private void CancelButton(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CancelButton
         // TODO add your handling code here:
         dispose();
+        new TenantPage().setVisible(true);
 
     }//GEN-LAST:event_CancelButton
 

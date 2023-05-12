@@ -1,7 +1,6 @@
 package roomease.rents;
 
 import database.AdminLogs;
-import database.EmployeeLogs;
 import database.RentalDAO;
 import database.RoomDAO;
 
@@ -15,7 +14,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import util.AdminActionLog;
-import util.EmployeeActionLog;
 import util.Rental;
 import util.Room;
 import util.Session;
@@ -194,7 +192,6 @@ public class EditRental extends javax.swing.JFrame {
     private void submitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_submitActionPerformed
 
         //Get the check in and check out dates
-        
         java.util.Date checkInDate = CheckInDate.getDate();
         java.util.Date checkOutDate = CheckOutDate.getDate();
 
@@ -202,11 +199,8 @@ public class EditRental extends javax.swing.JFrame {
         LocalDate checkOutLocalDate = checkOutDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
         LocalDate currDate = LocalDate.now();
 
-       // Get the amount
+        // Get the amount
         double amount = Double.parseDouble(amountField.getText());
-
-
-
 
         //Verify that the check in date is not before the current date
         if (checkInDate.before(Date.valueOf(currDate))) {
@@ -232,59 +226,62 @@ public class EditRental extends javax.swing.JFrame {
             return;
         }
 
-
         //Update the rental
         rental.setCheck_in_date(checkInLocalDate);
         rental.setCheck_out_date(checkOutLocalDate);
         //Check if user forgot has the same amount to the rental amount
         if (amount != rental.getTotal_amount()) {
             rental.setTotal_amount(amount);
-        }else{
+        } else {
             long days = ChronoUnit.DAYS.between(checkInLocalDate, checkOutLocalDate);
             int daysInt = Math.toIntExact(days);
             System.out.println(amount);
-            
+
             try {
                 //calculate the total price of the rental
                 Room room = RoomDAO.getRoomByID(rental.getRoom_id());
                 double price = room.getPrice();
-                double totalPrice = (daysInt+1) * price;
+                double totalPrice = (daysInt + 1) * price;
                 System.out.println("Total Price: " + totalPrice);
                 rental.setTotal_amount(totalPrice);
             } catch (SQLException ex) {
                 Logger.getLogger(EditRental.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-       
 
-        try {
-            switch(RentalDAO.updateRental(rental))
-            {
-                case 0:
-                    JOptionPane.showMessageDialog(null, "Rental Updated");
-                    break;
-                case 1:
-                    JOptionPane.showMessageDialog(null, "Rental Not Updated");
-                    break;
-                case 2:
-                    JOptionPane.showMessageDialog(null, "Rental Not Updated, Room is not available for the selected dates");
-                    break;
-                case 3:
-                    JOptionPane.showMessageDialog(null, "Rental Not Updated, Room is not available for the selected dates");
-                    break;
-                default:
-                    JOptionPane.showMessageDialog(null, "Rental Not Updated");
-                    break;
+        //Ask if you want to update the rental
+        int dialogButton = JOptionPane.YES_NO_OPTION;
+        int dialogResult = JOptionPane.showConfirmDialog(null, "Are you sure you want to update this rental?", "Warning", dialogButton);
+        if (dialogResult == JOptionPane.YES_OPTION) {
+            try {
+                switch (RentalDAO.updateRental(rental)) {
+                    case 0:
+                        JOptionPane.showMessageDialog(null, "Rental Updated");
+                        break;
+                    case 1:
+                        JOptionPane.showMessageDialog(null, "Rental Not Updated");
+                        break;
+                    case 2:
+                        JOptionPane.showMessageDialog(null, "Rental Not Updated, Room is not available for the selected dates");
+                        break;
+                    case 3:
+                        JOptionPane.showMessageDialog(null, "Rental Not Updated, Room is not available for the selected dates");
+                        break;
+                    default:
+                        JOptionPane.showMessageDialog(null, "Rental Not Updated");
+                        break;
+                }
+                AdminActionLog adminActionLog = new AdminActionLog(Session.getCurrentUserId(), "Edited Rental with ID: " + rental.getRoom_id());
+                AdminLogs.createAdminActionLog(adminActionLog);
+
+            } catch (SQLException ex) {
+                Logger.getLogger(EditRental.class.getName()).log(Level.SEVERE, null, ex);
             }
-            AdminActionLog adminActionLog = new AdminActionLog(Session.getCurrentUserId(), "Edited Rental with ID: " + rental.getRoom_id());
-            AdminLogs.createAdminActionLog(adminActionLog);
-            dispose();
-            new RentalsPage().setVisible(true);
-        } catch (SQLException ex) {
-            Logger.getLogger(EditRental.class.getName()).log(Level.SEVERE, null, ex);
+        } else {
+            JOptionPane.showMessageDialog(null, "Rental Not Updated");
         }
-        
-
+        dispose();
+        new RentalsPage().setVisible(true);
 
     }//GEN-LAST:event_submitActionPerformed
 

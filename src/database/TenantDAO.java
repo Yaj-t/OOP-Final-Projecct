@@ -7,13 +7,15 @@ import util.Tenant;
 
 /**
  *
- * The TenantDAO class provides methods to interact with the tenant table in the database.
+ * The TenantDAO class provides methods to interact with the tenant table in the
+ * database.
  */
 public class TenantDAO {
+
     private static Connection conn;
 
     public TenantDAO() {
- 
+
     }
 
     /**
@@ -31,17 +33,16 @@ public class TenantDAO {
         stmt.setString(3, tenant.getPhoneNumber());
         stmt.setString(4, tenant.getEmail());
         stmt.executeUpdate();
-    
+
         int tenantID = 0;
         ResultSet generatedKeys = stmt.getGeneratedKeys();
         if (generatedKeys.next()) {
             tenantID = generatedKeys.getInt(1);
         }
-    
+
         Connect.closeConnection();
         return tenantID;
     }
-    
 
     /**
      * Retrieves a tenant from the database by ID.
@@ -52,14 +53,14 @@ public class TenantDAO {
      * @throws SQLException If a database access error occurs.
      */
     public static Tenant getTenantById(int id) throws SQLException {
-        
+
         conn = Connect.connectToDatabase();
         Tenant tenant = null;
         PreparedStatement stmt = conn.prepareStatement("SELECT * FROM tenant WHERE tenant_id = ?");
         stmt.setInt(1, id);
         ResultSet rs = stmt.executeQuery();
         if (rs.next()) {
-             tenant = new Tenant(rs.getInt("tenant_id"), rs.getString("first_name"), rs.getString("last_name"), rs.getString("phone_number"), rs.getString("email"));
+            tenant = new Tenant(rs.getInt("tenant_id"), rs.getString("first_name"), rs.getString("last_name"), rs.getString("phone_number"), rs.getString("email"));
         }
         Connect.closeConnection();
         return tenant;
@@ -82,7 +83,7 @@ public class TenantDAO {
         }
         Connect.closeConnection();
         return tenant;
-        
+
     }
 
     /**

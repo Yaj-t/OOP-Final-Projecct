@@ -243,16 +243,22 @@ public class PaymentPage extends javax.swing.JFrame {
         int row = paymentsTable.getSelectedRow(); //get selected row
         if (row != -1) {
             int id = (int) paymentsTable.getValueAt(row, 0); //get id from selected row
-            try {
-                PaymentDAO.deletePayment(id); //delete payment
-                JOptionPane.showMessageDialog(null, "Payment deleted successfully.");
-                EmployeeActionLog log = new EmployeeActionLog(Session.getCurrentUserId(), "Deleted payment id: " + id);
-                EmployeeLogs.createEmployeeActionLog(log);
-
-                dispose();
-                new PaymentPage().setVisible(true);
-            } catch (SQLException ex) {
-                Logger.getLogger(PaymentPage.class.getName()).log(Level.SEVERE, null, ex);
+            //Ask user if they are sure they want to delete
+            int dialogResult = JOptionPane.showConfirmDialog(null, "Are you sure you want to delete this payment?", "Warning", JOptionPane.YES_NO_OPTION);
+            if(dialogResult == JOptionPane.YES_OPTION){
+                try {
+                    PaymentDAO.deletePayment(id); //delete payment
+                    JOptionPane.showMessageDialog(null, "Payment deleted successfully.");
+                    EmployeeActionLog log = new EmployeeActionLog(Session.getCurrentUserId(), "Deleted payment id: " + id);
+                    EmployeeLogs.createEmployeeActionLog(log);
+    
+                    dispose();
+                    new PaymentPage().setVisible(true);
+                } catch (SQLException ex) {
+                    Logger.getLogger(PaymentPage.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }else{
+                JOptionPane.showMessageDialog(null, "Payment not deleted.");
             }
 
         } else {

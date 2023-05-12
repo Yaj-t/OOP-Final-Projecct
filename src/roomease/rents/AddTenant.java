@@ -230,7 +230,7 @@ public class AddTenant extends javax.swing.JFrame {
                     System.out.println("Number of days: " + daysInt);
                     
                     //calculate the total price of the rental
-                    double totalPrice = days * room.getPrice();
+                    double totalPrice = (days+1) * room.getPrice();
                     
                     //Create a new rental object
                     int userID = Session.getCurrentUserId();

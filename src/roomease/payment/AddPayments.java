@@ -277,6 +277,13 @@ public class AddPayments extends javax.swing.JFrame {
 
             }
 
+            //Ask for confirmation
+            int dialogButton = JOptionPane.YES_NO_OPTION;
+            int dialogResult = JOptionPane.showConfirmDialog(this, "Are you sure you want to add this payment?", "Warning", dialogButton);
+            if (dialogResult == 1) {
+                return;
+            }
+
             try {
                 // Create Payment
                 Payment payment = new Payment(rentalID, Session.getCurrentUserId(), Double.parseDouble(amountField.getText()), descriptionField.getText());
@@ -292,8 +299,8 @@ public class AddPayments extends javax.swing.JFrame {
                 EmployeeLogs.createEmployeeActionLog(employeeActionLog);
 
                 // Ask if the user wants to add another payment or go back to the Employee Page
-                int dialogButton = JOptionPane.YES_NO_OPTION;
-                int dialogResult = JOptionPane.showConfirmDialog(this, "Do you want to add another payment?", "Warning", dialogButton);
+                 dialogButton = JOptionPane.YES_NO_OPTION;
+                 dialogResult = JOptionPane.showConfirmDialog(this, "Do you want to add another payment?", "Warning", dialogButton);
                 if (dialogResult == 0) {
                     dispose();
                     new AddPayments().setVisible(true);
@@ -310,8 +317,7 @@ public class AddPayments extends javax.swing.JFrame {
 
     }//GEN-LAST:event_addActionPerformed
 
-    private void refreshTable() {
-    }
+   
 
     /**
      * @param args the command line arguments

@@ -229,4 +229,22 @@ public class PaymentDAO {
         return payment;
     }
 
+
+    /**
+     * Gets rental_id then deletes all payments associated with that rental_id
+     * @param rentalId
+     */
+     public static void deleteAllPaymentsByRentalId(int rentalId) {
+        String sql = "DELETE FROM payments WHERE rental_id = ?";
+
+        try (Connection connection = Connect.connectToDatabase();
+             PreparedStatement statement = connection.prepareStatement(sql)) {
+            statement.setInt(1, rentalId);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println("Error deleting payment: " + e.getMessage());
+        }finally {
+        	Connect.closeConnection();
+        }
+     }
 }

@@ -252,7 +252,7 @@ public static boolean addRental(Rental rental) throws SQLException {
     LocalDate currentDate = LocalDate.now();
     try (Connection connection = Connect.connectToDatabase();
          PreparedStatement statement = connection.prepareStatement(
-                 "SELECT * FROM rentals WHERE check_out_date > ? ")) {
+                 "SELECT * FROM rentals WHERE check_out_date >= ? ")) {
 
         // Set the values of the placeholders
         statement.setDate(1, Date.valueOf(currentDate));
