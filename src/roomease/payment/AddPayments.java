@@ -75,6 +75,7 @@ public class AddPayments extends javax.swing.JFrame {
         amountField = new javax.swing.JFormattedTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Add Payment");
 
         background.setBackground(new java.awt.Color(8, 99, 117));
 
