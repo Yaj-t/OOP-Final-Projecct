@@ -70,6 +70,7 @@ public class PaymentPage extends javax.swing.JFrame {
         jLabel7.setText("Available Rooms");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Payments");
 
         background.setBackground(new java.awt.Color(8, 99, 117));
 
