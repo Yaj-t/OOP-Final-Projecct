@@ -67,6 +67,7 @@ public class RoomsPage extends javax.swing.JFrame {
         delete = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Rooms");
 
         jPanel1.setBackground(new java.awt.Color(8, 99, 117));
         jPanel1.setForeground(new java.awt.Color(8, 99, 117));
