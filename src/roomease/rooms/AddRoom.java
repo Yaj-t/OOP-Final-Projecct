@@ -47,6 +47,7 @@ public class AddRoom extends javax.swing.JFrame {
         backButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("AddRoom");
 
         jPanel1.setBackground(new java.awt.Color(8, 99, 117));
 
