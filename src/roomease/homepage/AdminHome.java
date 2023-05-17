@@ -102,7 +102,8 @@ public class AdminHome extends javax.swing.JFrame {
             .addGap(0, 100, Short.MAX_VALUE)
         );
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE); 
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Admin Home");
         setBackground(new java.awt.Color(204, 204, 255));
 
         sidePanle.setBackground(new java.awt.Color(142, 74, 73));
