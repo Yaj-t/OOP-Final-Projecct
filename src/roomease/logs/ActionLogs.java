@@ -102,6 +102,7 @@ public class ActionLogs extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Action Logs");
 
         background.setBackground(new java.awt.Color(8, 99, 117));
 
