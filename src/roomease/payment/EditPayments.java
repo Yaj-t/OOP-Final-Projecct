@@ -57,6 +57,7 @@ public class EditPayments extends javax.swing.JFrame {
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Edit Payment");
 
         jPanel2.setBackground(new java.awt.Color(8, 99, 117));
 
@@ -74,7 +75,7 @@ public class EditPayments extends javax.swing.JFrame {
 
         descriptionField.setColumns(20);
         descriptionField.setRows(5);
-        descriptionField.setText(payment.getDescription());
+        descriptionField.setText(room.getDescription());
         jScrollPane1.setViewportView(descriptionField);
 
         descriptionLabel.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
@@ -91,7 +92,7 @@ public class EditPayments extends javax.swing.JFrame {
 
         amountField.setForeground(new java.awt.Color(8, 99, 117));
         amountField.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
-        amountField.setText(String.valueOf(payment.getAmount()));
+        amountField.setText("0.00");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
