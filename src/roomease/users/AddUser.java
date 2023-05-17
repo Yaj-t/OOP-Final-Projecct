@@ -46,6 +46,7 @@ public class AddUser extends javax.swing.JFrame {
         passwordField1 = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Add User");
 
         jPanel1.setBackground(new java.awt.Color(8, 99, 117));
 
