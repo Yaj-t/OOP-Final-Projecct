@@ -75,7 +75,7 @@ public class EditPayments extends javax.swing.JFrame {
 
         descriptionField.setColumns(20);
         descriptionField.setRows(5);
-        descriptionField.setText(room.getDescription());
+        descriptionField.setText(payment.getDescription());
         jScrollPane1.setViewportView(descriptionField);
 
         descriptionLabel.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
