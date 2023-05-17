@@ -50,6 +50,7 @@ public class LoginPage extends javax.swing.JFrame {
         loginButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Login");
 
         background.setBackground(new java.awt.Color(8, 99, 117));
         background.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
