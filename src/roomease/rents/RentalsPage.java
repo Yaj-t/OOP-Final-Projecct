@@ -69,6 +69,7 @@ public class RentalsPage extends javax.swing.JFrame {
         rentalsTable = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Rentals");
 
         jPanel1.setBackground(new java.awt.Color(8, 99, 117));
         jPanel1.setForeground(new java.awt.Color(8, 99, 117));
