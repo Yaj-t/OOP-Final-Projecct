@@ -74,6 +74,7 @@ public class EditComplaint extends javax.swing.JFrame {
         statusCombo = new javax.swing.JComboBox<>(Complaint.Status.values());
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Edit Complaint");
 
         background.setBackground(new java.awt.Color(8, 99, 117));
 
@@ -118,7 +119,7 @@ public class EditComplaint extends javax.swing.JFrame {
         background.setLayout(backgroundLayout);
         backgroundLayout.setHorizontalGroup(
             backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 364, Short.MAX_VALUE)
+            .addGap(0, 384, Short.MAX_VALUE)
             .addGroup(backgroundLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(backgroundLayout.createSequentialGroup()
                     .addContainerGap()
