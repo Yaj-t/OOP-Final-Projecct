@@ -45,7 +45,7 @@
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" attributes="0">
-                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                  <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
                           <EmptySpace min="12" pref="12" max="-2" attributes="0"/>
                           <Component id="backButton" min="-2" max="-2" attributes="0"/>
@@ -56,22 +56,12 @@
                           <EmptySpace min="12" pref="12" max="-2" attributes="0"/>
                           <Component id="userType" min="-2" pref="145" max="-2" attributes="0"/>
                       </Group>
-                      <Group type="102" attributes="0">
-                          <EmptySpace min="159" pref="159" max="-2" attributes="0"/>
-                          <Component id="submit" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="102" alignment="1" attributes="0">
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="userTypeLabel4" min="-2" pref="135" max="-2" attributes="0"/>
-                          <EmptySpace max="32767" attributes="0"/>
-                          <Component id="passwordField1" min="-2" pref="144" max="-2" attributes="0"/>
-                      </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <EmptySpace min="-2" pref="52" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" attributes="0">
                                   <Component id="userTypeLabel2" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace min="-2" pref="13" max="-2" attributes="0"/>
+                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
                                   <Component id="passwordField" min="-2" pref="144" max="-2" attributes="0"/>
                               </Group>
                               <Group type="103" groupAlignment="1" attributes="0">
@@ -81,12 +71,28 @@
                                       <Component id="usernameField" min="-2" pref="145" max="-2" attributes="0"/>
                                   </Group>
                                   <Group type="102" alignment="1" attributes="0">
-                                      <Component id="userTypeLabel3" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                                      <Component id="nameField" min="-2" pref="142" max="-2" attributes="0"/>
+                                      <Component id="submit" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace min="-2" pref="61" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                           </Group>
+                      </Group>
+                      <Group type="102" alignment="1" attributes="0">
+                          <Group type="103" groupAlignment="1" attributes="0">
+                              <Group type="102" alignment="1" attributes="0">
+                                  <EmptySpace min="58" pref="58" max="-2" attributes="0"/>
+                                  <Component id="userTypeLabel3" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                                  <Component id="nameField" min="-2" pref="142" max="-2" attributes="0"/>
+                              </Group>
+                              <Group type="102" alignment="1" attributes="0">
+                                  <EmptySpace min="0" pref="12" max="32767" attributes="0"/>
+                                  <Component id="userTypeLabel4" min="-2" pref="135" max="-2" attributes="0"/>
+                                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                  <Component id="passwordField1" min="-2" pref="144" max="-2" attributes="0"/>
+                              </Group>
+                          </Group>
+                          <EmptySpace min="-2" pref="2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace min="-2" pref="63" max="-2" attributes="0"/>
@@ -114,29 +120,24 @@
                       </Group>
                       <Component id="usernameField" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" attributes="0">
-                          <EmptySpace min="5" pref="5" max="-2" attributes="0"/>
-                          <Component id="userTypeLabel2" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <Component id="passwordField" min="-2" pref="30" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="userTypeLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="passwordField" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace min="5" pref="5" max="-2" attributes="0"/>
-                          <Component id="userTypeLabel4" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <Component id="passwordField1" alignment="0" min="-2" pref="30" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="passwordField1" alignment="3" min="-2" pref="30" max="-2" attributes="0"/>
+                      <Component id="userTypeLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" attributes="0">
-                      <Component id="userTypeLabel3" min="-2" max="-2" attributes="0"/>
-                      <Component id="nameField" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="3" attributes="0">
+                      <Component id="nameField" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="userTypeLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
+                  <EmptySpace pref="24" max="32767" attributes="0"/>
                   <Component id="submit" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
