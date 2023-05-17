@@ -67,6 +67,7 @@ public class ComplaintsPage extends javax.swing.JFrame {
         edit = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Complaints");
 
         background.setBackground(new java.awt.Color(8, 99, 117));
 
