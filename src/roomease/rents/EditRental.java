@@ -79,6 +79,7 @@ public class EditRental extends javax.swing.JFrame {
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Edit Rental");
 
         jPanel2.setBackground(new java.awt.Color(8, 99, 117));
 
@@ -169,8 +170,7 @@ public class EditRental extends javax.swing.JFrame {
 
         CheckInDate.setDate(Date.from(rental.getCheck_in_date().atStartOfDay(ZoneId.systemDefault()).toInstant()));
         CheckOutDate.setDate(Date.from(rental.getCheck_out_date().atStartOfDay(ZoneId.systemDefault()).toInstant()));
-        amountField.setText(String.valueOf(rental.getTotal_amount()));
-        //amountField.setValue(rental.getTotal_amount());
+        amountField.setValue(rental.getTotal_amount());
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
