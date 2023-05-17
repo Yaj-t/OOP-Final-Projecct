@@ -196,6 +196,28 @@ public class UserDAO {
         }
         Connect.closeConnection();
     }
+    
+    
+    /**
+     * Counts the number of admin users in the "users" table.
+     *
+     * @return The number of admin users.
+     * @throws SQLException If an error occurs while accessing the database.
+     */
+    public static int countAdminUsers() throws SQLException {
+        int count = 0;
+        try (Connection conn = Connect.connectToDatabase(); PreparedStatement stmt = conn.prepareStatement("SELECT COUNT(*) FROM users WHERE user_type = 'ADMIN'"); ResultSet rs = stmt.executeQuery()) {
+            if (rs.next()) {
+                count = rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            throw new SQLException("Error counting admin users: " + e.getMessage());
+        } finally {
+            Connect.closeConnection();
+        }
+        return count;
+    }
+
 
 }
 

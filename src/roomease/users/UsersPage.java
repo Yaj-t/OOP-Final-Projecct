@@ -3,6 +3,7 @@ package roomease.users;
 
 import database.AdminLogs;
 import database.UserDAO;
+import enums.UserType;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.logging.Level;
@@ -224,6 +225,11 @@ public class UsersPage extends javax.swing.JFrame {
                 try {
                     user = UserDAO.getUserByID(userID);
                     try {
+                        //check if the user is an admin and if there are no other admin users
+                        if(user.getType() == UserType.ADMIN && UserDAO.countAdminUsers()==1){
+                            JOptionPane.showMessageDialog(this, "Cant delete last existing ADMIN");
+                            return;
+                        }
                         // delete the user from the database
                         UserDAO.deleteUser(user);
                         dispose();
