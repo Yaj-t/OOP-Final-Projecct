@@ -102,6 +102,7 @@ public class EmployeeHome extends javax.swing.JFrame {
         rentalsTable = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Employee Home");
 
         sidePanel.setBackground(new java.awt.Color(142, 74, 73));
 
