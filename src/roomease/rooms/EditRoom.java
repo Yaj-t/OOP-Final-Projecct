@@ -76,6 +76,7 @@ public class EditRoom extends javax.swing.JFrame {
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Edit Room");
 
         jPanel2.setBackground(new java.awt.Color(8, 99, 117));
 
