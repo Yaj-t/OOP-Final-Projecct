@@ -74,6 +74,7 @@ public class RoomCheck extends javax.swing.JFrame {
         jFormattedTextField1.setText("jFormattedTextField1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Check Available Rooms");
 
         jPanel1.setBackground(new java.awt.Color(8, 99, 117));
 
