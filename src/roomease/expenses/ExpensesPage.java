@@ -65,6 +65,7 @@ public class ExpensesPage extends javax.swing.JFrame {
         delete = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Expenses");
 
         jPanel1.setBackground(new java.awt.Color(8, 99, 117));
 
