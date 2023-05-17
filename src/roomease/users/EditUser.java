@@ -64,6 +64,7 @@ public class EditUser extends javax.swing.JFrame {
         usernameField = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Edit User");
 
         jPanel1.setBackground(new java.awt.Color(8, 99, 117));
 
