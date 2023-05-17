@@ -66,6 +66,7 @@ public class AddComplaint extends javax.swing.JFrame {
         descriptionField = new javax.swing.JTextPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Add Complaint");
 
         background.setBackground(new java.awt.Color(8, 99, 117));
 
