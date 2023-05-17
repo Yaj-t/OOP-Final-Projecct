@@ -58,6 +58,7 @@ public class EditTenant extends javax.swing.JFrame {
         FirstName = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Edit Tenant");
 
         jPanel1.setBackground(new java.awt.Color(8, 99, 117));
         jPanel1.setForeground(new java.awt.Color(247, 236, 89));
