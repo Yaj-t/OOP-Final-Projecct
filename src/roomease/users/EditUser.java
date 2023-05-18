@@ -127,7 +127,7 @@ public class EditUser extends javax.swing.JFrame {
 
         userTypeLabel5.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
         userTypeLabel5.setForeground(new java.awt.Color(247, 236, 89));
-        userTypeLabel5.setText("New Password:");
+        userTypeLabel5.setText("         Password:");
 
         passwordField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
