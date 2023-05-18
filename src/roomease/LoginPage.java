@@ -13,8 +13,11 @@ import database.EmployeeLogs;
 import database.UserDAO;
 import enums.LogType;
 import enums.UserType;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
+import java.util.Base64;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -214,40 +217,49 @@ the user type (admin or employee).
 @throws IllegalArgumentException if an invalid user type is encountered
 */ 
     public void login(){
-        String username = usernameField.getText();
-        String password = passwordField.getText();
-
         try {
-            User user = UserDAO.getUserByUsername(username);
-
-            if (user != null && user.getPassword().equals(password)) {
-                UserType userType = user.getType();
-                Session.currentUser = user;
-                if (userType == UserType.ADMIN) {
-                    // Open main application window for admin
-                    AdminLoginLogs loginLogs = new AdminLoginLogs(0, user.getUserID(), LogType.LOGIN, LocalDateTime.now());
-                    AdminLogs.createAdminLoginLog(loginLogs);
-                    AdminHome home = new AdminHome();
-                    home.setVisible(true);
-                } else if (userType == UserType.EMPLOYEE) {
-                    // Open main application window for employee
-                    EmployeeLoginLogs loginLogs = new EmployeeLoginLogs(0, user.getUserID(), LogType.LOGIN, LocalDateTime.now());
-                    EmployeeLogs.createEmployeeLoginLog(loginLogs);
-                     EmployeeHome home = new EmployeeHome();
-                    home.setVisible(true);
+            String username = usernameField.getText();
+            String password = passwordField.getText();
+            String passwordToEncrypt = password;
+            MessageDigest md;
+            md = MessageDigest.getInstance("SHA-256");
+            md.update(passwordToEncrypt.getBytes());
+            byte[] bytes = md.digest();
+          password = Base64.getEncoder().encodeToString(bytes);
+            try {
+                User user = UserDAO.getUserByUsername(username);
+                
+                if (user != null && user.getPassword().equals(password)) {
+                    UserType userType = user.getType();
+                    Session.currentUser = user;
+                    if (userType == UserType.ADMIN) {
+                        // Open main application window for admin
+                        AdminLoginLogs loginLogs = new AdminLoginLogs(0, user.getUserID(), LogType.LOGIN, LocalDateTime.now());
+                        AdminLogs.createAdminLoginLog(loginLogs);
+                        AdminHome home = new AdminHome();
+                        home.setVisible(true);
+                    } else if (userType == UserType.EMPLOYEE) {
+                        // Open main application window for employee
+                        EmployeeLoginLogs loginLogs = new EmployeeLoginLogs(0, user.getUserID(), LogType.LOGIN, LocalDateTime.now());
+                        EmployeeLogs.createEmployeeLoginLog(loginLogs);
+                        EmployeeHome home = new EmployeeHome();
+                        home.setVisible(true);
+                    } else {
+                        throw new IllegalArgumentException("Invalid user type: " + userType);
+                    }
+                    
+                    // Create a login session
+                    dispose();
                 } else {
-                    throw new IllegalArgumentException("Invalid user type: " + userType);
+                    // Invalid username or password
+                    JOptionPane.showMessageDialog(this, "Invalid username or password", "Login Error", JOptionPane.ERROR_MESSAGE);
                 }
-
-                // Create a login session           
-                dispose();
-            } else {
-                // Invalid username or password
-                JOptionPane.showMessageDialog(this, "Invalid username or password", "Login Error", JOptionPane.ERROR_MESSAGE);
+            } catch (SQLException ex) {
+                Logger.getLogger(LoginPage.class.getName()).log(Level.SEVERE, null, ex);
+                JOptionPane.showMessageDialog(this, "An error occurred while trying to log in", "Login Error", JOptionPane.ERROR_MESSAGE);
             }
-        } catch (SQLException ex) {
+        } catch (NoSuchAlgorithmException ex) {
             Logger.getLogger(LoginPage.class.getName()).log(Level.SEVERE, null, ex);
-            JOptionPane.showMessageDialog(this, "An error occurred while trying to log in", "Login Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 

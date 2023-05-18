@@ -1,9 +1,14 @@
 package database;
 
 import enums.UserType;  
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import util.User;
 
 /**
@@ -145,17 +150,26 @@ public class UserDAO {
  * @throws SQLException if an error occurs while executing the SQL query
  */
     public static void addUser(User user) throws SQLException {
-        connection = Connect.connectToDatabase();
-        String sql = "INSERT INTO users (username, password, name, user_type) VALUES (?, ?, ?, ?)";
-
-        try (PreparedStatement statement = connection.prepareStatement(sql)) {
-            statement.setString(1, user.getUsername());
-            statement.setString(2, user.getPassword());
-            statement.setString(3, user.getName());
-            statement.setString(4, user.getType().toString());
-            statement.executeUpdate();
+        try {
+            connection = Connect.connectToDatabase();
+            String sql = "INSERT INTO users (username, password, name, user_type) VALUES (?, ?, ?, ?)";
+            String passwordToEncrypt = user.getPassword();
+            MessageDigest md;
+            md = MessageDigest.getInstance("SHA-256");
+            md.update(passwordToEncrypt.getBytes());
+            byte[] bytes = md.digest();
+            String encryptedPassword = Base64.getEncoder().encodeToString(bytes);
+            try (PreparedStatement statement = connection.prepareStatement(sql)) {
+                statement.setString(1, user.getUsername());
+                statement.setString(2, encryptedPassword);
+                statement.setString(3, user.getName());
+                statement.setString(4, user.getType().toString());
+                statement.executeUpdate();
+            }
+            Connect.closeConnection();
+        }   catch (NoSuchAlgorithmException ex) {
+            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
-      Connect.closeConnection();
     }
 
 /**
@@ -165,18 +179,27 @@ public class UserDAO {
  * @throws SQLException if an error occurs while executing the SQL query
  */
     public static void updateUser(User user) throws SQLException {
-        connection = Connect.connectToDatabase();
-        String sql = "UPDATE users SET username = ?, password = ?, name = ?, user_type = ? WHERE user_id = ?";
-        
-        try (PreparedStatement statement = connection.prepareStatement(sql)) {
-            statement.setString(1, user.getUsername());
-            statement.setString(2, user.getPassword());
-            statement.setString(3, user.getName());
-            statement.setString(4, user.getType().toString());
-            statement.setInt(5, user.getUserID());
-            statement.executeUpdate();
+        try {
+            connection = Connect.connectToDatabase();
+            String sql = "UPDATE users SET username = ?, password = ?, name = ?, user_type = ? WHERE user_id = ?";
+            String passwordToEncrypt = user.getPassword();
+            MessageDigest md;
+            md = MessageDigest.getInstance("SHA-256");
+            md.update(passwordToEncrypt.getBytes());
+            byte[] bytes = md.digest();
+            String encryptedPassword = Base64.getEncoder().encodeToString(bytes);
+            try (PreparedStatement statement = connection.prepareStatement(sql)) {
+                statement.setString(1, user.getUsername());
+                statement.setString(2, encryptedPassword);
+                statement.setString(3, user.getName());
+                statement.setString(4, user.getType().toString());
+                statement.setInt(5, user.getUserID());
+                statement.executeUpdate();
+            }
+            Connect.closeConnection();
+        }   catch (NoSuchAlgorithmException ex) {
+            Logger.getLogger(UserDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
-       Connect.closeConnection();
     }
 
 /**
